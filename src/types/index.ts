@@ -1,9 +1,9 @@
 
 export type LikertOption = 
   | 'strongly_disagree'
-  | 'disagree'
+  | 'somewhat_disagree'
   | 'neutral'
-  | 'agree'
+  | 'somewhat_agree'
   | 'strongly_agree';
 
 export interface QuizQuestion {

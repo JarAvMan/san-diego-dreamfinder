@@ -12,9 +12,9 @@ interface LikertScaleProps {
 const LikertScale: React.FC<LikertScaleProps> = ({ value, onChange }) => {
   const options: LikertOption[] = [
     'strongly_disagree',
-    'disagree',
+    'somewhat_disagree',
     'neutral',
-    'agree',
+    'somewhat_agree',
     'strongly_agree'
   ];
 

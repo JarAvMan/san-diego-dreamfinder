@@ -6,9 +6,9 @@ import { sandiegoNeighborhoods } from '../data/neighborhoods';
 const likertToValue = (option: LikertOption): number => {
   switch (option) {
     case 'strongly_disagree': return -2;
-    case 'disagree': return -1;
+    case 'somewhat_disagree': return -1;
     case 'neutral': return 0;
-    case 'agree': return 1;
+    case 'somewhat_agree': return 1;
     case 'strongly_agree': return 2;
   }
 };
@@ -27,41 +27,24 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
     
     // Adjust scores based on answer
     switch (answer.questionId) {
-      case 'budget':
-        // Preference for median price range ($825,000)
+      case 'vibrant_area':
+        // Preference for vibrant areas with activities
         neighborhoods.forEach(n => {
-          // Higher score for neighborhoods within or below median price
-          if (n.budget.min <= 825000 && n.budget.max >= 825000) {
+          if (n.tags.includes('nightlife') || n.tags.includes('urban') || n.tags.includes('dining')) {
             n.matchScore += value;
-          } else if (n.budget.max < 825000) {
-            // Affordable neighborhoods get bonus if user wants median price
-            n.matchScore += value > 0 ? value : 0;
-          } else if (n.budget.min > 825000) {
-            // Expensive neighborhoods get penalty if user wants median price
-            n.matchScore -= value > 0 ? value : 0;
+          } else if (n.tags.includes('quiet') || n.tags.includes('suburban') || n.tags.includes('rural')) {
+            n.matchScore -= value * 0.5;
           }
         });
         break;
         
-      case 'luxury':
-        // Preference for luxury homes
+      case 'quiet_residential':
+        // Preference for quiet residential neighborhoods
         neighborhoods.forEach(n => {
-          if (n.tags.includes('luxury') || n.tags.includes('upscale')) {
+          if (n.tags.includes('quiet') || n.tags.includes('suburban') || n.tags.includes('family')) {
             n.matchScore += value;
-          } else {
-            n.matchScore -= value * 0.5; // Small penalty for non-luxury if user wants luxury
-          }
-        });
-        break;
-        
-      case 'condo':
-        // Preference for condos/townhouses
-        neighborhoods.forEach(n => {
-          if (n.tags.includes('condos')) {
-            n.matchScore += value;
-          } else if (n.id === 'downtown-san-diego' || n.id === 'little-italy' || n.id === 'hillcrest' || n.id === 'mission-valley') {
-            // Areas with many condos
-            n.matchScore += value * 0.75;
+          } else if (n.tags.includes('nightlife') || n.tags.includes('urban')) {
+            n.matchScore -= value * 0.5;
           }
         });
         break;
@@ -80,10 +63,66 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
       case 'public_transit':
         // Preference for public transit
         neighborhoods.forEach(n => {
-          if (n.id === 'downtown-san-diego' || n.id === 'little-italy' || n.id === 'hillcrest' || n.id === 'north-park' || n.id === 'la-mesa' || n.id === 'mission-valley') {
+          if (n.tags.includes('transit')) {
             n.matchScore += value;
-          } else if (n.tags.includes('urban') || n.tags.includes('transit')) {
+          } else if (n.tags.includes('urban')) {
             n.matchScore += value * 0.5;
+          }
+        });
+        break;
+
+      case 'driving':
+        // Preference for driving over walking/biking
+        neighborhoods.forEach(n => {
+          if (n.tags.includes('suburban') || n.tags.includes('rural')) {
+            n.matchScore += value;
+          } else if (n.tags.includes('walkable') || n.tags.includes('transit')) {
+            n.matchScore -= value * 0.5;
+          }
+        });
+        break;
+
+      case 'outdoors':
+        // Preference for outdoor activities
+        neighborhoods.forEach(n => {
+          if (n.tags.includes('outdoors') || n.tags.includes('parks') || n.tags.includes('beach')) {
+            n.matchScore += value;
+          }
+        });
+        break;
+
+      case 'near_water':
+        // Preference for living near water
+        neighborhoods.forEach(n => {
+          if (n.tags.includes('beach') || n.tags.includes('waterfront') || n.tags.includes('coastal')) {
+            n.matchScore += value;
+          }
+        });
+        break;
+
+      case 'active_community':
+        // Preference for active community with events
+        neighborhoods.forEach(n => {
+          if (n.tags.includes('community') || n.tags.includes('events')) {
+            n.matchScore += value;
+          }
+        });
+        break;
+
+      case 'arts_culture':
+        // Preference for arts and culture
+        neighborhoods.forEach(n => {
+          if (n.tags.includes('arts') || n.tags.includes('culture')) {
+            n.matchScore += value;
+          }
+        });
+        break;
+
+      case 'historic_modern':
+        // Preference for mix of historic charm and modern development
+        neighborhoods.forEach(n => {
+          if (n.tags.includes('historic') || n.tags.includes('mixed')) {
+            n.matchScore += value;
           }
         });
         break;
@@ -100,6 +139,15 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
           }
         });
         break;
+
+      case 'community':
+        // Preference for strong community sense
+        neighborhoods.forEach(n => {
+          if (n.tags.includes('community') || n.tags.includes('events')) {
+            n.matchScore += value;
+          }
+        });
+        break;
         
       case 'schools':
         // Preference for good schools
@@ -112,58 +160,21 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
         });
         break;
         
-      case 'commute':
-        // Preference for short commute to downtown
+      case 'pet_friendly':
+        // Preference for pet-friendly areas
         neighborhoods.forEach(n => {
-          if (n.id === 'downtown-san-diego' || n.id === 'little-italy' || n.id === 'hillcrest' || n.id === 'north-park' || n.id === 'mission-hills' || n.id === 'bankers-hill') {
+          if (n.tags.includes('pet-friendly') || n.tags.includes('parks')) {
             n.matchScore += value;
-          } else if (n.id === 'coronado' || n.id === 'mission-valley' || n.id === 'south-park') {
-            n.matchScore += value * 0.5; // Still close to downtown
-          } else if (n.id === 'carmel-valley' || n.id === 'del-mar' || n.id === 'rancho-bernardo' || n.id === 'ramona' || n.id === 'julian') {
-            n.matchScore -= value * 0.5; // Further from downtown
           }
         });
         break;
         
-      case 'yard':
-        // Preference for yards/outdoor space
+      case 'large_yards':
+        // Preference for large yards and open spaces
         neighborhoods.forEach(n => {
-          if (n.tags.includes('suburban') || n.tags.includes('rural') || n.tags.includes('spacious')) {
+          if (n.tags.includes('spacious') || n.tags.includes('suburban') || n.tags.includes('rural')) {
             n.matchScore += value;
-          } else if (n.tags.includes('condos') || n.id === 'downtown-san-diego' || n.id === 'little-italy') {
-            n.matchScore -= value * 0.5;
-          }
-        });
-        break;
-        
-      case 'urban':
-        // Preference for urban environment
-        neighborhoods.forEach(n => {
-          if (n.tags.includes('urban')) {
-            n.matchScore += value;
-          } else if (n.tags.includes('suburban') || n.tags.includes('quiet') || n.tags.includes('rural')) {
-            n.matchScore -= value * 0.5;
-          }
-        });
-        break;
-        
-      case 'beach':
-        // Preference for coastal/beach proximity
-        neighborhoods.forEach(n => {
-          if (n.tags.includes('beach')) {
-            n.matchScore += value;
-          } else if (n.tags.includes('coastal') || n.tags.includes('waterfront')) {
-            n.matchScore += value * 0.5;
-          }
-        });
-        break;
-        
-      case 'quiet':
-        // Preference for quiet neighborhoods
-        neighborhoods.forEach(n => {
-          if (n.tags.includes('quiet') || n.tags.includes('rural')) {
-            n.matchScore += value;
-          } else if (n.tags.includes('nightlife') || n.tags.includes('urban')) {
+          } else if (n.tags.includes('urban') || n.tags.includes('condos')) {
             n.matchScore -= value * 0.5;
           }
         });

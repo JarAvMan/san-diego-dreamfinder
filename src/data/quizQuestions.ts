@@ -3,71 +3,86 @@ import { QuizQuestion } from '../types';
 
 export const quizQuestions: QuizQuestion[] = [
   {
-    id: 'budget',
-    text: 'I am looking for a home within the median San Diego price range ($825,000).',
-    category: 'budget'
+    id: 'vibrant_area',
+    text: 'I prefer living in a vibrant area with lots of activity, restaurants, and nightlife.',
+    category: 'environment'
   },
   {
-    id: 'luxury',
-    text: 'I prefer luxury homes with high-end finishes and amenities.',
-    category: 'budget'
-  },
-  {
-    id: 'condo',
-    text: 'I would prefer a condo or townhouse over a single-family home.',
-    category: 'home_type'
+    id: 'quiet_residential',
+    text: 'I enjoy a quieter, residential neighborhood with a strong sense of community.',
+    category: 'environment'
   },
   {
     id: 'walkability',
-    text: 'Being able to walk to restaurants, shops, and amenities is important to me.',
+    text: 'I love being able to walk to coffee shops, parks, and local businesses.',
     category: 'walkability'
   },
   {
     id: 'public_transit',
-    text: 'Access to public transportation is a priority for me.',
+    text: 'Having easy access to public transportation (bus, trolley, etc.) is important to me.',
     category: 'walkability'
   },
   {
+    id: 'driving',
+    text: 'I prefer driving everywhere rather than relying on walking or biking.',
+    category: 'walkability'
+  },
+  {
+    id: 'outdoors',
+    text: 'I love spending time outdoors and want easy access to hiking trails, parks, or beaches.',
+    category: 'environment'
+  },
+  {
+    id: 'near_water',
+    text: 'I prioritize living near water—whether it\'s the ocean, a bay, or a lake.',
+    category: 'environment'
+  },
+  {
+    id: 'active_community',
+    text: 'I\'d love to be part of an active community with regular outdoor events like farmer\'s markets and street fairs.',
+    category: 'environment'
+  },
+  {
+    id: 'arts_culture',
+    text: 'I want to live in an area with a strong arts, music, or cultural scene.',
+    category: 'environment'
+  },
+  {
+    id: 'historic_modern',
+    text: 'I enjoy being around a mix of historic charm and modern development.',
+    category: 'environment'
+  },
+  {
     id: 'nightlife',
-    text: 'I enjoy having access to nightlife, restaurants, and entertainment.',
+    text: 'I prefer a neighborhood known for its nightlife, bars, and entertainment options.',
     category: 'nightlife'
   },
   {
+    id: 'community',
+    text: 'I would love to live in a neighborhood with a strong sense of community and neighborhood events.',
+    category: 'environment'
+  },
+  {
     id: 'schools',
-    text: 'Living in a top-rated school district is important to me.',
+    text: 'Being close to highly rated schools and family-friendly amenities is important to me.',
     category: 'schools'
   },
   {
-    id: 'commute',
-    text: 'I prefer a short commute to downtown San Diego (under 30 minutes).',
-    category: 'commute'
-  },
-  {
-    id: 'yard',
-    text: 'Having a backyard or outdoor space is essential for me.',
-    category: 'size'
-  },
-  {
-    id: 'urban',
-    text: 'I prefer an urban environment over a suburban setting.',
+    id: 'pet_friendly',
+    text: 'I want to live in an area that is very pet-friendly, with dog parks and walking paths.',
     category: 'environment'
   },
   {
-    id: 'beach',
-    text: 'Living near the beach or coast is important to me.',
-    category: 'environment'
-  },
-  {
-    id: 'quiet',
-    text: 'I prefer quiet neighborhoods over busy, active areas.',
+    id: 'large_yards',
+    text: 'I prefer neighborhoods with large yards and open spaces rather than dense housing.',
     category: 'environment'
   }
 ];
 
 export const likertLabels = {
   strongly_disagree: 'Strongly Disagree',
-  disagree: 'Disagree',
+  somewhat_disagree: 'Somewhat Disagree',
   neutral: 'Neutral',
-  agree: 'Agree',
+  somewhat_agree: 'Somewhat Agree',
   strongly_agree: 'Strongly Agree'
 };
