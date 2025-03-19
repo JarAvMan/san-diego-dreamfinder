@@ -3,78 +3,103 @@ import { QuizQuestion } from '../types';
 
 export const quizQuestions: QuizQuestion[] = [
   {
-    id: 'vibrant_area',
-    text: 'I prefer living in a vibrant area with lots of activity, restaurants, and nightlife.',
+    id: 'nature_sounds',
+    text: 'I prefer waking up to the sound of nature rather than city noise.',
     category: 'environment'
   },
   {
-    id: 'quiet_residential',
-    text: 'I enjoy a quieter, residential neighborhood with a strong sense of community.',
+    id: 'discover_shops',
+    text: 'My ideal weekend includes discovering new cafes, restaurants, and boutique shops.',
     category: 'environment'
   },
   {
-    id: 'walkability',
-    text: 'I love being able to walk to coffee shops, parks, and local businesses.',
-    category: 'walkability'
-  },
-  {
-    id: 'public_transit',
-    text: 'Having easy access to public transportation (bus, trolley, etc.) is important to me.',
-    category: 'walkability'
-  },
-  {
-    id: 'driving',
-    text: 'I prefer driving everywhere rather than relying on walking or biking.',
-    category: 'walkability'
-  },
-  {
-    id: 'outdoors',
-    text: 'I love spending time outdoors and want easy access to hiking trails, parks, or beaches.',
+    id: 'fast_paced',
+    text: 'I thrive in a fast-paced environment where there's always something happening.',
     category: 'environment'
   },
   {
-    id: 'near_water',
-    text: 'I prioritize living near water—whether it\'s the ocean, a bay, or a lake.',
+    id: 'slow_paced',
+    text: 'I prefer a slower-paced, relaxed environment where things feel more laid-back.',
     category: 'environment'
   },
   {
-    id: 'active_community',
-    text: 'I\'d love to be part of an active community with regular outdoor events like farmer\'s markets and street fairs.',
+    id: 'community_involvement',
+    text: 'I enjoy getting to know my neighbors and participating in local events or community activities.',
     category: 'environment'
   },
   {
-    id: 'arts_culture',
-    text: 'I want to live in an area with a strong arts, music, or cultural scene.',
+    id: 'privacy',
+    text: 'I prefer a neighborhood where people generally keep to themselves, and privacy is valued.',
     category: 'environment'
   },
   {
-    id: 'historic_modern',
-    text: 'I enjoy being around a mix of historic charm and modern development.',
+    id: 'creative_area',
+    text: 'I would love to live in an area that attracts creative people like artists, musicians, and writers.',
+    category: 'environment'
+  },
+  {
+    id: 'diverse_neighborhood',
+    text: 'I feel most at home in a neighborhood where people come from diverse backgrounds and cultures.',
+    category: 'environment'
+  },
+  {
+    id: 'outdoor_spaces',
+    text: 'I need to be close to outdoor spaces where I can hike, bike, or go on runs regularly.',
+    category: 'environment'
+  },
+  {
+    id: 'marina_access',
+    text: 'I would love to have a neighborhood with access to a marina or boating activities.',
+    category: 'environment'
+  },
+  {
+    id: 'beach_access',
+    text: 'I enjoy being near a beach where I can surf, swim, or simply relax by the water.',
+    category: 'environment'
+  },
+  {
+    id: 'active_lifestyle',
+    text: 'I want to live somewhere where fitness and an active lifestyle are a big part of the local culture.',
     category: 'environment'
   },
   {
     id: 'nightlife',
-    text: 'I prefer a neighborhood known for its nightlife, bars, and entertainment options.',
+    text: 'I enjoy a neighborhood with an exciting nightlife scene, including bars, lounges, and live music.',
     category: 'nightlife'
   },
   {
-    id: 'community',
-    text: 'I would love to live in a neighborhood with a strong sense of community and neighborhood events.',
+    id: 'daytime_activities',
+    text: 'I prefer a neighborhood where the entertainment revolves around daytime activities rather than late-night options.',
     category: 'environment'
   },
   {
-    id: 'schools',
-    text: 'Being close to highly rated schools and family-friendly amenities is important to me.',
-    category: 'schools'
-  },
-  {
-    id: 'pet_friendly',
-    text: 'I want to live in an area that is very pet-friendly, with dog parks and walking paths.',
+    id: 'cultural_events',
+    text: 'I like living in a place where there are frequent cultural events, festivals, or street fairs.',
     category: 'environment'
   },
   {
-    id: 'large_yards',
-    text: 'I prefer neighborhoods with large yards and open spaces rather than dense housing.',
+    id: 'food_culture',
+    text: 'I want to live in an area known for its food culture, with a mix of trendy restaurants and hidden gems.',
+    category: 'environment'
+  },
+  {
+    id: 'farmers_markets',
+    text: 'I prefer living in a neighborhood with many farmer's markets and organic grocery options.',
+    category: 'environment'
+  },
+  {
+    id: 'coffee_shops',
+    text: 'I want to be near a variety of coffee shops and bakeries where I can work or relax.',
+    category: 'environment'
+  },
+  {
+    id: 'historical_charm',
+    text: 'I prefer neighborhoods with a strong historical charm, where the architecture and character reflect the city's history.',
+    category: 'environment'
+  },
+  {
+    id: 'beach_vibe',
+    text: 'I love the idea of living in a neighborhood where there is a strong beach-town vibe, even if it's not right on the water.',
     category: 'environment'
   }
 ];

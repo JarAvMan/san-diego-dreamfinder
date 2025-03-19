@@ -27,155 +27,196 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
     
     // Adjust scores based on answer
     switch (answer.questionId) {
-      case 'vibrant_area':
-        // Preference for vibrant areas with activities
+      case 'nature_sounds':
+        // Preference for natural surroundings
         neighborhoods.forEach(n => {
-          if (n.tags.includes('nightlife') || n.tags.includes('urban') || n.tags.includes('dining')) {
+          if (n.tags.includes('quiet') || n.tags.includes('suburban') || n.tags.includes('rural')) {
             n.matchScore += value;
-          } else if (n.tags.includes('quiet') || n.tags.includes('suburban') || n.tags.includes('rural')) {
+          } else if (n.tags.includes('urban') || n.tags.includes('nightlife')) {
             n.matchScore -= value * 0.5;
           }
         });
         break;
         
-      case 'quiet_residential':
-        // Preference for quiet residential neighborhoods
+      case 'discover_shops':
+        // Preference for discovering shops and eateries
         neighborhoods.forEach(n => {
-          if (n.tags.includes('quiet') || n.tags.includes('suburban') || n.tags.includes('family')) {
+          if (n.tags.includes('shopping') || n.tags.includes('dining') || n.tags.includes('boutiques')) {
             n.matchScore += value;
-          } else if (n.tags.includes('nightlife') || n.tags.includes('urban')) {
+          }
+        });
+        break;
+        
+      case 'fast_paced':
+        // Preference for fast-paced environment
+        neighborhoods.forEach(n => {
+          if (n.tags.includes('urban') || n.tags.includes('nightlife') || n.tags.includes('busy')) {
+            n.matchScore += value;
+          } else if (n.tags.includes('quiet') || n.tags.includes('rural')) {
             n.matchScore -= value * 0.5;
           }
         });
         break;
         
-      case 'walkability':
-        // Preference for walkable neighborhoods
+      case 'slow_paced':
+        // Preference for slower-paced environment
         neighborhoods.forEach(n => {
-          if (n.tags.includes('walkable')) {
+          if (n.tags.includes('quiet') || n.tags.includes('suburban') || n.tags.includes('rural')) {
             n.matchScore += value;
-          } else if (n.tags.includes('urban')) {
-            n.matchScore += value * 0.5;
-          }
-        });
-        break;
-        
-      case 'public_transit':
-        // Preference for public transit
-        neighborhoods.forEach(n => {
-          if (n.tags.includes('transit')) {
-            n.matchScore += value;
-          } else if (n.tags.includes('urban')) {
-            n.matchScore += value * 0.5;
-          }
-        });
-        break;
-
-      case 'driving':
-        // Preference for driving over walking/biking
-        neighborhoods.forEach(n => {
-          if (n.tags.includes('suburban') || n.tags.includes('rural')) {
-            n.matchScore += value;
-          } else if (n.tags.includes('walkable') || n.tags.includes('transit')) {
+          } else if (n.tags.includes('urban') || n.tags.includes('nightlife')) {
             n.matchScore -= value * 0.5;
           }
         });
         break;
 
-      case 'outdoors':
-        // Preference for outdoor activities
+      case 'community_involvement':
+        // Preference for community involvement
         neighborhoods.forEach(n => {
-          if (n.tags.includes('outdoors') || n.tags.includes('parks') || n.tags.includes('beach')) {
+          if (n.tags.includes('community') || n.tags.includes('events') || n.tags.includes('family')) {
             n.matchScore += value;
           }
         });
         break;
 
-      case 'near_water':
-        // Preference for living near water
+      case 'privacy':
+        // Preference for privacy
         neighborhoods.forEach(n => {
-          if (n.tags.includes('beach') || n.tags.includes('waterfront') || n.tags.includes('coastal')) {
+          if (n.tags.includes('quiet') || n.tags.includes('spacious') || n.tags.includes('rural')) {
+            n.matchScore += value;
+          } else if (n.tags.includes('dense') || n.tags.includes('urban')) {
+            n.matchScore -= value * 0.5;
+          }
+        });
+        break;
+
+      case 'creative_area':
+        // Preference for creative areas
+        neighborhoods.forEach(n => {
+          if (n.tags.includes('arts') || n.tags.includes('culture') || n.tags.includes('hipster')) {
             n.matchScore += value;
           }
         });
         break;
 
-      case 'active_community':
-        // Preference for active community with events
+      case 'diverse_neighborhood':
+        // Preference for diverse neighborhoods
         neighborhoods.forEach(n => {
-          if (n.tags.includes('community') || n.tags.includes('events')) {
+          if (n.tags.includes('diverse') || n.tags.includes('urban') || n.tags.includes('culture')) {
             n.matchScore += value;
           }
         });
         break;
 
-      case 'arts_culture':
-        // Preference for arts and culture
+      case 'outdoor_spaces':
+        // Preference for outdoor spaces
         neighborhoods.forEach(n => {
-          if (n.tags.includes('arts') || n.tags.includes('culture')) {
+          if (n.tags.includes('outdoors') || n.tags.includes('parks') || n.tags.includes('hiking')) {
             n.matchScore += value;
           }
         });
         break;
 
-      case 'historic_modern':
-        // Preference for mix of historic charm and modern development
+      case 'marina_access':
+        // Preference for marina access
         neighborhoods.forEach(n => {
-          if (n.tags.includes('historic') || n.tags.includes('mixed')) {
+          if (n.tags.includes('marina') || n.tags.includes('waterfront') || n.tags.includes('boating')) {
+            n.matchScore += value;
+          }
+        });
+        break;
+        
+      case 'beach_access':
+        // Preference for beach access
+        neighborhoods.forEach(n => {
+          if (n.tags.includes('beach') || n.tags.includes('coastal')) {
+            n.matchScore += value;
+          }
+        });
+        break;
+
+      case 'active_lifestyle':
+        // Preference for active lifestyle
+        neighborhoods.forEach(n => {
+          if (n.tags.includes('outdoors') || n.tags.includes('fitness') || n.tags.includes('active')) {
             n.matchScore += value;
           }
         });
         break;
         
       case 'nightlife':
-        // Preference for nightlife and entertainment
+        // Preference for nightlife
         neighborhoods.forEach(n => {
-          if (n.tags.includes('nightlife')) {
+          if (n.tags.includes('nightlife') || n.tags.includes('entertainment') || n.tags.includes('bars')) {
             n.matchScore += value;
-          } else if (n.tags.includes('dining') || n.tags.includes('urban')) {
-            n.matchScore += value * 0.5;
-          } else if (n.tags.includes('quiet')) {
+          } else if (n.tags.includes('quiet') || n.tags.includes('rural')) {
             n.matchScore -= value * 0.5;
           }
         });
         break;
-
-      case 'community':
-        // Preference for strong community sense
-        neighborhoods.forEach(n => {
-          if (n.tags.includes('community') || n.tags.includes('events')) {
-            n.matchScore += value;
-          }
-        });
-        break;
         
-      case 'schools':
-        // Preference for good schools
+      case 'daytime_activities':
+        // Preference for daytime activities
         neighborhoods.forEach(n => {
-          if (n.tags.includes('schools')) {
+          if (n.tags.includes('family') || n.tags.includes('parks') || n.tags.includes('outdoors')) {
             n.matchScore += value;
-          } else if (n.tags.includes('family')) {
-            n.matchScore += value * 0.5;
-          }
-        });
-        break;
-        
-      case 'pet_friendly':
-        // Preference for pet-friendly areas
-        neighborhoods.forEach(n => {
-          if (n.tags.includes('pet-friendly') || n.tags.includes('parks')) {
-            n.matchScore += value;
-          }
-        });
-        break;
-        
-      case 'large_yards':
-        // Preference for large yards and open spaces
-        neighborhoods.forEach(n => {
-          if (n.tags.includes('spacious') || n.tags.includes('suburban') || n.tags.includes('rural')) {
-            n.matchScore += value;
-          } else if (n.tags.includes('urban') || n.tags.includes('condos')) {
+          } else if (n.tags.includes('nightlife')) {
             n.matchScore -= value * 0.5;
+          }
+        });
+        break;
+        
+      case 'cultural_events':
+        // Preference for cultural events
+        neighborhoods.forEach(n => {
+          if (n.tags.includes('culture') || n.tags.includes('events') || n.tags.includes('arts')) {
+            n.matchScore += value;
+          }
+        });
+        break;
+        
+      case 'food_culture':
+        // Preference for food culture
+        neighborhoods.forEach(n => {
+          if (n.tags.includes('dining') || n.tags.includes('restaurants') || n.tags.includes('foodie')) {
+            n.matchScore += value;
+          }
+        });
+        break;
+        
+      case 'farmers_markets':
+        // Preference for farmers markets
+        neighborhoods.forEach(n => {
+          if (n.tags.includes('farmers-market') || n.tags.includes('organic') || n.tags.includes('community')) {
+            n.matchScore += value;
+          }
+        });
+        break;
+        
+      case 'coffee_shops':
+        // Preference for coffee shops
+        neighborhoods.forEach(n => {
+          if (n.tags.includes('coffee') || n.tags.includes('cafes') || n.tags.includes('walkable')) {
+            n.matchScore += value;
+          }
+        });
+        break;
+        
+      case 'historical_charm':
+        // Preference for historical charm
+        neighborhoods.forEach(n => {
+          if (n.tags.includes('historic') || n.tags.includes('character') || n.tags.includes('charming')) {
+            n.matchScore += value;
+          } else if (n.tags.includes('modern') || n.tags.includes('new-development')) {
+            n.matchScore -= value * 0.5;
+          }
+        });
+        break;
+        
+      case 'beach_vibe':
+        // Preference for beach town vibe
+        neighborhoods.forEach(n => {
+          if (n.tags.includes('beach-vibe') || n.tags.includes('coastal') || n.tags.includes('laid-back')) {
+            n.matchScore += value;
           }
         });
         break;
