@@ -59,7 +59,7 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
         neighborhoods.forEach(n => {
           if (n.tags.includes('condos')) {
             n.matchScore += value;
-          } else if (n.id === 'little-italy' || n.id === 'hillcrest') {
+          } else if (n.id === 'downtown-san-diego' || n.id === 'little-italy' || n.id === 'hillcrest' || n.id === 'mission-valley') {
             // Areas with many condos
             n.matchScore += value * 0.75;
           }
@@ -80,9 +80,9 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
       case 'public_transit':
         // Preference for public transit
         neighborhoods.forEach(n => {
-          if (n.id === 'little-italy' || n.id === 'hillcrest' || n.id === 'north-park') {
+          if (n.id === 'downtown-san-diego' || n.id === 'little-italy' || n.id === 'hillcrest' || n.id === 'north-park' || n.id === 'la-mesa' || n.id === 'mission-valley') {
             n.matchScore += value;
-          } else if (n.tags.includes('urban')) {
+          } else if (n.tags.includes('urban') || n.tags.includes('transit')) {
             n.matchScore += value * 0.5;
           }
         });
@@ -115,11 +115,11 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
       case 'commute':
         // Preference for short commute to downtown
         neighborhoods.forEach(n => {
-          if (n.id === 'little-italy' || n.id === 'hillcrest' || n.id === 'north-park' || n.id === 'mission-hills') {
+          if (n.id === 'downtown-san-diego' || n.id === 'little-italy' || n.id === 'hillcrest' || n.id === 'north-park' || n.id === 'mission-hills' || n.id === 'bankers-hill') {
             n.matchScore += value;
-          } else if (n.id === 'coronado') {
-            n.matchScore += value * 0.5; // Ferry access
-          } else if (n.id === 'carmel-valley' || n.id === 'del-mar') {
+          } else if (n.id === 'coronado' || n.id === 'mission-valley' || n.id === 'south-park') {
+            n.matchScore += value * 0.5; // Still close to downtown
+          } else if (n.id === 'carmel-valley' || n.id === 'del-mar' || n.id === 'rancho-bernardo' || n.id === 'ramona' || n.id === 'julian') {
             n.matchScore -= value * 0.5; // Further from downtown
           }
         });
@@ -128,9 +128,9 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
       case 'yard':
         // Preference for yards/outdoor space
         neighborhoods.forEach(n => {
-          if (n.tags.includes('suburban') || n.id === 'mission-hills') {
+          if (n.tags.includes('suburban') || n.tags.includes('rural') || n.tags.includes('spacious')) {
             n.matchScore += value;
-          } else if (n.tags.includes('condos') || n.id === 'little-italy') {
+          } else if (n.tags.includes('condos') || n.id === 'downtown-san-diego' || n.id === 'little-italy') {
             n.matchScore -= value * 0.5;
           }
         });
@@ -141,7 +141,7 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
         neighborhoods.forEach(n => {
           if (n.tags.includes('urban')) {
             n.matchScore += value;
-          } else if (n.tags.includes('suburban') || n.tags.includes('quiet')) {
+          } else if (n.tags.includes('suburban') || n.tags.includes('quiet') || n.tags.includes('rural')) {
             n.matchScore -= value * 0.5;
           }
         });
@@ -152,6 +152,8 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
         neighborhoods.forEach(n => {
           if (n.tags.includes('beach')) {
             n.matchScore += value;
+          } else if (n.tags.includes('coastal') || n.tags.includes('waterfront')) {
+            n.matchScore += value * 0.5;
           }
         });
         break;
@@ -159,7 +161,7 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
       case 'quiet':
         // Preference for quiet neighborhoods
         neighborhoods.forEach(n => {
-          if (n.tags.includes('quiet')) {
+          if (n.tags.includes('quiet') || n.tags.includes('rural')) {
             n.matchScore += value;
           } else if (n.tags.includes('nightlife') || n.tags.includes('urban')) {
             n.matchScore -= value * 0.5;
