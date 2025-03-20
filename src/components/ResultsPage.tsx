@@ -4,7 +4,7 @@ import { Neighborhood } from '@/types';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowRight, MapPin, Check } from 'lucide-react';
+import { ArrowRight, MapPin, Check, Home, Building } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface ResultsPageProps {
@@ -13,6 +13,19 @@ interface ResultsPageProps {
 }
 
 const ResultsPage: React.FC<ResultsPageProps> = ({ neighborhoods, className }) => {
+  // Function to generate search link for a specific neighborhood
+  const getNeighborhoodSearchLink = (neighborhoodName: string) => {
+    return `https://jaredharman.com/idx/search/homes?ft=&idx=1&a_propStatus%5B%5D=Active&idx=1&idxID=a001&per=10&srt=newest&a_subdivisionName%5B%5D=${encodeURIComponent(neighborhoodName)}`;
+  };
+
+  // Function to generate combined search link for all selected neighborhoods
+  const getCombinedSearchLink = () => {
+    const neighborhoodParams = neighborhoods
+      .map(n => `a_subdivisionName%5B%5D=${encodeURIComponent(n.name)}`)
+      .join('&');
+    return `https://jaredharman.com/idx/search/homes?ft=&idx=1&a_propStatus%5B%5D=Active&idx=1&idxID=a001&per=10&srt=newest&${neighborhoodParams}`;
+  };
+
   return (
     <div className={cn("space-y-8 animate-fade-in", className)}>
       <div className="text-center space-y-4 mb-8">
@@ -60,9 +73,9 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ neighborhoods, className }) =
               </CardTitle>
               <CardDescription>{neighborhood.description}</CardDescription>
             </CardHeader>
-            <CardContent className="pb-4">
+            <CardContent className="pb-0">
               <h4 className="font-medium mb-2 text-sm">Neighborhood Highlights:</h4>
-              <ul className="space-y-1">
+              <ul className="space-y-1 mb-4">
                 {neighborhood.keyFeatures.map((feature, i) => (
                   <li key={i} className="text-sm flex items-start">
                     <Check size={14} className="mr-2 text-primary mt-1 shrink-0" />
@@ -70,10 +83,39 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ neighborhoods, className }) =
                   </li>
                 ))}
               </ul>
+              
+              <div className="space-y-2 bg-muted/30 p-3 rounded-md mb-4">
+                <div className="flex items-center text-sm">
+                  <Building size={16} className="mr-2 text-primary" />
+                  <span className="font-medium">Condos starting at </span>
+                  <span className="ml-1">
+                    {(neighborhood.budget.min * 0.7).toLocaleString('en-US', {
+                      style: 'currency',
+                      currency: 'USD',
+                      maximumFractionDigits: 0,
+                    })}
+                  </span>
+                </div>
+                <div className="flex items-center text-sm">
+                  <Home size={16} className="mr-2 text-primary" />
+                  <span className="font-medium">Homes starting at </span>
+                  <span className="ml-1">
+                    {neighborhood.budget.min.toLocaleString('en-US', {
+                      style: 'currency',
+                      currency: 'USD',
+                      maximumFractionDigits: 0,
+                    })}
+                  </span>
+                </div>
+              </div>
             </CardContent>
-            <CardFooter>
-              <Button variant="outline" className="w-full group">
-                Browse Homes
+            <CardFooter className="flex flex-col gap-2">
+              <Button 
+                variant="outline" 
+                className="w-full group"
+                onClick={() => window.open(getNeighborhoodSearchLink(neighborhood.name), '_blank')}
+              >
+                Browse {neighborhood.name} Properties
                 <ArrowRight size={16} className="ml-2 transition-transform group-hover:translate-x-1" />
               </Button>
             </CardFooter>
@@ -82,8 +124,11 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ neighborhoods, className }) =
       </div>
 
       <div className="text-center pt-8">
-        <Button className="px-8">
-          View All San Diego Listings
+        <Button 
+          className="px-8"
+          onClick={() => window.open(getCombinedSearchLink(), '_blank')}
+        >
+          View Properties in All My Matched Areas
         </Button>
       </div>
     </div>
