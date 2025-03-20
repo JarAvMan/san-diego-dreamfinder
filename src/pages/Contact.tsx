@@ -112,9 +112,9 @@ const Contact = () => {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-medium">License</h3>
-                    <p className="text-muted-foreground">DRE #02193879</p>
-                    <p className="text-muted-foreground">eXp Realty</p>
+                    <h3 className="font-medium">Office Address</h3>
+                    <p className="text-muted-foreground">2900 North Park Way, San Diego, CA 92104</p>
+                    <p className="text-muted-foreground">Team MatchPoint brokered by eXp Realty</p>
                   </div>
                 </div>
               </div>
