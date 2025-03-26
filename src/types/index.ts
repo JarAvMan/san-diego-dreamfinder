@@ -17,7 +17,21 @@ export interface Neighborhood {
     max: number;
   };
   tags: string[];
-  kvCoreLink?: string; // Add optional property for kvCORE link
+  kvCoreLink?: string;
+}
+
+export type LikertOption = 'strongly_disagree' | 'somewhat_disagree' | 'neutral' | 'somewhat_agree' | 'strongly_agree';
+
+export interface QuizAnswer {
+  questionId: string;
+  value: LikertOption;
+}
+
+export enum QuizStep {
+  WELCOME = 'welcome',
+  QUESTIONS = 'questions',
+  LEAD_FORM = 'lead_form',
+  RESULTS = 'results'
 }
 
 export interface QuizQuestion {
@@ -35,6 +49,8 @@ export interface QuizQuestion {
   maxOptions?: number;
   type: 'single' | 'multiple' | 'likert' | 'priceRange';
   required?: boolean;
+  category?: string;
+  text?: string; // Added for backward compatibility
 }
 
 export interface QuizState {

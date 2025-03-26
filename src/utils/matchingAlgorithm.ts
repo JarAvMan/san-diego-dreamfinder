@@ -1,5 +1,5 @@
 
-import { QuizAnswer, Neighborhood, LikertOption } from '../types';
+import { Neighborhood, QuizAnswer, LikertOption } from '../types';
 import { sandiegoNeighborhoods } from '../data/neighborhoods';
 
 // Convert Likert scale to numeric value

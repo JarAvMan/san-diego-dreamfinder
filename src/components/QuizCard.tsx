@@ -28,7 +28,7 @@ const QuizCard: React.FC<QuizCardProps> = ({
       )}
     >
       <h3 className="text-xl font-medium text-card-foreground mb-6">
-        {question.text}
+        {question.text || question.question}
       </h3>
       
       <LikertScale 
