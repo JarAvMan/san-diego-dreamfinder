@@ -19,21 +19,20 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ neighborhoods, className, lea
   const { toast } = useToast();
   const [zapierSent, setZapierSent] = useState(false);
   
-  // Updated function to generate search link for a specific neighborhood
-  const getNeighborhoodSearchLink = (neighborhoodName: string) => {
-    // Properly encode neighborhood name for URL using encodeURIComponent
-    const encodedName = encodeURIComponent(neighborhoodName);
-    return `https://jaredharman.com/idx/search/homes?ft=&a_propStatus%5B%5D=Active&idxID=a001&per=10&srt=newest&a_subdivisionName%5B%5D=${encodedName}`;
+  // Get the search link for a specific neighborhood from its kvCoreLink property
+  const getNeighborhoodSearchLink = (neighborhood: Neighborhood) => {
+    return neighborhood.kvCoreLink || '#';
   };
 
-  // Updated function to generate combined search link for all selected neighborhoods
+  // Function to generate a combined search link for all selected neighborhoods
+  // Note: Since kvCORE doesn't support combined search in the same way,
+  // we'll just use the first neighborhood's link as a fallback
   const getCombinedSearchLink = () => {
-    // Create properly formatted neighborhood parameters for the URL
-    const neighborhoodParams = neighborhoods
-      .map(n => `a_subdivisionName%5B%5D=${encodeURIComponent(n.name)}`)
-      .join('&');
+    if (neighborhoods.length === 0) return '#';
     
-    return `https://jaredharman.com/idx/search/homes?ft=&a_propStatus%5B%5D=Active&idxID=a001&per=10&srt=newest&${neighborhoodParams}`;
+    // Just use the first neighborhood's link when multiple are selected
+    // We could potentially create a custom landing page in the future that shows all areas
+    return neighborhoods[0].kvCoreLink || '#';
   };
 
   // Send user data to Zapier when component loads if leadInfo is available
@@ -163,7 +162,7 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ neighborhoods, className, lea
               <Button 
                 variant="outline" 
                 className="w-full group"
-                onClick={() => window.open(getNeighborhoodSearchLink(neighborhood.name), '_blank')}
+                onClick={() => window.open(getNeighborhoodSearchLink(neighborhood), '_blank')}
               >
                 Browse {neighborhood.name} Properties
                 <ArrowRight size={16} className="ml-2 transition-transform group-hover:translate-x-1" />

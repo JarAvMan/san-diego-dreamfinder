@@ -1,38 +1,4 @@
 
-export type LikertOption = 
-  | 'strongly_disagree'
-  | 'somewhat_disagree'
-  | 'neutral'
-  | 'somewhat_agree'
-  | 'strongly_agree';
-
-export interface QuizQuestion {
-  id: string;
-  text: string;
-  category: QuestionCategory;
-}
-
-export type QuestionCategory = 
-  | 'budget'
-  | 'home_type'
-  | 'walkability'
-  | 'nightlife'
-  | 'schools'
-  | 'commute'
-  | 'size'
-  | 'environment';
-
-export interface QuizAnswer {
-  questionId: string;
-  value: LikertOption;
-}
-
-export interface UserProfile {
-  answers: QuizAnswer[];
-  leadInfo?: LeadInfo;
-  recommendedNeighborhoods?: Neighborhood[];
-}
-
 export interface LeadInfo {
   name: string;
   email: string;
@@ -46,18 +12,40 @@ export interface Neighborhood {
   image: string;
   matchScore: number;
   keyFeatures: string[];
-  budget: BudgetRange;
+  budget: {
+    min: number;
+    max: number;
+  };
   tags: string[];
+  kvCoreLink?: string; // Add optional property for kvCORE link
 }
 
-export interface BudgetRange {
-  min: number;
-  max: number;
+export interface QuizQuestion {
+  id: string;
+  question: string;
+  description?: string;
+  options: {
+    id: string;
+    text: string;
+    tags?: string[];
+    icon?: string;
+    excludeTags?: string[];
+    boostTags?: string[];
+  }[];
+  maxOptions?: number;
+  type: 'single' | 'multiple' | 'likert' | 'priceRange';
+  required?: boolean;
 }
 
-export enum QuizStep {
-  WELCOME = 'welcome',
-  QUESTIONS = 'questions',
-  LEAD_FORM = 'lead_form',
-  RESULTS = 'results'
+export interface QuizState {
+  currentQuestionIndex: number;
+  answers: {
+    [questionId: string]: {
+      selectedOptionIds: string[];
+      likertValue?: number;
+      priceRange?: { min: number; max: number };
+    };
+  };
+  selectedNeighborhoods: Neighborhood[];
+  leadInfo?: LeadInfo;
 }
