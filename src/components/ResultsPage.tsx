@@ -19,17 +19,21 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ neighborhoods, className, lea
   const { toast } = useToast();
   const [zapierSent, setZapierSent] = useState(false);
   
-  // Function to generate search link for a specific neighborhood
+  // Updated function to generate search link for a specific neighborhood
   const getNeighborhoodSearchLink = (neighborhoodName: string) => {
-    return `https://jaredharman.com/idx/search/homes?ft=&idx=1&a_propStatus%5B%5D=Active&idx=1&idxID=a001&per=10&srt=newest&a_subdivisionName%5B%5D=${encodeURIComponent(neighborhoodName)}`;
+    // Properly encode neighborhood name for URL using encodeURIComponent
+    const encodedName = encodeURIComponent(neighborhoodName);
+    return `https://jaredharman.com/idx/search/homes?ft=&a_propStatus%5B%5D=Active&idxID=a001&per=10&srt=newest&a_subdivisionName%5B%5D=${encodedName}`;
   };
 
-  // Function to generate combined search link for all selected neighborhoods
+  // Updated function to generate combined search link for all selected neighborhoods
   const getCombinedSearchLink = () => {
+    // Create properly formatted neighborhood parameters for the URL
     const neighborhoodParams = neighborhoods
       .map(n => `a_subdivisionName%5B%5D=${encodeURIComponent(n.name)}`)
       .join('&');
-    return `https://jaredharman.com/idx/search/homes?ft=&idx=1&a_propStatus%5B%5D=Active&idx=1&idxID=a001&per=10&srt=newest&${neighborhoodParams}`;
+    
+    return `https://jaredharman.com/idx/search/homes?ft=&a_propStatus%5B%5D=Active&idxID=a001&per=10&srt=newest&${neighborhoodParams}`;
   };
 
   // Send user data to Zapier when component loads if leadInfo is available
