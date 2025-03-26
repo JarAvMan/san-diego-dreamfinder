@@ -1,0 +1,48 @@
+
+/**
+ * Utility to send contact information to Zapier webhook
+ */
+
+interface ZapierPayload {
+  contactInfo: {
+    name: string;
+    email: string;
+    phone: string;
+  };
+  recommendedAreas: string[];
+  timestamp: string;
+}
+
+export const sendToZapier = async (
+  webhookUrl: string,
+  contactInfo: { name: string; email: string; phone: string },
+  recommendedAreas: string[]
+): Promise<boolean> => {
+  if (!webhookUrl) {
+    console.error("No Zapier webhook URL provided");
+    return false;
+  }
+
+  const payload: ZapierPayload = {
+    contactInfo,
+    recommendedAreas,
+    timestamp: new Date().toISOString(),
+  };
+
+  try {
+    const response = await fetch(webhookUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "no-cors", // Needed for cross-origin requests to Zapier
+      body: JSON.stringify(payload),
+    });
+    
+    console.log("Zapier webhook triggered", payload);
+    return true;
+  } catch (error) {
+    console.error("Error triggering Zapier webhook:", error);
+    return false;
+  }
+};

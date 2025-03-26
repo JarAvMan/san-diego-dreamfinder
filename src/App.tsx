@@ -9,6 +9,7 @@ import About from "./pages/About";
 import Areas from "./pages/Areas";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import AdminSettings from "./components/AdminSettings";
 
 const queryClient = new QueryClient();
 
@@ -17,6 +18,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <AdminSettings />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />

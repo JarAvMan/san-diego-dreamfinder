@@ -9,7 +9,10 @@ import ResultsPage from './ResultsPage';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { getTopNeighborhoods } from '@/utils/matchingAlgorithm';
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 const QuizContainer: React.FC = () => {
   const [currentStep, setCurrentStep] = useState<QuizStep>(QuizStep.WELCOME);
@@ -17,10 +20,20 @@ const QuizContainer: React.FC = () => {
   const [answers, setAnswers] = useState<QuizAnswer[]>([]);
   const [leadInfo, setLeadInfo] = useState<LeadInfo | null>(null);
   const [recommendations, setRecommendations] = useState<Neighborhood[]>([]);
+  const [showZapierDialog, setShowZapierDialog] = useState(false);
+  const [zapierWebhook, setZapierWebhook] = useState(localStorage.getItem('zapierWebhookUrl') || '');
   const { toast } = useToast();
 
   const currentQuestion = quizQuestions[currentQuestionIndex];
   const totalQuestions = quizQuestions.length;
+  
+  // Check if Zapier webhook is configured
+  useEffect(() => {
+    const isAdmin = localStorage.getItem('isAdmin') === 'true';
+    if (isAdmin && !localStorage.getItem('zapierWebhookUrl')) {
+      setShowZapierDialog(true);
+    }
+  }, []);
   
   // Find current answer if it exists
   const currentAnswer = answers.find(a => a.questionId === currentQuestion?.id)?.value || null;
@@ -95,6 +108,17 @@ const QuizContainer: React.FC = () => {
     console.log('Lead captured:', data);
     console.log('Quiz answers:', answers);
     console.log('Recommendations:', topNeighborhoods);
+  };
+
+  // Save Zapier webhook URL
+  const saveZapierWebhook = () => {
+    localStorage.setItem('zapierWebhookUrl', zapierWebhook);
+    localStorage.setItem('isAdmin', 'true');
+    setShowZapierDialog(false);
+    toast({
+      title: "Zapier Integration Configured",
+      description: "Your webhook URL has been saved.",
+    });
   };
 
   // Start the quiz from welcome screen
@@ -193,8 +217,36 @@ const QuizContainer: React.FC = () => {
       )}
 
       {currentStep === QuizStep.RESULTS && recommendations.length > 0 && (
-        <ResultsPage neighborhoods={recommendations} />
+        <ResultsPage neighborhoods={recommendations} leadInfo={leadInfo || undefined} />
       )}
+      
+      {/* Zapier Configuration Dialog */}
+      <Dialog open={showZapierDialog} onOpenChange={setShowZapierDialog}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Configure Zapier Integration</DialogTitle>
+            <DialogDescription>
+              Enter your Zapier webhook URL to connect with your CRM system.
+              This will allow you to automatically send leads with their matched neighborhoods.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="zapier-url">Zapier Webhook URL</Label>
+              <Input
+                id="zapier-url"
+                placeholder="https://hooks.zapier.com/hooks/catch/..."
+                value={zapierWebhook}
+                onChange={(e) => setZapierWebhook(e.target.value)}
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowZapierDialog(false)}>Cancel</Button>
+            <Button onClick={saveZapierWebhook}>Save Configuration</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

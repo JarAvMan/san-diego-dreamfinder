@@ -1,18 +1,24 @@
 
-import React from 'react';
-import { Neighborhood } from '@/types';
+import React, { useEffect, useState } from 'react';
+import { Neighborhood, LeadInfo } from '@/types';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowRight, MapPin, Check, Home, Building } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useToast } from "@/hooks/use-toast";
+import { sendToZapier } from '@/utils/zapierIntegration';
 
 interface ResultsPageProps {
   neighborhoods: Neighborhood[];
   className?: string;
+  leadInfo?: LeadInfo;
 }
 
-const ResultsPage: React.FC<ResultsPageProps> = ({ neighborhoods, className }) => {
+const ResultsPage: React.FC<ResultsPageProps> = ({ neighborhoods, className, leadInfo }) => {
+  const { toast } = useToast();
+  const [zapierSent, setZapierSent] = useState(false);
+  
   // Function to generate search link for a specific neighborhood
   const getNeighborhoodSearchLink = (neighborhoodName: string) => {
     return `https://jaredharman.com/idx/search/homes?ft=&idx=1&a_propStatus%5B%5D=Active&idx=1&idxID=a001&per=10&srt=newest&a_subdivisionName%5B%5D=${encodeURIComponent(neighborhoodName)}`;
@@ -25,6 +31,46 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ neighborhoods, className }) =
       .join('&');
     return `https://jaredharman.com/idx/search/homes?ft=&idx=1&a_propStatus%5B%5D=Active&idx=1&idxID=a001&per=10&srt=newest&${neighborhoodParams}`;
   };
+
+  // Send user data to Zapier when component loads if leadInfo is available
+  useEffect(() => {
+    const sendContactToZapier = async () => {
+      if (leadInfo && !zapierSent) {
+        // Replace with your actual Zapier webhook URL
+        const ZAPIER_WEBHOOK_URL = localStorage.getItem('zapierWebhookUrl') || '';
+        
+        if (!ZAPIER_WEBHOOK_URL) {
+          console.log('No Zapier webhook URL configured');
+          return;
+        }
+        
+        const success = await sendToZapier(
+          ZAPIER_WEBHOOK_URL,
+          leadInfo,
+          neighborhoods.map(n => n.name)
+        );
+        
+        if (success) {
+          setZapierSent(true);
+          toast({
+            title: "Contact Saved",
+            description: "Your information has been sent to our team.",
+          });
+          
+          // Store contact in localStorage for backup
+          const storedContacts = JSON.parse(localStorage.getItem('storedContacts') || '[]');
+          storedContacts.push({
+            contact: leadInfo,
+            areas: neighborhoods.map(n => n.name),
+            timestamp: new Date().toISOString()
+          });
+          localStorage.setItem('storedContacts', JSON.stringify(storedContacts));
+        }
+      }
+    };
+    
+    sendContactToZapier();
+  }, [leadInfo, neighborhoods, toast, zapierSent]);
 
   return (
     <div className={cn("space-y-8 animate-fade-in", className)}>
