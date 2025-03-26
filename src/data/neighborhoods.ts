@@ -1,3 +1,4 @@
+
 import { Neighborhood } from '../types';
 
 export const sandiegoNeighborhoods: Neighborhood[] = [
@@ -385,3 +386,20 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'solana-beach',
     name: 'Solana Beach',
     description: 'A coastal community with blufftop homes, beach access, and the Cedros Design District. Solana Beach offers a relaxed atmosphere with upscale shopping, dining, and the renowned Belly Up music venue.',
+    image: 'https://images.unsplash.com/photo-1569055344532-5e0dfcb96530?q=80&w=1000&auto=format&fit=crop',
+    matchScore: 0,
+    keyFeatures: [
+      'Blufftop ocean views',
+      'Cedros Design District',
+      'Belly Up music venue',
+      'Fletcher Cove beach access',
+      'Walkable downtown area'
+    ],
+    budget: {
+      min: 1400000,
+      max: 5000000
+    },
+    tags: ['beach', 'upscale', 'arts', 'shopping', 'walkable'],
+    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=Solana+Beach&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=&pak=city%3Ag30_9mueewrr&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
+  }
+];
