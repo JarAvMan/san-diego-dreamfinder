@@ -1,10 +1,10 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { sandiegoNeighborhoods } from '@/data/neighborhoods';
 
 const Areas = () => {
-  // Group neighborhoods by region - ensuring all 65 neighborhoods are included in at least one region
+  // Group neighborhoods by region - ensuring all neighborhoods are included in at least one region
   const regions = {
     coastal: ['La Jolla', 'Del Mar', 'Solana Beach', 'Oceanside', 'Carlsbad', 'Cardiff', 'Imperial Beach', 'Coronado', 'Mission Beach', 'Pacific Beach', 'Ocean Beach', 'Point Loma', 'Bay Park', 'Bay Ho'],
     central: ['North Park', 'South Park', 'Hillcrest', 'Downtown San Diego', 'Bankers Hill', 'Mission Hills', 'Old Town', 'Normal Heights', 'Kensington', 'Talmadge', 'University Heights', 'Mission Valley', 'City Heights', 'College Area', 'Barrio Logan', 'Little Italy'],
@@ -14,9 +14,17 @@ const Areas = () => {
   };
 
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
+  const [totalNeighborhoods, setTotalNeighborhoods] = useState(0);
 
-  // Improved method to get neighborhoods by region - use exact region names, not substring matching
-  const getNeighborhoodsByRegion = (regionNames: string[]) => {
+  useEffect(() => {
+    // Log the total number of neighborhoods for debugging
+    setTotalNeighborhoods(sandiegoNeighborhoods.length);
+    console.log("Total neighborhoods in database:", sandiegoNeighborhoods.length);
+  }, []);
+
+  // Get neighborhoods by region - using the neighborhood name to match with region list
+  const getNeighborhoodsByRegion = (regionName: string) => {
+    const regionNames = regions[regionName as keyof typeof regions] || [];
     return sandiegoNeighborhoods.filter(hood => 
       regionNames.includes(hood.name)
     );
@@ -25,19 +33,19 @@ const Areas = () => {
   // Filter displayed neighborhoods based on selected region
   const getDisplayedNeighborhoods = () => {
     if (!selectedRegion) return sandiegoNeighborhoods; // Show all neighborhoods
-    return getNeighborhoodsByRegion(regions[selectedRegion as keyof typeof regions]);
+    return getNeighborhoodsByRegion(selectedRegion);
   };
 
-  // Function to print neighborhood names for debugging
+  // Logging for debugging
   const displayedNeighborhoods = getDisplayedNeighborhoods();
   console.log("Displayed neighborhoods count:", displayedNeighborhoods.length);
   console.log("All neighborhoods count:", sandiegoNeighborhoods.length);
   console.log("Region neighborhoods counts:", {
-    coastal: getNeighborhoodsByRegion(regions.coastal).length,
-    central: getNeighborhoodsByRegion(regions.central).length,
-    north: getNeighborhoodsByRegion(regions.north).length,
-    east: getNeighborhoodsByRegion(regions.east).length,
-    south: getNeighborhoodsByRegion(regions.south).length
+    coastal: getNeighborhoodsByRegion('coastal').length,
+    central: getNeighborhoodsByRegion('central').length,
+    north: getNeighborhoodsByRegion('north').length,
+    east: getNeighborhoodsByRegion('east').length,
+    south: getNeighborhoodsByRegion('south').length
   });
 
   return (
@@ -65,37 +73,37 @@ const Areas = () => {
             className={`px-4 py-2 rounded-full text-sm font-medium ${!selectedRegion ? 'bg-primary text-primary-foreground' : 'bg-muted hover:bg-muted/80'}`}
             onClick={() => setSelectedRegion(null)}
           >
-            All Areas
+            All Areas ({totalNeighborhoods})
           </button>
           <button 
             className={`px-4 py-2 rounded-full text-sm font-medium ${selectedRegion === 'coastal' ? 'bg-primary text-primary-foreground' : 'bg-muted hover:bg-muted/80'}`}
             onClick={() => setSelectedRegion('coastal')}
           >
-            Coastal Communities
+            Coastal Communities ({getNeighborhoodsByRegion('coastal').length})
           </button>
           <button 
             className={`px-4 py-2 rounded-full text-sm font-medium ${selectedRegion === 'central' ? 'bg-primary text-primary-foreground' : 'bg-muted hover:bg-muted/80'}`}
             onClick={() => setSelectedRegion('central')}
           >
-            Central San Diego
+            Central San Diego ({getNeighborhoodsByRegion('central').length})
           </button>
           <button 
             className={`px-4 py-2 rounded-full text-sm font-medium ${selectedRegion === 'north' ? 'bg-primary text-primary-foreground' : 'bg-muted hover:bg-muted/80'}`}
             onClick={() => setSelectedRegion('north')}
           >
-            North County
+            North County ({getNeighborhoodsByRegion('north').length})
           </button>
           <button 
             className={`px-4 py-2 rounded-full text-sm font-medium ${selectedRegion === 'east' ? 'bg-primary text-primary-foreground' : 'bg-muted hover:bg-muted/80'}`}
             onClick={() => setSelectedRegion('east')}
           >
-            East County
+            East County ({getNeighborhoodsByRegion('east').length})
           </button>
           <button 
             className={`px-4 py-2 rounded-full text-sm font-medium ${selectedRegion === 'south' ? 'bg-primary text-primary-foreground' : 'bg-muted hover:bg-muted/80'}`}
             onClick={() => setSelectedRegion('south')}
           >
-            South Bay
+            South Bay ({getNeighborhoodsByRegion('south').length})
           </button>
         </div>
         

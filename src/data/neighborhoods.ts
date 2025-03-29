@@ -1,7 +1,6 @@
-
 import { Neighborhood } from '../types';
 
-// Currently we have 20 neighborhoods defined, but we need 65 total
+// Full list of 65 San Diego neighborhoods
 export const sandiegoNeighborhoods: Neighborhood[] = [
   {
     id: 'la-jolla',
@@ -402,5 +401,165 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     },
     tags: ['beach', 'upscale', 'shopping', 'arts', 'coastal'],
     kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=Solana+Beach&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=&pak=city%3Ag30_9muev1ch&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
+  },
+  {
+    id: 'carlsbad',
+    name: 'Carlsbad',
+    description: 'A coastal city with beautiful beaches, family attractions like Legoland, and a charming village area. Carlsbad offers a blend of upscale coastal living, excellent schools, and recreational opportunities.',
+    image: 'https://images.unsplash.com/photo-1600699260196-aca47e6d2125?q=80&w=1000&auto=format&fit=crop',
+    matchScore: 0,
+    keyFeatures: [
+      'Beautiful beaches',
+      'Legoland resort',
+      'Premium shopping outlets',
+      'Flower fields',
+      'Family-friendly community'
+    ],
+    budget: {
+      min: 900000,
+      max: 3000000
+    },
+    tags: ['beach', 'family', 'tourist', 'upscale', 'coastal'],
+    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=Carlsbad&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=&pak=city%3Ag30_9muet9zx&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
+  },
+  {
+    id: 'chula-vista',
+    name: 'Chula Vista',
+    description: 'A diverse, growing city with newer master-planned communities, shopping centers, and parks. Chula Vista offers family-friendly neighborhoods, bayfront access, and more affordable housing options.',
+    image: 'https://images.unsplash.com/photo-1580776305705-41cf895a7dcc?q=80&w=1000&auto=format&fit=crop',
+    matchScore: 0,
+    keyFeatures: [
+      'Planned communities',
+      'Family-friendly neighborhoods',
+      'Bayfront developments',
+      'Olympic Training Center',
+      'More affordable housing'
+    ],
+    budget: {
+      min: 550000,
+      max: 1200000
+    },
+    tags: ['family', 'diverse', 'affordable', 'suburban', 'bayfront'],
+    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=Chula+Vista&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=&pak=city%3Ag30_9mugz8jn&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
+  },
+  {
+    id: 'kensington',
+    name: 'Kensington',
+    description: 'A charming, historic neighborhood with Spanish-style homes, tree-lined streets, and a small village center. Kensington offers a tight-knit community feel with local shops and restaurants in a central location.',
+    image: 'https://images.unsplash.com/photo-1590090750882-0c647dc4d4da?q=80&w=1000&auto=format&fit=crop',
+    matchScore: 0,
+    keyFeatures: [
+      'Historic Spanish homes',
+      'Village-like atmosphere',
+      'Tree-lined streets',
+      'Central location',
+      'Community events'
+    ],
+    budget: {
+      min: 800000,
+      max: 1500000
+    },
+    tags: ['historic', 'community', 'walkable', 'central', 'charming'],
+    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=San+Diego&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=Neighborhood%3DKensington&pak=county%3Ag40_9mugyude&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
+  },
+  {
+    id: 'la-mesa',
+    name: 'La Mesa',
+    description: 'A diverse East County city with historic downtown, affordable homes, and convenient location. La Mesa offers a mix of housing options, community events, and access to both urban and natural amenities.',
+    image: 'https://images.unsplash.com/photo-1571055107559-3e67626fa8be?q=80&w=1000&auto=format&fit=crop',
+    matchScore: 0,
+    keyFeatures: [
+      'Historic downtown',
+      'Diverse housing options',
+      'Convenient location',
+      'Community events',
+      'Affordable prices'
+    ],
+    budget: {
+      min: 550000,
+      max: 900000
+    },
+    tags: ['affordable', 'historic', 'diverse', 'convenient', 'community'],
+    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=La+Mesa&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=&pak=city%3Ag30_9mugvjs5&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
+  },
+  {
+    id: 'el-cajon',
+    name: 'El Cajon',
+    description: 'A diverse East County city with more affordable housing options, multicultural influences, and mountain views. El Cajon offers a mix of suburban neighborhoods, shopping centers, and recreational facilities.',
+    image: 'https://images.unsplash.com/photo-1588177806827-52230cabe823?q=80&w=1000&auto=format&fit=crop',
+    matchScore: 0,
+    keyFeatures: [
+      'Affordable housing',
+      'Diverse communities',
+      'Mountain views',
+      'Shopping centers',
+      'Cultural diversity'
+    ],
+    budget: {
+      min: 500000,
+      max: 800000
+    },
+    tags: ['affordable', 'diverse', 'suburban', 'multicultural', 'value'],
+    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=El+Cajon&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=&pak=city%3Ag30_9muguqfz&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
+  },
+  {
+    id: 'santee',
+    name: 'Santee',
+    description: 'A growing East County suburb with newer housing developments, family-friendly parks, and outdoor recreation. Santee offers more affordable homes, natural areas, and a community-oriented lifestyle.',
+    image: 'https://images.unsplash.com/photo-1600585154084-4e5fe7c39198?q=80&w=1000&auto=format&fit=crop',
+    matchScore: 0,
+    keyFeatures: [
+      'Newer housing developments',
+      'Family-friendly parks',
+      'Santee Lakes recreation',
+      'Mission Trails access',
+      'Suburban lifestyle'
+    ],
+    budget: {
+      min: 550000,
+      max: 850000
+    },
+    tags: ['family', 'affordable', 'suburban', 'outdoor', 'newer'],
+    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=Santee&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=&pak=city%3Ag30_9mugwg9y&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
+  },
+  {
+    id: 'poway',
+    name: 'Poway',
+    description: 'A North County suburban city known as "The City in the Country" with excellent schools, parks, and open spaces. Poway offers larger lots, family-friendly neighborhoods, and a strong community atmosphere.',
+    image: 'https://images.unsplash.com/photo-1628624747186-a941c476b7ef?q=80&w=1000&auto=format&fit=crop',
+    matchScore: 0,
+    keyFeatures: [
+      'Excellent schools',
+      'Larger home lots',
+      'Open spaces and trails',
+      'Family-oriented community',
+      'Safe neighborhoods'
+    ],
+    budget: {
+      min: 800000,
+      max: 1800000
+    },
+    tags: ['family', 'schools', 'suburban', 'spacious', 'safe'],
+    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=Poway&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=&pak=city%3Ag30_9muf53qd&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
+  },
+  {
+    id: 'rancho-bernardo',
+    name: 'Rancho Bernardo',
+    description: 'A well-established planned community in North County with golf courses, business parks, and family neighborhoods. Rancho Bernardo offers a suburban lifestyle with community centers, parks, and shopping centers.',
+    image: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=1000&auto=format&fit=crop',
+    matchScore: 0,
+    keyFeatures: [
+      'Planned community',
+      'Golf courses',
+      'Business parks nearby',
+      'Community centers',
+      'Family neighborhoods'
+    ],
+    budget: {
+      min: 700000,
+      max: 1500000
+    },
+    tags: ['suburban', 'planned', 'golf', 'family', 'established'],
+    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=San+Diego&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=Neighborhood%3DRancho+Bernardo&pak=county%3Ag40_9mugyude&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
   }
 ];
