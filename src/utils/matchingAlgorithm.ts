@@ -220,6 +220,37 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
           }
         });
         break;
+
+      // Additional case for college/university areas
+      case 'education_proximity':
+        neighborhoods.forEach(n => {
+          if (n.tags.includes('university') || n.tags.includes('education') || n.tags.includes('schools')) {
+            n.matchScore += value;
+          }
+        });
+        break;
+
+      // Case for affordability preference
+      case 'affordability':
+        neighborhoods.forEach(n => {
+          if (n.tags.includes('affordable')) {
+            n.matchScore += value;
+          } else if (n.tags.includes('luxury') || n.tags.includes('upscale')) {
+            n.matchScore -= value * 0.5;
+          }
+        });
+        break;
+
+      // Case for luxury preference
+      case 'luxury_living':
+        neighborhoods.forEach(n => {
+          if (n.tags.includes('luxury') || n.tags.includes('upscale') || n.tags.includes('exclusive')) {
+            n.matchScore += value;
+          } else if (n.tags.includes('affordable')) {
+            n.matchScore -= value * 0.5;
+          }
+        });
+        break;
     }
   });
   

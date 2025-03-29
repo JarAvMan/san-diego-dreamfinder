@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { sandiegoNeighborhoods } from '@/data/neighborhoods';
 
@@ -7,10 +7,10 @@ const Areas = () => {
   // Group neighborhoods by region
   const regions = {
     coastal: ['La Jolla', 'Del Mar', 'Solana Beach', 'Oceanside', 'Carlsbad', 'Cardiff', 'Imperial Beach', 'Coronado', 'Mission Beach', 'Pacific Beach', 'Ocean Beach', 'Point Loma'],
-    central: ['North Park', 'South Park', 'Hillcrest', 'Downtown San Diego', 'Banker\'s Hill', 'Mission Hills', 'Old Town', 'Normal Heights', 'Kensington', 'Talmadge', 'University Heights'],
-    north: ['Carmel Valley', 'Scripps Ranch', '4s Ranch', 'Rancho Bernardo', 'Rancho Penasquitos', 'Poway', 'Escondido', 'San Marcos', 'Vista', 'Fallbrook', 'Rancho Santa Fe', 'Fairbanks Ranch'],
+    central: ['North Park', 'South Park', 'Hillcrest', 'Downtown San Diego', 'Bankers Hill', 'Mission Hills', 'Old Town', 'Normal Heights', 'Kensington', 'Talmadge', 'University Heights', 'Mission Valley', 'City Heights', 'College Area', 'Barrio Logan'],
+    north: ['Carmel Valley', 'Scripps Ranch', '4s Ranch', 'Rancho Bernardo', 'Rancho Penasquitos', 'Poway', 'Escondido', 'San Marcos', 'Vista', 'Fallbrook', 'Rancho Santa Fe', 'Fairbanks Ranch', 'Mira Mesa', 'Sorrento Valley', 'Clairemont', 'Serra Mesa', 'Linda Vista', 'Tierrasanta'],
     east: ['La Mesa', 'El Cajon', 'Santee', 'Alpine', 'Ramona', 'Julian', 'Rancho San Diego', 'Spring Valley', 'Lemon Grove', 'Fletcher Hills', 'San Carlos', 'Del Cerro', 'Allied Gardens', 'El Cerrito'],
-    south: ['Chula Vista', 'National City', 'Otay Mesa', 'Barrio Logan', 'Paradise Hills']
+    south: ['Chula Vista', 'National City', 'Otay Mesa', 'Barrio Logan', 'Paradise Hills', 'Encanto']
   };
 
   // Filter neighborhood data by region
@@ -18,6 +18,14 @@ const Areas = () => {
     return sandiegoNeighborhoods.filter(hood => 
       regionNames.some(region => hood.name.includes(region))
     );
+  };
+
+  const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
+
+  // Filter displayed neighborhoods based on selected region
+  const getDisplayedNeighborhoods = () => {
+    if (!selectedRegion) return sandiegoNeighborhoods.slice(0, 12);
+    return getNeighborhoodsByRegion(regions[selectedRegion as keyof typeof regions]);
   };
 
   return (
@@ -38,17 +46,52 @@ const Areas = () => {
       
       <main className="flex-1 container py-12">
         <h1 className="text-4xl font-bold mb-2">San Diego Neighborhoods</h1>
-        <p className="text-lg text-muted-foreground mb-12">Explore the diverse communities that make San Diego special.</p>
+        <p className="text-lg text-muted-foreground mb-8">Explore the diverse communities that make San Diego special.</p>
         
-        <div className="space-y-16">
-          {/* Coastal Region */}
+        <div className="flex flex-wrap gap-3 mb-8">
+          <button 
+            className={`px-4 py-2 rounded-full text-sm font-medium ${!selectedRegion ? 'bg-primary text-primary-foreground' : 'bg-muted hover:bg-muted/80'}`}
+            onClick={() => setSelectedRegion(null)}
+          >
+            All Areas
+          </button>
+          <button 
+            className={`px-4 py-2 rounded-full text-sm font-medium ${selectedRegion === 'coastal' ? 'bg-primary text-primary-foreground' : 'bg-muted hover:bg-muted/80'}`}
+            onClick={() => setSelectedRegion('coastal')}
+          >
+            Coastal Communities
+          </button>
+          <button 
+            className={`px-4 py-2 rounded-full text-sm font-medium ${selectedRegion === 'central' ? 'bg-primary text-primary-foreground' : 'bg-muted hover:bg-muted/80'}`}
+            onClick={() => setSelectedRegion('central')}
+          >
+            Central San Diego
+          </button>
+          <button 
+            className={`px-4 py-2 rounded-full text-sm font-medium ${selectedRegion === 'north' ? 'bg-primary text-primary-foreground' : 'bg-muted hover:bg-muted/80'}`}
+            onClick={() => setSelectedRegion('north')}
+          >
+            North County
+          </button>
+          <button 
+            className={`px-4 py-2 rounded-full text-sm font-medium ${selectedRegion === 'east' ? 'bg-primary text-primary-foreground' : 'bg-muted hover:bg-muted/80'}`}
+            onClick={() => setSelectedRegion('east')}
+          >
+            East County
+          </button>
+          <button 
+            className={`px-4 py-2 rounded-full text-sm font-medium ${selectedRegion === 'south' ? 'bg-primary text-primary-foreground' : 'bg-muted hover:bg-muted/80'}`}
+            onClick={() => setSelectedRegion('south')}
+          >
+            South Bay
+          </button>
+        </div>
+        
+        <div className="space-y-8">
           <section>
-            <h2 className="text-2xl font-semibold mb-6 flex items-center">
-              <span className="mr-2">🌊</span> Coastal Communities
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {getNeighborhoodsByRegion(regions.coastal).slice(0, 6).map(hood => (
-                <div key={hood.id} className="border rounded-lg overflow-hidden shadow-sm bg-card">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {getDisplayedNeighborhoods().map(hood => (
+                <div key={hood.id} className="border rounded-lg overflow-hidden shadow-sm bg-card hover:shadow-md transition-shadow">
                   <div className="aspect-[16/9] overflow-hidden">
                     <img 
                       src={hood.image} 
@@ -65,131 +108,26 @@ const Areas = () => {
                         </span>
                       ))}
                     </div>
-                    <p className="text-sm text-muted-foreground line-clamp-2">{hood.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-          
-          {/* Central Region */}
-          <section>
-            <h2 className="text-2xl font-semibold mb-6 flex items-center">
-              <span className="mr-2">🏙️</span> Central San Diego
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {getNeighborhoodsByRegion(regions.central).slice(0, 6).map(hood => (
-                <div key={hood.id} className="border rounded-lg overflow-hidden shadow-sm bg-card">
-                  <div className="aspect-[16/9] overflow-hidden">
-                    <img 
-                      src={hood.image} 
-                      alt={hood.name} 
-                      className="w-full h-full object-cover transition-transform hover:scale-105"
-                    />
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-medium text-lg mb-1">{hood.name}</h3>
-                    <div className="flex gap-2 flex-wrap mb-2">
-                      {hood.tags.slice(0, 3).map(tag => (
-                        <span key={tag} className="px-2 py-1 bg-primary/10 text-primary rounded-full text-xs">
-                          {tag}
-                        </span>
-                      ))}
+                    <p className="text-sm text-muted-foreground line-clamp-2 mb-3">{hood.description}</p>
+                    <div className="text-sm font-medium mb-3">
+                      {hood.budget.min.toLocaleString('en-US', {
+                        style: 'currency',
+                        currency: 'USD',
+                        maximumFractionDigits: 0,
+                      })} - {hood.budget.max.toLocaleString('en-US', {
+                        style: 'currency',
+                        currency: 'USD',
+                        maximumFractionDigits: 0,
+                      })}
                     </div>
-                    <p className="text-sm text-muted-foreground line-clamp-2">{hood.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-          
-          {/* North Region */}
-          <section>
-            <h2 className="text-2xl font-semibold mb-6 flex items-center">
-              <span className="mr-2">🏞️</span> North County
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {getNeighborhoodsByRegion(regions.north).slice(0, 6).map(hood => (
-                <div key={hood.id} className="border rounded-lg overflow-hidden shadow-sm bg-card">
-                  <div className="aspect-[16/9] overflow-hidden">
-                    <img 
-                      src={hood.image} 
-                      alt={hood.name} 
-                      className="w-full h-full object-cover transition-transform hover:scale-105"
-                    />
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-medium text-lg mb-1">{hood.name}</h3>
-                    <div className="flex gap-2 flex-wrap mb-2">
-                      {hood.tags.slice(0, 3).map(tag => (
-                        <span key={tag} className="px-2 py-1 bg-primary/10 text-primary rounded-full text-xs">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    <p className="text-sm text-muted-foreground line-clamp-2">{hood.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-          
-          {/* East Region */}
-          <section>
-            <h2 className="text-2xl font-semibold mb-6 flex items-center">
-              <span className="mr-2">🌄</span> East County
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {getNeighborhoodsByRegion(regions.east).slice(0, 6).map(hood => (
-                <div key={hood.id} className="border rounded-lg overflow-hidden shadow-sm bg-card">
-                  <div className="aspect-[16/9] overflow-hidden">
-                    <img 
-                      src={hood.image} 
-                      alt={hood.name} 
-                      className="w-full h-full object-cover transition-transform hover:scale-105"
-                    />
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-medium text-lg mb-1">{hood.name}</h3>
-                    <div className="flex gap-2 flex-wrap mb-2">
-                      {hood.tags.slice(0, 3).map(tag => (
-                        <span key={tag} className="px-2 py-1 bg-primary/10 text-primary rounded-full text-xs">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    <p className="text-sm text-muted-foreground line-clamp-2">{hood.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-          
-          {/* South Region */}
-          <section>
-            <h2 className="text-2xl font-semibold mb-6 flex items-center">
-              <span className="mr-2">🌴</span> South Bay
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {getNeighborhoodsByRegion(regions.south).slice(0, 6).map(hood => (
-                <div key={hood.id} className="border rounded-lg overflow-hidden shadow-sm bg-card">
-                  <div className="aspect-[16/9] overflow-hidden">
-                    <img 
-                      src={hood.image} 
-                      alt={hood.name} 
-                      className="w-full h-full object-cover transition-transform hover:scale-105"
-                    />
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-medium text-lg mb-1">{hood.name}</h3>
-                    <div className="flex gap-2 flex-wrap mb-2">
-                      {hood.tags.slice(0, 3).map(tag => (
-                        <span key={tag} className="px-2 py-1 bg-primary/10 text-primary rounded-full text-xs">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    <p className="text-sm text-muted-foreground line-clamp-2">{hood.description}</p>
+                    <a 
+                      href={hood.kvCoreLink} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3"
+                    >
+                      View Properties
+                    </a>
                   </div>
                 </div>
               ))}
@@ -198,7 +136,7 @@ const Areas = () => {
         </div>
         
         <div className="text-center mt-12">
-          <Link to="/" className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2">
+          <Link to="/" className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-6 py-2">
             Take the Neighborhood Quiz
           </Link>
         </div>
