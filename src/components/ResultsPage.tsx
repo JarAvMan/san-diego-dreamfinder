@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Neighborhood, LeadInfo } from '@/types';
 import { Button } from '@/components/ui/button';
@@ -8,17 +7,21 @@ import { ArrowRight, MapPin, Check, Home, Building } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useToast } from "@/hooks/use-toast";
 import { sendToZapier } from '@/utils/zapierIntegration';
-
 interface ResultsPageProps {
   neighborhoods: Neighborhood[];
   className?: string;
   leadInfo?: LeadInfo;
 }
-
-const ResultsPage: React.FC<ResultsPageProps> = ({ neighborhoods, className, leadInfo }) => {
-  const { toast } = useToast();
+const ResultsPage: React.FC<ResultsPageProps> = ({
+  neighborhoods,
+  className,
+  leadInfo
+}) => {
+  const {
+    toast
+  } = useToast();
   const [zapierSent, setZapierSent] = useState(false);
-  
+
   // Get the search link for a specific neighborhood from its kvCoreLink property
   const getNeighborhoodSearchLink = (neighborhood: Neighborhood) => {
     return neighborhood.kvCoreLink || '#';
@@ -29,7 +32,7 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ neighborhoods, className, lea
   // we'll just use the first neighborhood's link as a fallback
   const getCombinedSearchLink = () => {
     if (neighborhoods.length === 0) return '#';
-    
+
     // Just use the first neighborhood's link when multiple are selected
     // We could potentially create a custom landing page in the future that shows all areas
     return neighborhoods[0].kvCoreLink || '#';
@@ -41,25 +44,18 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ neighborhoods, className, lea
       if (leadInfo && !zapierSent) {
         // Replace with your actual Zapier webhook URL
         const ZAPIER_WEBHOOK_URL = localStorage.getItem('zapierWebhookUrl') || '';
-        
         if (!ZAPIER_WEBHOOK_URL) {
           console.log('No Zapier webhook URL configured');
           return;
         }
-        
-        const success = await sendToZapier(
-          ZAPIER_WEBHOOK_URL,
-          leadInfo,
-          neighborhoods.map(n => n.name)
-        );
-        
+        const success = await sendToZapier(ZAPIER_WEBHOOK_URL, leadInfo, neighborhoods.map(n => n.name));
         if (success) {
           setZapierSent(true);
           toast({
             title: "Contact Saved",
-            description: "Your information has been sent to our team.",
+            description: "Your information has been sent to our team."
           });
-          
+
           // Store contact in localStorage for backup
           const storedContacts = JSON.parse(localStorage.getItem('storedContacts') || '[]');
           storedContacts.push({
@@ -71,12 +67,9 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ neighborhoods, className, lea
         }
       }
     };
-    
     sendContactToZapier();
   }, [leadInfo, neighborhoods, toast, zapierSent]);
-
-  return (
-    <div className={cn("space-y-8 animate-fade-in", className)}>
+  return <div className={cn("space-y-8 animate-fade-in", className)}>
       <div className="text-center space-y-4 mb-8">
         <div className="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-2">
           <Check size={14} className="mr-1" /> Results Ready
@@ -90,14 +83,9 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ neighborhoods, className, lea
       </div>
 
       <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-        {neighborhoods.map((neighborhood, index) => (
-          <Card key={neighborhood.id} className="overflow-hidden transition-all duration-300 hover:shadow-md border">
+        {neighborhoods.map((neighborhood, index) => <Card key={neighborhood.id} className="overflow-hidden transition-all duration-300 hover:shadow-md border">
             <div className="aspect-video w-full overflow-hidden">
-              <img 
-                src={neighborhood.image} 
-                alt={neighborhood.name}
-                className="w-full h-full object-cover transform transition-transform duration-500 hover:scale-105"
-              />
+              <img src={neighborhood.image} alt={neighborhood.name} className="w-full h-full object-cover transform transition-transform duration-500 hover:scale-105" />
             </div>
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
@@ -106,14 +94,14 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ neighborhoods, className, lea
                 </Badge>
                 <div className="text-sm text-muted-foreground">
                   {neighborhood.budget.min.toLocaleString('en-US', {
-                    style: 'currency',
-                    currency: 'USD',
-                    maximumFractionDigits: 0,
-                  })} - {neighborhood.budget.max.toLocaleString('en-US', {
-                    style: 'currency',
-                    currency: 'USD',
-                    maximumFractionDigits: 0,
-                  })}
+                style: 'currency',
+                currency: 'USD',
+                maximumFractionDigits: 0
+              })} - {neighborhood.budget.max.toLocaleString('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                maximumFractionDigits: 0
+              })}
                 </div>
               </div>
               <CardTitle className="flex items-center">
@@ -125,12 +113,10 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ neighborhoods, className, lea
             <CardContent className="pb-0">
               <h4 className="font-medium mb-2 text-sm">Neighborhood Highlights:</h4>
               <ul className="space-y-1 mb-4">
-                {neighborhood.keyFeatures.map((feature, i) => (
-                  <li key={i} className="text-sm flex items-start">
+                {neighborhood.keyFeatures.map((feature, i) => <li key={i} className="text-sm flex items-start">
                     <Check size={14} className="mr-2 text-primary mt-1 shrink-0" />
                     <span>{feature}</span>
-                  </li>
-                ))}
+                  </li>)}
               </ul>
               
               <div className="space-y-2 bg-muted/30 p-3 rounded-md mb-4">
@@ -139,10 +125,10 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ neighborhoods, className, lea
                   <span className="font-medium">Condos starting at </span>
                   <span className="ml-1">
                     {(neighborhood.budget.min * 0.7).toLocaleString('en-US', {
-                      style: 'currency',
-                      currency: 'USD',
-                      maximumFractionDigits: 0,
-                    })}
+                  style: 'currency',
+                  currency: 'USD',
+                  maximumFractionDigits: 0
+                })}
                   </span>
                 </div>
                 <div className="flex items-center text-sm">
@@ -150,38 +136,28 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ neighborhoods, className, lea
                   <span className="font-medium">Homes starting at </span>
                   <span className="ml-1">
                     {neighborhood.budget.min.toLocaleString('en-US', {
-                      style: 'currency',
-                      currency: 'USD',
-                      maximumFractionDigits: 0,
-                    })}
+                  style: 'currency',
+                  currency: 'USD',
+                  maximumFractionDigits: 0
+                })}
                   </span>
                 </div>
               </div>
             </CardContent>
             <CardFooter className="flex flex-col gap-2">
-              <Button 
-                variant="outline" 
-                className="w-full group"
-                onClick={() => window.open(getNeighborhoodSearchLink(neighborhood), '_blank')}
-              >
+              <Button variant="outline" onClick={() => window.open(getNeighborhoodSearchLink(neighborhood), '_blank')} className="w-full group text-center">
                 Browse {neighborhood.name} Properties
                 <ArrowRight size={16} className="ml-2 transition-transform group-hover:translate-x-1" />
               </Button>
             </CardFooter>
-          </Card>
-        ))}
+          </Card>)}
       </div>
 
       <div className="text-center pt-8">
-        <Button 
-          className="px-8"
-          onClick={() => window.open(getCombinedSearchLink(), '_blank')}
-        >
+        <Button className="px-8" onClick={() => window.open(getCombinedSearchLink(), '_blank')}>
           View Properties in All My Matched Areas
         </Button>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default ResultsPage;
