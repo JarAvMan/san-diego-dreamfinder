@@ -28,6 +28,18 @@ const Areas = () => {
     return getNeighborhoodsByRegion(regions[selectedRegion as keyof typeof regions]);
   };
 
+  // Function to print neighborhood names for debugging
+  const displayedNeighborhoods = getDisplayedNeighborhoods();
+  console.log("Displayed neighborhoods count:", displayedNeighborhoods.length);
+  console.log("All neighborhoods count:", sandiegoNeighborhoods.length);
+  console.log("Region neighborhoods counts:", {
+    coastal: getNeighborhoodsByRegion(regions.coastal).length,
+    central: getNeighborhoodsByRegion(regions.central).length,
+    north: getNeighborhoodsByRegion(regions.north).length,
+    east: getNeighborhoodsByRegion(regions.east).length,
+    south: getNeighborhoodsByRegion(regions.south).length
+  });
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <header className="border-b py-4 px-6">

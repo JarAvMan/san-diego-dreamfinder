@@ -1,6 +1,6 @@
-
 import { Neighborhood } from '../types';
 
+// Currently we have 20 neighborhoods defined, but we need 65 total
 export const sandiegoNeighborhoods: Neighborhood[] = [
   {
     id: 'la-jolla',
@@ -385,21 +385,4 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
   {
     id: 'solana-beach',
     name: 'Solana Beach',
-    description: 'A coastal community with blufftop homes, beach access, and the Cedros Design District. Solana Beach offers a relaxed atmosphere with upscale shopping, dining, and the renowned Belly Up music venue.',
-    image: 'https://images.unsplash.com/photo-1559825481-12a05cc00344?q=80&w=1000&auto=format&fit=crop',
-    matchScore: 0,
-    keyFeatures: [
-      'Coastal living',
-      'Cedros Design District',
-      'Beach access',
-      'Upscale shopping',
-      'Belly Up music venue'
-    ],
-    budget: {
-      min: 1200000,
-      max: 3500000
-    },
-    tags: ['beach', 'upscale', 'shopping', 'arts', 'coastal'],
-    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=Solana+Beach&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=&pak=city%3Ag30_9muev1ch&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
-  }
-];
+    description: 'A coastal community with blufftop homes, beach access, and the Cedros Design District. Solana Beach
