@@ -8,23 +8,23 @@ const Areas = () => {
   const regions = {
     coastal: ['La Jolla', 'Del Mar', 'Solana Beach', 'Oceanside', 'Carlsbad', 'Cardiff', 'Imperial Beach', 'Coronado', 'Mission Beach', 'Pacific Beach', 'Ocean Beach', 'Point Loma', 'Bay Park', 'Bay Ho'],
     central: ['North Park', 'South Park', 'Hillcrest', 'Downtown San Diego', 'Bankers Hill', 'Mission Hills', 'Old Town', 'Normal Heights', 'Kensington', 'Talmadge', 'University Heights', 'Mission Valley', 'City Heights', 'College Area', 'Barrio Logan', 'Little Italy'],
-    north: ['Carmel Valley', 'Scripps Ranch', '4s Ranch', 'Rancho Bernardo', 'Rancho Penasquitos', 'Poway', 'Escondido', 'San Marcos', 'Vista', 'Fallbrook', 'Rancho Santa Fe', 'Fairbanks Ranch', 'Mira Mesa', 'Sorrento Valley', 'Clairemont', 'Serra Mesa', 'Linda Vista', 'Tierrasanta'],
-    east: ['La Mesa', 'El Cajon', 'Santee', 'Alpine', 'Ramona', 'Julian', 'Rancho San Diego', 'Spring Valley', 'Lemon Grove', 'Fletcher Hills', 'San Carlos', 'Del Cerro', 'Allied Gardens', 'El Cerrito'],
+    north: ['Carmel Valley', 'Scripps Ranch', '4s Ranch', 'Rancho Bernardo', 'Rancho Penasquitos', 'Poway', 'Escondido', 'San Marcos', 'Vista', 'Fallbrook', 'Rancho Santa Fe', 'Fairbanks Ranch', 'Mira Mesa', 'Sorrento Valley', 'Clairemont', 'Serra Mesa', 'Linda Vista', 'Tierrasanta', 'University City', 'Kearny Mesa'],
+    east: ['La Mesa', 'El Cajon', 'Santee', 'Alpine', 'Ramona', 'Julian', 'Rancho San Diego', 'Spring Valley', 'Lemon Grove', 'Fletcher Hills', 'San Carlos', 'Del Cerro', 'Allied Gardens', 'El Cerrito', 'Mission Bay'],
     south: ['Chula Vista', 'National City', 'Otay Mesa', 'Paradise Hills', 'Encanto']
-  };
-
-  // Filter neighborhood data by region
-  const getNeighborhoodsByRegion = (regionNames: string[]) => {
-    return sandiegoNeighborhoods.filter(hood => 
-      regionNames.some(region => hood.name.includes(region))
-    );
   };
 
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
 
+  // Improved method to get neighborhoods by region - use exact region names, not substring matching
+  const getNeighborhoodsByRegion = (regionNames: string[]) => {
+    return sandiegoNeighborhoods.filter(hood => 
+      regionNames.includes(hood.name)
+    );
+  };
+
   // Filter displayed neighborhoods based on selected region
   const getDisplayedNeighborhoods = () => {
-    if (!selectedRegion) return sandiegoNeighborhoods; // Show all 65 neighborhoods when "All Areas" is selected
+    if (!selectedRegion) return sandiegoNeighborhoods; // Show all neighborhoods
     return getNeighborhoodsByRegion(regions[selectedRegion as keyof typeof regions]);
   };
 
