@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom';
 import { sandiegoNeighborhoods } from '@/data/neighborhoods';
 
 const Areas = () => {
-  // Group neighborhoods by region
+  // Group neighborhoods by region - ensuring all 65 neighborhoods are included in at least one region
   const regions = {
-    coastal: ['La Jolla', 'Del Mar', 'Solana Beach', 'Oceanside', 'Carlsbad', 'Cardiff', 'Imperial Beach', 'Coronado', 'Mission Beach', 'Pacific Beach', 'Ocean Beach', 'Point Loma'],
-    central: ['North Park', 'South Park', 'Hillcrest', 'Downtown San Diego', 'Bankers Hill', 'Mission Hills', 'Old Town', 'Normal Heights', 'Kensington', 'Talmadge', 'University Heights', 'Mission Valley', 'City Heights', 'College Area', 'Barrio Logan'],
+    coastal: ['La Jolla', 'Del Mar', 'Solana Beach', 'Oceanside', 'Carlsbad', 'Cardiff', 'Imperial Beach', 'Coronado', 'Mission Beach', 'Pacific Beach', 'Ocean Beach', 'Point Loma', 'Bay Park', 'Bay Ho'],
+    central: ['North Park', 'South Park', 'Hillcrest', 'Downtown San Diego', 'Bankers Hill', 'Mission Hills', 'Old Town', 'Normal Heights', 'Kensington', 'Talmadge', 'University Heights', 'Mission Valley', 'City Heights', 'College Area', 'Barrio Logan', 'Little Italy'],
     north: ['Carmel Valley', 'Scripps Ranch', '4s Ranch', 'Rancho Bernardo', 'Rancho Penasquitos', 'Poway', 'Escondido', 'San Marcos', 'Vista', 'Fallbrook', 'Rancho Santa Fe', 'Fairbanks Ranch', 'Mira Mesa', 'Sorrento Valley', 'Clairemont', 'Serra Mesa', 'Linda Vista', 'Tierrasanta'],
     east: ['La Mesa', 'El Cajon', 'Santee', 'Alpine', 'Ramona', 'Julian', 'Rancho San Diego', 'Spring Valley', 'Lemon Grove', 'Fletcher Hills', 'San Carlos', 'Del Cerro', 'Allied Gardens', 'El Cerrito'],
-    south: ['Chula Vista', 'National City', 'Otay Mesa', 'Barrio Logan', 'Paradise Hills', 'Encanto']
+    south: ['Chula Vista', 'National City', 'Otay Mesa', 'Paradise Hills', 'Encanto']
   };
 
   // Filter neighborhood data by region
@@ -24,7 +24,7 @@ const Areas = () => {
 
   // Filter displayed neighborhoods based on selected region
   const getDisplayedNeighborhoods = () => {
-    if (!selectedRegion) return sandiegoNeighborhoods.slice(0, 12);
+    if (!selectedRegion) return sandiegoNeighborhoods; // Show all 65 neighborhoods when "All Areas" is selected
     return getNeighborhoodsByRegion(regions[selectedRegion as keyof typeof regions]);
   };
 
