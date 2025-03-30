@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { sandiegoNeighborhoods } from '@/data/neighborhoods';
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 
 const Areas = () => {
   // Group neighborhoods by region - ensuring all neighborhoods are included in at least one region
@@ -15,6 +16,8 @@ const Areas = () => {
 
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
   const [totalNeighborhoods, setTotalNeighborhoods] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 12;
 
   useEffect(() => {
     // Log the total number of neighborhoods for debugging
@@ -36,10 +39,93 @@ const Areas = () => {
     return getNeighborhoodsByRegion(selectedRegion);
   };
 
-  // Logging for debugging
+  // Pagination logic
   const displayedNeighborhoods = getDisplayedNeighborhoods();
+  const totalPages = Math.ceil(displayedNeighborhoods.length / itemsPerPage);
+  
+  const paginatedNeighborhoods = displayedNeighborhoods.slice(
+    (currentPage - 1) * itemsPerPage, 
+    currentPage * itemsPerPage
+  );
+
+  // Handle page change
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Generate pagination items
+  const generatePaginationItems = () => {
+    const items = [];
+    const maxVisiblePages = 5;
+    
+    // Always show first page
+    items.push(
+      <PaginationItem key="first">
+        <PaginationLink 
+          isActive={currentPage === 1} 
+          onClick={() => handlePageChange(1)}
+        >
+          1
+        </PaginationLink>
+      </PaginationItem>
+    );
+    
+    // Show ellipsis if needed
+    if (currentPage > 3) {
+      items.push(
+        <PaginationItem key="ellipsis1">
+          <PaginationEllipsis />
+        </PaginationItem>
+      );
+    }
+    
+    // Show pages around current page
+    for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) {
+      if (i <= 1 || i >= totalPages) continue;
+      items.push(
+        <PaginationItem key={i}>
+          <PaginationLink 
+            isActive={currentPage === i} 
+            onClick={() => handlePageChange(i)}
+          >
+            {i}
+          </PaginationLink>
+        </PaginationItem>
+      );
+    }
+    
+    // Show ellipsis if needed
+    if (currentPage < totalPages - 2) {
+      items.push(
+        <PaginationItem key="ellipsis2">
+          <PaginationEllipsis />
+        </PaginationItem>
+      );
+    }
+    
+    // Always show last page if there is more than one page
+    if (totalPages > 1) {
+      items.push(
+        <PaginationItem key="last">
+          <PaginationLink 
+            isActive={currentPage === totalPages} 
+            onClick={() => handlePageChange(totalPages)}
+          >
+            {totalPages}
+          </PaginationLink>
+        </PaginationItem>
+      );
+    }
+    
+    return items;
+  };
+
+  // Logging for debugging
   console.log("Displayed neighborhoods count:", displayedNeighborhoods.length);
   console.log("All neighborhoods count:", sandiegoNeighborhoods.length);
+  console.log("Paginated neighborhoods count:", paginatedNeighborhoods.length);
+  console.log("Current page:", currentPage, "of", totalPages);
   console.log("Region neighborhoods counts:", {
     coastal: getNeighborhoodsByRegion('coastal').length,
     central: getNeighborhoodsByRegion('central').length,
@@ -47,6 +133,11 @@ const Areas = () => {
     east: getNeighborhoodsByRegion('east').length,
     south: getNeighborhoodsByRegion('south').length
   });
+
+  // Reset to page 1 when region changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedRegion]);
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
@@ -110,7 +201,7 @@ const Areas = () => {
         <div className="space-y-8">
           <section>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {getDisplayedNeighborhoods().map(hood => (
+              {paginatedNeighborhoods.map(hood => (
                 <div key={hood.id} className="border rounded-lg overflow-hidden shadow-sm bg-card hover:shadow-md transition-shadow">
                   <div className="aspect-[16/9] overflow-hidden">
                     <img 
@@ -154,6 +245,28 @@ const Areas = () => {
             </div>
           </section>
         </div>
+        
+        {totalPages > 1 && (
+          <div className="mt-8">
+            <Pagination>
+              <PaginationContent>
+                {currentPage > 1 && (
+                  <PaginationItem>
+                    <PaginationPrevious onClick={() => handlePageChange(currentPage - 1)} />
+                  </PaginationItem>
+                )}
+                
+                {generatePaginationItems()}
+                
+                {currentPage < totalPages && (
+                  <PaginationItem>
+                    <PaginationNext onClick={() => handlePageChange(currentPage + 1)} />
+                  </PaginationItem>
+                )}
+              </PaginationContent>
+            </Pagination>
+          </div>
+        )}
         
         <div className="text-center mt-12">
           <Link to="/" className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-6 py-2">
