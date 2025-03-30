@@ -23,6 +23,9 @@ const Areas = () => {
     // Log the total number of neighborhoods for debugging
     setTotalNeighborhoods(sandiegoNeighborhoods.length);
     console.log("Total neighborhoods in database:", sandiegoNeighborhoods.length);
+    
+    // Log all neighborhood names to identify which ones are indexed
+    console.log("Currently indexed neighborhoods:", sandiegoNeighborhoods.map(hood => hood.name));
   }, []);
 
   // Get neighborhoods by region - using the neighborhood name to match with region list
@@ -164,7 +167,7 @@ const Areas = () => {
             className={`px-4 py-2 rounded-full text-sm font-medium ${!selectedRegion ? 'bg-primary text-primary-foreground' : 'bg-muted hover:bg-muted/80'}`}
             onClick={() => setSelectedRegion(null)}
           >
-            All Areas ({totalNeighborhoods})
+            All Areas ({sandiegoNeighborhoods.length})
           </button>
           <button 
             className={`px-4 py-2 rounded-full text-sm font-medium ${selectedRegion === 'coastal' ? 'bg-primary text-primary-foreground' : 'bg-muted hover:bg-muted/80'}`}
