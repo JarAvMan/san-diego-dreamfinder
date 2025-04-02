@@ -208,9 +208,14 @@ const Areas = () => {
                 <div key={hood.id} className="border rounded-lg overflow-hidden shadow-sm bg-card hover:shadow-md transition-shadow">
                   <div className="aspect-[16/9] overflow-hidden">
                     <img 
-                      src={hood.image} 
+                      src={hood.image.startsWith('/') ? hood.image : `/${hood.image}`} 
                       alt={hood.name} 
                       className="w-full h-full object-cover transition-transform hover:scale-105"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        console.error(`Failed to load image: ${target.src}`);
+                        target.src = '/placeholder.svg'; // Fallback to placeholder if image fails to load
+                      }}
                     />
                   </div>
                   <div className="p-4">

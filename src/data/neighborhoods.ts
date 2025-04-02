@@ -6,7 +6,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 1,
     name: 'La Jolla',
     description: 'Upscale coastal community with beautiful beaches, fine dining, and luxury shopping.',
-    image: '/Images/La-Jolla.jpg', // Updated path
+    image: '/Images/La-Jolla.jpg',
     kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=La+Jolla',
     budget: {
       min: 1200000,
@@ -24,7 +24,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 2,
     name: 'North Park',
     description: 'Hip urban neighborhood with craft breweries, eateries, and vibrant nightlife.',
-    image: '/Images/North-Park.jpg', // Updated path
+    image: '/Images/North-Park.jpg',
     kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=North+Park',
     budget: {
       min: 750000,
@@ -42,7 +42,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 3,
     name: 'Scripps Ranch',
     description: 'Family-friendly suburban community with excellent schools and natural surroundings.',
-    image: '/Images/Scripps-Ranch.jpg', // Updated path
+    image: '/Images/Scripps-Ranch.jpg',
     kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Scripps+Ranch',
     budget: {
       min: 900000,
@@ -60,7 +60,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 4,
     name: 'Downtown San Diego',
     description: 'Urban living with high-rise condos, Gaslamp Quarter entertainment, and waterfront views.',
-    image: '/Images/Downtown-San-Diego.jpg', // Updated path
+    image: '/Images/Downtown-San-Diego.jpg',
     kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Downtown+San+Diego',
     budget: {
       min: 600000,
@@ -78,7 +78,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 5,
     name: 'Carmel Valley',
     description: 'Modern master-planned community with top schools, parks, and shopping centers.',
-    image: '/Images/Carmel-Valley.jpg', // Updated path
+    image: '/Images/Carmel-Valley.jpg',
     kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Carmel+Valley',
     budget: {
       min: 1100000,
@@ -96,7 +96,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 6,
     name: 'Ocean Beach',
     description: 'Laid-back beach community with a bohemian vibe, surf culture, and casual dining.',
-    image: '/Images/Ocean-Beach.jpg', // Updated path
+    image: '/Images/Ocean-Beach.jpg',
     kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Ocean+Beach',
     budget: {
       min: 800000,
@@ -114,7 +114,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 7,
     name: 'Hillcrest',
     description: 'Diverse, LGBTQ-friendly urban neighborhood with eclectic shops and restaurants.',
-    image: '/Images/Hillcrest.jpg', // Updated path
+    image: '/Images/Hillcrest.jpg',
     kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Hillcrest',
     budget: {
       min: 700000,
@@ -132,7 +132,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 8,
     name: 'Coronado',
     description: 'Island community with pristine beaches, the iconic Hotel Del Coronado, and upscale homes.',
-    image: '/Images/Coronado.jpg', // Updated path
+    image: '/Images/Coronado.jpg',
     kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Coronado',
     budget: {
       min: 1500000,
@@ -150,7 +150,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 9,
     name: 'Mission Hills',
     description: 'Elegant neighborhood with historic homes, canyon views, and proximity to downtown.',
-    image: '/Images/Mission-Hills.jpg', // Updated path
+    image: '/Images/Mission-Hills.jpg',
     kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Mission+Hills',
     budget: {
       min: 1000000,
@@ -168,7 +168,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 10,
     name: 'Pacific Beach',
     description: 'Lively beach community popular with young professionals, offering surf, sun, and nightlife.',
-    image: '/Images/Pacific-Beach.jpg', // Updated path
+    image: '/Images/Pacific-Beach.jpg',
     kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Pacific+Beach',
     budget: {
       min: 800000,
@@ -186,7 +186,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 11,
     name: 'Point Loma',
     description: 'Peninsula neighborhood with marina lifestyle, ocean views, and historic landmarks.',
-    image: '/Images/Point-Loma.jpg', // Updated path
+    image: '/Images/Point-Loma.jpg',
     kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Point+Loma',
     budget: {
       min: 900000,
@@ -204,7 +204,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 12,
     name: 'Del Mar',
     description: 'Coastal village known for beautiful beaches, Del Mar racetrack, and luxury estates.',
-    image: '/Images/Del-Mar.jpg', // Updated path
+    image: '/Images/Del-Mar.jpg',
     kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Del+Mar',
     budget: {
       min: 1500000,
@@ -222,7 +222,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 13,
     name: 'Rancho Santa Fe',
     description: 'Exclusive inland community with luxury estates, equestrian facilities, and privacy.',
-    image: '/Images/Rancho-Santa-Fe.jpg', // Updated path
+    image: '/Images/Rancho-Santa-Fe.jpg',
     kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Rancho+Santa+Fe',
     budget: {
       min: 2500000,
@@ -240,7 +240,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 14,
     name: 'South Park',
     description: 'Charming historic neighborhood with craftsman homes, local shops, and community feel.',
-    image: '/Images/South-Park.jpg', // Updated path
+    image: '/Images/South-Park.jpg',
     kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=South+Park',
     budget: {
       min: 750000,
@@ -258,7 +258,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 15,
     name: 'Bankers Hill',
     description: 'Urban neighborhood near Balboa Park with historic homes, modern condos, and canyon views.',
-    image: '/Images/Bankers-Hill.jpg', // Updated path
+    image: '/Images/Bankers-Hill.jpg',
     kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Bankers+Hill',
     budget: {
       min: 700000,
@@ -276,7 +276,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 16,
     name: 'Carlsbad',
     description: 'Coastal North County city with beautiful beaches, family attractions, and planned communities.',
-    image: '/Images/Carlsbad.jpg', // Updated path
+    image: '/Images/Carlsbad.jpg',
     kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Carlsbad',
     budget: {
       min: 900000,
@@ -294,7 +294,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 17,
     name: 'Solana Beach',
     description: 'Small coastal community with excellent beaches, dining scene, and the Cedros Design District.',
-    image: '/Images/Solana-Beach.jpg', // Updated path
+    image: '/Images/Solana-Beach.jpg',
     kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Solana+Beach',
     budget: {
       min: 1200000,
@@ -312,7 +312,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 18,
     name: 'Encinitas',
     description: 'Eclectic beach town with historic downtown, surf culture, and spiritual attractions.',
-    image: '/Images/Cardiff.jpg', // Updated path - Using Cardiff image for Encinitas
+    image: '/Images/Cardiff.jpg',
     kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Encinitas',
     budget: {
       min: 1000000,
@@ -330,7 +330,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 19,
     name: 'University City',
     description: 'Mixed-use community near UCSD with a combination of student housing, family homes, and tech jobs.',
-    image: '/Images/Sorrento-Valley.jpg', // Updated path - Using Sorrento Valley image
+    image: '/Images/Sorrento-Valley.jpg',
     kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=University+City',
     budget: {
       min: 700000,
@@ -348,7 +348,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 20,
     name: 'Kensington',
     description: 'Charming, historic neighborhood with Spanish architecture, a walkable village, and community events.',
-    image: '/Images/Kensington.jpg', // Updated path
+    image: '/Images/Kensington.jpg',
     kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Kensington',
     budget: {
       min: 800000,
@@ -366,7 +366,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 21,
     name: 'Little Italy',
     description: 'Vibrant urban district with Italian heritage, farmers markets, restaurants, and modern condos.',
-    image: '/Images/Downtown-San-Diego.jpg', // Using Downtown image for Little Italy
+    image: '/Images/Downtown-San-Diego.jpg',
     kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Little+Italy',
     budget: {
       min: 600000,
@@ -384,7 +384,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 22,
     name: 'University Heights',
     description: 'Diverse urban neighborhood with craftsman homes, international dining, and trendy shops.',
-    image: '/Images/Normal-Heights.jpg', // Using Normal Heights image
+    image: '/Images/Normal-Heights.jpg',
     kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=University+Heights',
     budget: {
       min: 750000,
@@ -402,7 +402,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 23,
     name: 'Escondido',
     description: 'Inland North County city with agricultural roots, wineries, and affordable housing options.',
-    image: '/Images/Escondido.jpg', // Updated path
+    image: '/Images/Escondido.jpg',
     kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Escondido',
     budget: {
       min: 600000,
@@ -420,7 +420,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 24,
     name: 'Rancho Bernardo',
     description: 'Well-established inland community with golf courses, business parks, and family-friendly atmosphere.',
-    image: '/Images/Rancho-Bernardo.jpg', // Updated path
+    image: '/Images/Rancho-Bernardo.jpg',
     kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Rancho+Bernardo',
     budget: {
       min: 750000,
@@ -438,7 +438,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 25,
     name: 'Clairemont',
     description: 'Central suburban community with mid-century homes, canyon views, and convenient location.',
-    image: '/Images/Clairemont.jpg', // Updated path
+    image: '/Images/Clairemont.jpg',
     kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Clairemont',
     budget: {
       min: 700000,
@@ -456,7 +456,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 26,
     name: 'Normal Heights',
     description: 'Eclectic urban neighborhood with arts focus, diverse dining, and historic bungalows.',
-    image: '/Images/Normal-Heights.jpg', // Updated path
+    image: '/Images/Normal-Heights.jpg',
     kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Normal+Heights',
     budget: {
       min: 650000,
@@ -474,7 +474,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 27,
     name: 'Mission Valley',
     description: 'Central commercial and residential hub with shopping centers, condos, and river park.',
-    image: '/Images/Mission-Valley.jpg', // Updated path
+    image: '/Images/Mission-Valley.jpg',
     kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Mission+Valley',
     budget: {
       min: 500000,
@@ -492,7 +492,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 28,
     name: 'La Mesa',
     description: 'East County city with historic downtown village, family neighborhoods, and outdoor recreation.',
-    image: '/Images/La-Mesa.jpg', // Updated path
+    image: '/Images/La-Mesa.jpg',
     kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=La+Mesa',
     budget: {
       min: 600000,
@@ -510,7 +510,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 29,
     name: 'Allied Gardens',
     description: 'Family-friendly post-war neighborhood with parks, good schools, and community feel.',
-    image: '/Images/Allied-Gardens.jpg', // Updated path
+    image: '/Images/Allied-Gardens.jpg',
     kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Allied+Gardens',
     budget: {
       min: 700000,
@@ -528,7 +528,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 30,
     name: 'Talmadge',
     description: 'Historic neighborhood with tree-lined streets, Spanish architecture, and central location.',
-    image: '/Images/Talmadge.jpg', // Updated path
+    image: '/Images/Talmadge.jpg',
     kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Talmadge',
     budget: {
       min: 700000,
