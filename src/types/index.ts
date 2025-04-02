@@ -6,11 +6,11 @@ export interface LeadInfo {
 }
 
 export interface Neighborhood {
-  id: string | number;
+  id: string;
   name: string;
   description: string;
   image: string;
-  matchScore?: number;
+  matchScore: number;
   keyFeatures: string[];
   budget: {
     min: number;
