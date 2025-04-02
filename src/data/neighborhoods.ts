@@ -1,3 +1,4 @@
+
 import { Neighborhood } from '../types';
 
 export const sandiegoNeighborhoods: Neighborhood[] = [
@@ -332,4 +333,9 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     keyFeatures: ['Close to Mission Trails Regional Park', 'Well-rated public schools', 'Safe and suburban', 'Family-friendly atmosphere', 'Views of Cowles Mountain'],
     budget: {
       min: 600000,
-      max: 1000
+      max: 1000000
+    },
+    tags: ['suburban', 'schools', 'family'],
+    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=San+Carlos&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=&pak=neighborhood%3Ag10_9mue9f9z&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
+  }
+];
