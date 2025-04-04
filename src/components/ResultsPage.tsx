@@ -1,26 +1,25 @@
-
 import React, { useEffect, useState } from 'react';
 import { Neighborhood, LeadInfo } from '@/types';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowRight, MapPin, Check, Home, Building, Info } from 'lucide-react';
+import { ArrowRight, MapPin, Check, Home, Building } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useToast } from "@/hooks/use-toast";
 import { sendToZapier } from '@/utils/zapierIntegration';
-
 interface ResultsPageProps {
   neighborhoods: Neighborhood[];
   className?: string;
   leadInfo?: LeadInfo;
 }
-
 const ResultsPage: React.FC<ResultsPageProps> = ({
   neighborhoods,
   className,
   leadInfo
 }) => {
-  const { toast } = useToast();
+  const {
+    toast
+  } = useToast();
   const [zapierSent, setZapierSent] = useState(false);
 
   // Get the search link for a specific neighborhood from its kvCoreLink property
@@ -37,23 +36,6 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
     // Just use the first neighborhood's link when multiple are selected
     // We could potentially create a custom landing page in the future that shows all areas
     return neighborhoods[0].kvCoreLink || '#';
-  };
-
-  // Calculate condo price - condos are typically priced at 60-80% of homes in the same area
-  const getCondoPrice = (neighborhood: Neighborhood) => {
-    // Using 75% as a reasonable average for condo pricing compared to homes
-    return Math.round(neighborhood.budget.min * 0.75);
-  };
-
-  // Format price with appropriate suffix for larger amounts
-  const formatPriceWithSuffix = (price: number): string => {
-    if (price >= 1000000) {
-      return `$${(price / 1000000).toLocaleString('en-US', { maximumFractionDigits: 1 })}M`;
-    } else if (price >= 1000) {
-      return `$${(price / 1000).toLocaleString('en-US', { maximumFractionDigits: 0 })}K`;
-    } else {
-      return price.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
-    }
   };
 
   // Send user data to Zapier when component loads if leadInfo is available
@@ -87,7 +69,6 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
     };
     sendContactToZapier();
   }, [leadInfo, neighborhoods, toast, zapierSent]);
-
   return <div className={cn("space-y-8 animate-fade-in", className)}>
       <div className="text-center space-y-4 mb-8">
         <div className="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-2">
@@ -143,7 +124,7 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
                   <Building size={16} className="mr-2 text-primary" />
                   <span className="font-medium">Condos starting at </span>
                   <span className="ml-1">
-                    {getCondoPrice(neighborhood).toLocaleString('en-US', {
+                    {(neighborhood.budget.min * 0.7).toLocaleString('en-US', {
                   style: 'currency',
                   currency: 'USD',
                   maximumFractionDigits: 0
@@ -160,10 +141,6 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
                   maximumFractionDigits: 0
                 })}
                   </span>
-                </div>
-                <div className="text-xs text-muted-foreground mt-2 flex items-start">
-                  <Info size={12} className="mr-1 mt-0.5 shrink-0" />
-                  <span>Prices based on current San Diego market data</span>
                 </div>
               </div>
             </CardContent>
@@ -183,5 +160,4 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
       </div>
     </div>;
 };
-
 export default ResultsPage;
