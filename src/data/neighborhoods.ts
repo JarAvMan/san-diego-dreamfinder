@@ -155,7 +155,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     tags: ['coastal', 'surfing', 'beaches'],
     kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=Cardiff&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=&pak=city%3Ag30_9muc9d4q&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
   },
-  {
+    {
     id: 'imperial-beach',
     name: 'Imperial Beach',
     description: 'The most southwesterly city in the continental United States, known for its surf beaches and laid-back lifestyle.',
@@ -335,6 +335,4 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
       max: 4000000
     },
     tags: ['upscale', 'historic', 'views'],
-    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=Bankers+Hill&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=&pak=county%3Ag40_9mugyude&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
-  }
-];
+    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=Bankers+Hill&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%
