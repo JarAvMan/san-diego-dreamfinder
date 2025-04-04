@@ -1,335 +1,725 @@
-import { Neighborhood } from '../types';
+import { Neighborhood } from '@/types';
 
+// San Diego Neighborhoods with descriptions, budget ranges, and images
 export const sandiegoNeighborhoods: Neighborhood[] = [
   {
-    id: 'chula-vista',
-    name: 'Chula Vista',
-    description: 'A fast-growing city offering suburban comfort, good schools, and convenient access to both downtown San Diego and the border.',
-    image: 'src/data/Photos/Chula-Vista.jpg',
-    matchScore: 0,
-    keyFeatures: ['Master-planned communities', 'Excellent public schools', 'Parks and recreation centers', 'Family-friendly environment', 'Newer construction homes'],
-    budget: {
-      min: 600000,
-      max: 1000000
-    },
-    tags: ['suburban', 'schools', 'family'],
-    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=Chula+Vista&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=&pak=city%3Ag30_9muc97b8&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
-  },
-  {
-    id: 'otay-mesa',
-    name: 'Otay Mesa',
-    description: 'A border-adjacent neighborhood known for its industrial growth, new residential developments, and proximity to Tijuana.',
-    image: 'src/data/Photos/Otay-Mesa.jpg',
-    matchScore: 0,
-    keyFeatures: ['Proximity to US-Mexico border', 'Affordable housing developments', 'Industrial and logistics growth', 'Emerging residential areas', 'Easy freeway access'],
-    budget: {
-      min: 700000,
-      max: 1500000
-    },
-    tags: ['residential'],
-    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=Otay+Mesa&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=&pak=neighborhood%3Ag10_9muc1zw0&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
-  },
-  {
-    id: 'imperial-beach',
-    name: 'Imperial Beach',
-    description: 'A laid-back beach town with surf culture, oceanfront dining, and a quieter vibe compared to other coastal communities.',
-    image: 'src/data/Photos/Imperial-Beach.jpg',
-    matchScore: 0,
-    keyFeatures: ['Beachfront access and surfing', 'Laid-back, small-town vibe', 'Affordable coastal living', 'Eclectic dining and shops', 'Birdwatching at the estuary'],
-    budget: {
-      min: 700000,
-      max: 1500000
-    },
-    tags: ['residential', 'beach'],
-    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=Imperial+Beach&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=&pak=city%3Ag30_9mu9qbuz&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
-  },
-  {
-    id: 'solana-beach',
-    name: 'Solana Beach',
-    description: 'A charming coastal town known for its walkable neighborhoods, scenic cliffs, and the Cedros Design District.',
-    image: 'src/data/Photos/Solana-Beach.jpg',
-    matchScore: 0,
-    keyFeatures: ['Blufftop ocean views', 'Cedros Design District', 'Trendy coastal restaurants', 'Walkable beach town feel', 'Access to Amtrak/Coaster'],
-    budget: {
-      min: 700000,
-      max: 1500000
-    },
-    tags: ['residential', 'walkable', 'beach'],
-    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=Solana+Beach&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=&pak=city%3Ag30_9mueewrr&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
-  },
-  {
-    id: 'del-mar',
-    name: 'Del Mar',
-    description: 'An upscale seaside community famous for its beaches, luxury homes, and the iconic Del Mar Racetrack.',
-    image: 'src/data/Photos/Del-Mar.jpg',
-    matchScore: 0,
-    keyFeatures: ['Luxury coastal estates', 'Home to Del Mar Racetrack', 'Charming beach village', 'Oceanfront dining and shops', 'Seaside parks and trails'],
-    budget: {
-      min: 1500000,
-      max: 10000000
-    },
-    tags: ['upscale', 'luxury', 'beach'],
-    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=Del+Mar&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=&pak=city%3Ag30_9muee8u1&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
-  },
-  {
-    id: 'la-jolla',
+    id: 1,
     name: 'La Jolla',
-    description: 'An upscale coastal community with stunning ocean views, beautiful beaches, and a vibrant village atmosphere.',
-    image: 'src/data/Photos/La-Jolla.jpg',
-    matchScore: 0,
-    keyFeatures: ['Luxury coastal living', 'Top-rated schools', 'Beautiful beaches and coves', 'High-end shopping and dining', 'UCSD campus nearby'],
+    description: 'Upscale coastal community with beautiful beaches, fine dining, and luxury shopping.',
+    image: '/Images/La-Jolla.jpg', // Updated path
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=La+Jolla',
     budget: {
-      min: 1500000,
-      max: 10000000
+      min: 1200000,
+      max: 5000000
     },
-    tags: ['walkable', 'upscale', 'luxury', 'beach'],
-    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=92037&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=&pak=zip%3A92037&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
+    keyFeatures: [
+      'Beaches and coves',
+      'Upscale shopping and dining',
+      'Top schools including UCSD',
+      'Outdoor recreation options'
+    ],
+    tags: ['Luxury', 'Beach', 'Upscale', 'Shopping', 'Views']
   },
   {
-    id: 'rancho-santa-fe',
-    name: 'Rancho Santa Fe',
-    description: 'One of the most affluent communities in the country, known for sprawling estates, equestrian living, and elite privacy.',
-    image: 'src/data/Photos/Rancho-Santa-Fe.jpg',
-    matchScore: 0,
-    keyFeatures: ['Exclusive gated estates', 'Equestrian properties', 'Lush, rural landscapes', 'Golf and country clubs', 'Elite private schools nearby'],
-    budget: {
-      min: 700000,
-      max: 1500000
-    },
-    tags: ['residential'],
-    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=Rancho+Santa+Fe&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=&pak=area%3Ag20_9muev5f3&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
-  },
-  {
-    id: 'north-park',
+    id: 2,
     name: 'North Park',
-    description: 'A hip, walkable neighborhood filled with craft breweries, local shops, and historic homes.',
-    image: 'src/data/Photos/North-Park.jpg',
-    matchScore: 0,
-    keyFeatures: ['Craft beer and dining scene', 'Walkable urban core', 'Historic Craftsman homes', 'Lively arts and music culture', 'Popular with young professionals'],
+    description: 'Hip urban neighborhood with craft breweries, eateries, and vibrant nightlife.',
+    image: '/Images/North-Park.jpg', // Updated path
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=North+Park',
+    budget: {
+      min: 750000,
+      max: 1500000
+    },
+    keyFeatures: [
+      'Trendy restaurants and bars',
+      'Craft beer scene',
+      'Art galleries and studios',
+      'Historic Craftsman homes'
+    ],
+    tags: ['Trendy', 'Urban', 'Nightlife', 'Breweries', 'Historic']
+  },
+  {
+    id: 3,
+    name: 'Scripps Ranch',
+    description: 'Family-friendly suburban community with excellent schools and natural surroundings.',
+    image: '/Images/Scripps-Ranch.jpg', // Updated path
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Scripps+Ranch',
+    budget: {
+      min: 900000,
+      max: 1800000
+    },
+    keyFeatures: [
+      'Top-rated public schools',
+      'Lake Miramar recreation',
+      'Community events and parks',
+      'Eucalyptus trees and green spaces'
+    ],
+    tags: ['Family-Friendly', 'Schools', 'Suburban', 'Safe', 'Nature']
+  },
+  {
+    id: 4,
+    name: 'Downtown San Diego',
+    description: 'Urban living with high-rise condos, Gaslamp Quarter entertainment, and waterfront views.',
+    image: '/Images/Downtown-San-Diego.jpg', // Updated path
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Downtown+San+Diego',
+    budget: {
+      min: 600000,
+      max: 3000000
+    },
+    keyFeatures: [
+      'Gaslamp Quarter nightlife',
+      'Petco Park and sporting events',
+      'Waterfront attractions',
+      'Luxury high-rise living'
+    ],
+    tags: ['Urban', 'Nightlife', 'Walkable', 'Condos', 'Entertainment']
+  },
+  {
+    id: 5,
+    name: 'Carmel Valley',
+    description: 'Modern master-planned community with top schools, parks, and shopping centers.',
+    image: '/Images/Carmel-Valley.jpg', // Updated path
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Carmel+Valley',
+    budget: {
+      min: 1100000,
+      max: 2500000
+    },
+    keyFeatures: [
+      'Excellent public schools',
+      'Family-oriented community',
+      'Tech and business hub',
+      'Modern amenities and shopping'
+    ],
+    tags: ['Family-Friendly', 'Upscale', 'Master-Planned', 'Schools', 'Modern']
+  },
+  {
+    id: 6,
+    name: 'Ocean Beach',
+    description: 'Laid-back beach community with a bohemian vibe, surf culture, and casual dining.',
+    image: '/Images/Ocean-Beach.jpg', // Updated path
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Ocean+Beach',
+    budget: {
+      min: 800000,
+      max: 1600000
+    },
+    keyFeatures: [
+      'Dog-friendly beach',
+      'Ocean Beach Pier',
+      'Farmers Market',
+      'Surf spots and beach lifestyle'
+    ],
+    tags: ['Beach', 'Casual', 'Surfing', 'Bohemian', 'Dog-Friendly']
+  },
+  {
+    id: 7,
+    name: 'Hillcrest',
+    description: 'Diverse, LGBTQ-friendly urban neighborhood with eclectic shops and restaurants.',
+    image: '/Images/Hillcrest.jpg', // Updated path
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Hillcrest',
     budget: {
       min: 700000,
       max: 1500000
     },
-    tags: ['historic', 'residential', 'walkable'],
-    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=North+Park&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=&pak=neighborhood%3Ag10_9mudq9j3&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
+    keyFeatures: [
+      'LGBTQ+ friendly community',
+      'Diverse dining scene',
+      'Boutique shopping',
+      'Vibrant nightlife and events'
+    ],
+    tags: ['Diverse', 'Urban', 'LGBTQ-Friendly', 'Restaurants', 'Walkable']
   },
   {
-    id: 'south-park',
-    name: 'South Park',
-    description: 'A quiet, tree-lined community with craftsman-style homes, indie shops, and a strong local vibe.',
-    image: 'src/data/Photos/South-Park.jpg',
-    matchScore: 0,
-    keyFeatures: ['Tree-lined streets', 'Independent cafes and boutiques', 'Craftsman and Spanish homes', 'Close-knit community feel', 'Easy access to Balboa Park'],
+    id: 8,
+    name: 'Coronado',
+    description: 'Island community with pristine beaches, the iconic Hotel Del Coronado, and upscale homes.',
+    image: '/Images/Coronado.jpg', // Updated path
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Coronado',
     budget: {
-      min: 700000,
-      max: 1500000
+      min: 1500000,
+      max: 5000000
     },
-    tags: ['residential'],
-    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=South+Park&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=&pak=neighborhood%3Ag10_9mudntnu&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
+    keyFeatures: [
+      'Coronado Beach',
+      'Hotel Del Coronado',
+      'Small-town atmosphere',
+      'Military presence with Naval Base'
+    ],
+    tags: ['Beach', 'Luxury', 'Island', 'Historic', 'Resort']
   },
   {
-    id: 'bankers-hill',
-    name: 'Bankers Hill',
-    description: 'An elegant area with historic homes, urban views, and proximity to Balboa Park and downtown.',
-    image: 'src/data/Photos/Bankers-Hill.jpg',
-    matchScore: 0,
-    keyFeatures: ['Panoramic city and bay views', 'Elegant historic architecture', 'Close to Balboa Park', 'Mix of condos and mansions', 'Peaceful yet central location'],
+    id: 9,
+    name: 'Mission Hills',
+    description: 'Elegant neighborhood with historic homes, canyon views, and proximity to downtown.',
+    image: '/Images/Mission-Hills.jpg', // Updated path
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Mission+Hills',
+    budget: {
+      min: 1000000,
+      max: 2500000
+    },
+    keyFeatures: [
+      'Historic architecture',
+      'Canyon views',
+      'Walkable village area',
+      'Upscale boutiques and dining'
+    ],
+    tags: ['Historic', 'Upscale', 'Views', 'Charming', 'Established']
+  },
+  {
+    id: 10,
+    name: 'Pacific Beach',
+    description: 'Lively beach community popular with young professionals, offering surf, sun, and nightlife.',
+    image: '/Images/Pacific-Beach.jpg', // Updated path
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Pacific+Beach',
     budget: {
       min: 800000,
       max: 2000000
     },
-    tags: ['urban', 'historic', 'condos'],
-    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=San+Diego&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=Neighborhood%3DBankers+Hill&pak=county%3Ag40_9mugyude&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
+    keyFeatures: [
+      'Beach and boardwalk',
+      'Active nightlife scene',
+      'Casual dining options',
+      'Young professional population'
+    ],
+    tags: ['Beach', 'Nightlife', 'Young', 'Active', 'Social']
   },
   {
-    id: 'downtown-san-diego',
-    name: 'Downtown San Diego',
-    description: 'The urban core of San Diego with luxury condos, high-rise living, nightlife, and waterfront attractions.',
-    image: 'src/data/Photos/Downtown-San-Diego.jpg',
-    matchScore: 0,
-    keyFeatures: ['Urban high-rise living', 'Waterfront marina access', 'Gaslamp Quarter nightlife', 'Cultural venues and museums', 'Walkable lifestyle'],
+    id: 11,
+    name: 'Point Loma',
+    description: 'Peninsula neighborhood with marina lifestyle, ocean views, and historic landmarks.',
+    image: '/Images/Point-Loma.jpg', // Updated path
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Point+Loma',
+    budget: {
+      min: 900000,
+      max: 3000000
+    },
+    keyFeatures: [
+      'Cabrillo National Monument',
+      'Marinas and yacht clubs',
+      'Liberty Station marketplace',
+      'Ocean and bay views'
+    ],
+    tags: ['Water', 'Views', 'Nautical', 'Historic', 'Established']
+  },
+  {
+    id: 12,
+    name: 'Del Mar',
+    description: 'Coastal village known for beautiful beaches, Del Mar racetrack, and luxury estates.',
+    image: '/Images/Del-Mar.jpg', // Updated path
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Del+Mar',
     budget: {
       min: 1500000,
       max: 10000000
     },
-    tags: ['upscale', 'luxury'],
-    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=92101&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=&pak=zip%3A92101&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
+    keyFeatures: [
+      'Del Mar Racetrack',
+      'Beautiful beaches',
+      'Village shopping and dining',
+      'Luxury oceanfront homes'
+    ],
+    tags: ['Luxury', 'Beach', 'Upscale', 'Equestrian', 'Village']
   },
   {
-    id: 'hillcrest',
-    name: 'Hillcrest',
-    description: 'A lively and inclusive neighborhood known for its LGBTQ+ community, dining, and walkability.',
-    image: 'src/data/Photos/Hillcrest.jpg',
-    matchScore: 0,
-    keyFeatures: ['LGBTQ+ inclusive community', 'Vibrant nightlife and dining', 'Eclectic shopping options', 'Urban walkability', 'Historic homes and condos'],
+    id: 13,
+    name: 'Rancho Santa Fe',
+    description: 'Exclusive inland community with luxury estates, equestrian facilities, and privacy.',
+    image: '/Images/Rancho-Santa-Fe.jpg', // Updated path
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Rancho+Santa+Fe',
+    budget: {
+      min: 2500000,
+      max: 20000000
+    },
+    keyFeatures: [
+      'Equestrian properties',
+      'World-class golf',
+      'Large estate homes',
+      'Private and exclusive community'
+    ],
+    tags: ['Luxury', 'Equestrian', 'Estates', 'Private', 'Golf']
+  },
+  {
+    id: 14,
+    name: 'South Park',
+    description: 'Charming historic neighborhood with craftsman homes, local shops, and community feel.',
+    image: '/Images/South-Park.jpg', // Updated path
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=South+Park',
+    budget: {
+      min: 750000,
+      max: 1500000
+    },
+    keyFeatures: [
+      'Craftsman architecture',
+      'Independent boutiques',
+      'Community events',
+      'Walkable neighborhood'
+    ],
+    tags: ['Historic', 'Trendy', 'Walkable', 'Community', 'Charming']
+  },
+  {
+    id: 15,
+    name: 'Bankers Hill',
+    description: 'Urban neighborhood near Balboa Park with historic homes, modern condos, and canyon views.',
+    image: '/Images/Bankers-Hill.jpg', // Updated path
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Bankers+Hill',
+    budget: {
+      min: 700000,
+      max: 2500000
+    },
+    keyFeatures: [
+      'Balboa Park adjacent',
+      'Historic mansions',
+      'Modern high-rises',
+      'Canyon and city views'
+    ],
+    tags: ['Urban', 'Historic', 'Views', 'Walkable', 'Park']
+  },
+  {
+    id: 16,
+    name: 'Carlsbad',
+    description: 'Coastal North County city with beautiful beaches, family attractions, and planned communities.',
+    image: '/Images/Carlsbad.jpg', // Updated path
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Carlsbad',
+    budget: {
+      min: 900000,
+      max: 3000000
+    },
+    keyFeatures: [
+      'Carlsbad State Beach',
+      'LEGOLAND California',
+      'Flower Fields',
+      'Master-planned communities'
+    ],
+    tags: ['Beach', 'Family-Friendly', 'Master-Planned', 'Attractions', 'Resort']
+  },
+  {
+    id: 17,
+    name: 'Solana Beach',
+    description: 'Small coastal community with excellent beaches, dining scene, and the Cedros Design District.',
+    image: '/Images/Solana-Beach.jpg', // Updated path
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Solana+Beach',
+    budget: {
+      min: 1200000,
+      max: 4000000
+    },
+    keyFeatures: [
+      'Cedros Design District',
+      'Fletcher Cove Beach',
+      'Belly Up Tavern music venue',
+      'Coastal bluff views'
+    ],
+    tags: ['Beach', 'Walkable', 'Design', 'Boutique', 'Concerts']
+  },
+  {
+    id: 18,
+    name: 'Encinitas',
+    description: 'Eclectic beach town with historic downtown, surf culture, and spiritual attractions.',
+    image: '/Images/Cardiff.jpg', // Updated path - Using Cardiff image for Encinitas
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Encinitas',
+    budget: {
+      min: 1000000,
+      max: 3500000
+    },
+    keyFeatures: [
+      'Famous surf spots',
+      'Self-Realization Fellowship gardens',
+      'Historic downtown',
+      'Moonlight Beach'
+    ],
+    tags: ['Beach', 'Surf', 'Spiritual', 'Eclectic', 'Outdoors']
+  },
+  {
+    id: 19,
+    name: 'University City',
+    description: 'Mixed-use community near UCSD with a combination of student housing, family homes, and tech jobs.',
+    image: '/Images/Sorrento-Valley.jpg', // Updated path - Using Sorrento Valley image
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=University+City',
     budget: {
       min: 700000,
       max: 1500000
     },
-    tags: ['residential'],
-    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=Hillcrest&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=&pak=neighborhood%3Ag10_9mudmcwk&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
+    keyFeatures: [
+      'Proximity to UCSD',
+      'UTC Shopping Center',
+      'Tech and biotech jobs',
+      'Mix of condos and single-family homes'
+    ],
+    tags: ['Education', 'Shopping', 'Technology', 'Academic', 'Mixed-Use']
   },
   {
-    id: 'mira-mesa',
-    name: 'Mira Mesa',
-    description: 'A diverse, family-friendly suburb known for its parks, schools, and strong tech employment presence nearby.',
-    image: 'src/data/Photos/Mira-Mesa.jpg',
-    matchScore: 0,
-    keyFeatures: ['Family-friendly environment', 'Diverse food options', 'Close to tech employers', 'Top-rated public schools', 'Numerous parks and trails'],
-    budget: {
-      min: 600000,
-      max: 1000000
-    },
-    tags: ['suburban', 'schools', 'family'],
-    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=Mira+Mesa&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=&pak=neighborhood%3Ag10_9mueq27k&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
-  },
-  {
-    id: 'el-cajon',
-    name: 'El Cajon',
-    description: 'A valley community offering suburban living, affordability, and a blend of cultures.',
-    image: 'src/data/Photos/El-Cajon.jpg',
-    matchScore: 0,
-    keyFeatures: ['Affordable home options', 'Cultural diversity', 'Suburban convenience', 'Local dining and shopping', 'Mountain view surroundings'],
-    budget: {
-      min: 600000,
-      max: 1000000
-    },
-    tags: ['suburban', 'family'],
-    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=El+Cajon&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=&pak=city%3Ag30_9mufd7rg&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
-  },
-  {
-    id: 'santee',
-    name: 'Santee',
-    description: 'An East County suburb with family-friendly vibes, outdoor recreation, and growing retail centers.',
-    image: 'src/data/Photos/Santee.jpg',
-    matchScore: 0,
-    keyFeatures: ['Excellent school districts', 'Family-oriented neighborhoods', 'Outdoor recreation at Mission Trails', 'Newer housing developments', 'Community sports complexes'],
-    budget: {
-      min: 600000,
-      max: 1000000
-    },
-    tags: ['suburban', 'family'],
-    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=Santee&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=&pak=city%3Ag30_9mufcvnh&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
-  },
-  {
-    id: 'city-heights',
-    name: 'City Heights',
-    description: 'An urban, culturally diverse neighborhood known for its local eateries and community programs.',
-    image: 'src/data/Photos/City-Heights.jpg',
-    matchScore: 0,
-    keyFeatures: ['Rich cultural diversity', 'Affordable housing', 'Urban redevelopment projects', 'Authentic international cuisine', 'Community-led initiatives'],
+    id: 20,
+    name: 'Kensington',
+    description: 'Charming, historic neighborhood with Spanish architecture, a walkable village, and community events.',
+    image: '/Images/Kensington.jpg', // Updated path
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Kensington',
     budget: {
       min: 800000,
+      max: 1800000
+    },
+    keyFeatures: [
+      'Spanish-style homes',
+      'Walkable village center',
+      'Community library and park',
+      'Local restaurants and theater'
+    ],
+    tags: ['Historic', 'Spanish', 'Village', 'Charming', 'Walkable']
+  },
+  {
+    id: 21,
+    name: 'Little Italy',
+    description: 'Vibrant urban district with Italian heritage, farmers markets, restaurants, and modern condos.',
+    image: '/Images/Downtown-San-Diego.jpg', // Using Downtown image for Little Italy
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Little+Italy',
+    budget: {
+      min: 600000,
       max: 2000000
     },
-    tags: ['urban', 'condos'],
-    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=92105&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=&pak=zip%3A92105&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
+    keyFeatures: [
+      'Saturday Mercato farmers market',
+      'Italian restaurants and cafes',
+      'Waterfront adjacent',
+      'Urban loft living'
+    ],
+    tags: ['Urban', 'Food', 'Walkable', 'Culture', 'Condos']
   },
   {
-    id: 'rancho-san-diego',
-    name: 'Rancho San Diego',
-    description: 'A suburban enclave with large homes, top schools, and a peaceful residential feel.',
-    image: 'src/data/Photos/Rancho-San-Diego.jpg',
-    matchScore: 0,
-    keyFeatures: ['Peaceful suburban setting', 'Top-rated schools nearby', 'Rolling hills and scenic views', 'Shopping and restaurants', 'Spacious family homes'],
+    id: 22,
+    name: 'University Heights',
+    description: 'Diverse urban neighborhood with craftsman homes, international dining, and trendy shops.',
+    image: '/Images/Normal-Heights.jpg', // Using Normal Heights image
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=University+Heights',
+    budget: {
+      min: 750000,
+      max: 1300000
+    },
+    keyFeatures: [
+      'Historic streetcar suburb',
+      'Diverse food scene',
+      'Trolley Barn Park',
+      'Bungalow and craftsman homes'
+    ],
+    tags: ['Urban', 'Diverse', 'Historic', 'Food', 'Walkable']
+  },
+  {
+    id: 23,
+    name: 'Escondido',
+    description: 'Inland North County city with agricultural roots, wineries, and affordable housing options.',
+    image: '/Images/Escondido.jpg', // Updated path
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Escondido',
     budget: {
       min: 600000,
-      max: 1000000
+      max: 1200000
     },
-    tags: ['suburban', 'schools', 'family'],
-    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=Rancho+San+Diego&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=&pak=area%3Ag20_9muf7kjs&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
+    keyFeatures: [
+      'San Diego Zoo Safari Park',
+      'Local wineries and breweries',
+      'Historic downtown district',
+      'Daley Ranch conservation area'
+    ],
+    tags: ['Affordable', 'Wineries', 'Historic', 'Spacious', 'Rural']
   },
   {
-    id: 'encanto',
-    name: 'Encanto',
-    description: 'A hilly, diverse residential neighborhood offering great views and a central location.',
-    image: 'src/data/Photos/Encanto.jpg',
-    matchScore: 0,
-    keyFeatures: ['Centrally located neighborhood', 'Diverse community', 'Elevated views of the city', 'Access to public transit', 'Community redevelopment zone'],
+    id: 24,
+    name: 'Rancho Bernardo',
+    description: 'Well-established inland community with golf courses, business parks, and family-friendly atmosphere.',
+    image: '/Images/Rancho-Bernardo.jpg', // Updated path
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Rancho+Bernardo',
     budget: {
-      min: 700000,
+      min: 750000,
       max: 1500000
     },
-    tags: ['residential'],
-    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=92114&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=&pak=zip%3A92114&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
+    keyFeatures: [
+      'Golf courses and country clubs',
+      'Tech employment centers',
+      'Established community',
+      'Family-oriented neighborhoods'
+    ],
+    tags: ['Golf', 'Established', 'Family-Friendly', 'Tech', 'Suburban']
   },
   {
-    id: 'barrio-logan',
-    name: 'Barrio Logan',
-    description: 'A historic and artistic neighborhood with deep Chicano roots and a thriving creative scene.',
-    image: 'src/data/Photos/Barrio-Logan.jpg',
-    matchScore: 0,
-    keyFeatures: ['Strong Chicano cultural identity', 'Murals and street art at Chicano Park', 'Creative arts scene', 'Local breweries and eateries', 'Proximity to downtown'],
+    id: 25,
+    name: 'Clairemont',
+    description: 'Central suburban community with mid-century homes, canyon views, and convenient location.',
+    image: '/Images/Clairemont.jpg', // Updated path
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Clairemont',
     budget: {
       min: 700000,
-      max: 1500000
+      max: 1200000
     },
-    tags: ['historic', 'residential'],
-    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=Logan+Heights&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=&pak=neighborhood%3Ag10_9mudn959&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
+    keyFeatures: [
+      'Mid-century architecture',
+      'Tecolote Canyon Natural Park',
+      'Central location',
+      'Family-friendly neighborhoods'
+    ],
+    tags: ['Central', 'Mid-Century', 'Affordable', 'Family-Friendly', 'Views']
   },
   {
-    id: 'national-city',
-    name: 'National City',
-    description: 'One of San Diego’s oldest cities, offering historic charm and diverse cultural influence.',
-    image: 'src/data/Photos/National-City.jpg',
-    matchScore: 0,
-    keyFeatures: ['Historic and diverse community', 'Affordable housing options', 'Naval base proximity', 'Growing small business scene', 'Easy freeway and transit access'],
+    id: 26,
+    name: 'Normal Heights',
+    description: 'Eclectic urban neighborhood with arts focus, diverse dining, and historic bungalows.',
+    image: '/Images/Normal-Heights.jpg', // Updated path
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Normal+Heights',
     budget: {
-      min: 700000,
-      max: 1500000
+      min: 650000,
+      max: 1200000
     },
-    tags: ['historic', 'residential'],
-    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=National+City&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=&pak=city%3Ag30_9mu9z6e9&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
+    keyFeatures: [
+      'Adams Avenue antique shops',
+      'Art and music events',
+      'Diverse food options',
+      'Craftsman and Spanish homes'
+    ],
+    tags: ['Urban', 'Arts', 'Diverse', 'Historic', 'Walkable']
   },
   {
-    id: 'mission-valley',
+    id: 27,
     name: 'Mission Valley',
-    description: 'A centrally located hub with shopping, business centers, and convenient access to all of San Diego.',
-    image: 'src/data/Photos/Mission-Valley.jpg',
-    matchScore: 0,
-    keyFeatures: ['Major shopping and entertainment centers', 'Central location', 'New mixed-use developments', 'Access to trolley lines', 'Proximity to freeways and downtown'],
+    description: 'Central commercial and residential hub with shopping centers, condos, and river park.',
+    image: '/Images/Mission-Valley.jpg', // Updated path
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Mission+Valley',
     budget: {
-      min: 700000,
-      max: 1500000
+      min: 500000,
+      max: 1000000
     },
-    tags: ['residential'],
-    kvCoreLink: 'http://jaredharman.exprealty.com/index.php?advanced=1&display=92108&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=&pak=zip%3A92108&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
+    keyFeatures: [
+      'Major shopping centers',
+      'San Diego River trail',
+      'Central location',
+      'Condo and apartment living'
+    ],
+    tags: ['Shopping', 'Central', 'Condos', 'Convenient', 'Commerce']
   },
   {
-    id: 'la-mesa',
+    id: 28,
     name: 'La Mesa',
-    description: 'A walkable suburban downtown known for its community events, antique shops, and family-friendly feel.',
-    image: 'src/data/Photos/La-Mesa.jpg',
-    matchScore: 0,
-    keyFeatures: ['Charming walkable village', 'Regular farmer’s markets', 'Family-friendly parks and schools', 'Historic architecture', 'Local shops and cafes'],
+    description: 'East County city with historic downtown village, family neighborhoods, and outdoor recreation.',
+    image: '/Images/La-Mesa.jpg', // Updated path
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=La+Mesa',
     budget: {
       min: 600000,
-      max: 1000000
+      max: 1200000
     },
-    tags: ['suburban', 'walkable', 'family'],
-    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=La+Mesa&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=&pak=city%3Ag30_9muf3jsm&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
+    keyFeatures: [
+      'Historic downtown village',
+      'Mount Helix views',
+      'La Mesa Oktoberfest',
+      'Mix of historic and newer homes'
+    ],
+    tags: ['Historic', 'Village', 'Family-Friendly', 'Established', 'Events']
   },
   {
-    id: 'fletcher-hills',
-    name: 'Fletcher Hills',
-    description: 'A quiet, residential area with rolling hills and scenic views, tucked near El Cajon and La Mesa.',
-    image: 'src/data/Photos/Fletcher-Hills.jpg',
-    matchScore: 0,
-    keyFeatures: ['Quiet, residential setting', 'Established suburban feel', 'Hilltop views and wide streets', 'Close to Grossmont College', 'Mid-century homes'],
+    id: 29,
+    name: 'Allied Gardens',
+    description: 'Family-friendly post-war neighborhood with parks, good schools, and community feel.',
+    image: '/Images/Allied-Gardens.jpg', // Updated path
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Allied+Gardens',
     budget: {
       min: 700000,
-      max: 1500000
+      max: 1100000
     },
-    tags: ['residential'],
-    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=San+Diego&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=Neighborhood%3DFletcher+Hills&pak=county%3Ag40_9mugyude&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
+    keyFeatures: [
+      'Post-war tract homes',
+      'Family-oriented community',
+      'Parks and recreation centers',
+      'Convenient location'
+    ],
+    tags: ['Family-Friendly', 'Established', 'Parks', 'Mid-Century', 'Affordable']
   },
   {
-    id: 'san-carlos',
-    name: 'San Carlos',
-    description: 'A peaceful, suburban neighborhood near Mission Trails with excellent schools and outdoor access.',
-    image: 'src/data/Photos/San-Carlos.jpg',
-    matchScore: 0,
-    keyFeatures: ['Close to Mission Trails Regional Park', 'Well-rated public schools', 'Safe and suburban', 'Family-friendly atmosphere', 'Views of Cowles Mountain'],
+    id: 30,
+    name: 'Talmadge',
+    description: 'Historic neighborhood with tree-lined streets, Spanish architecture, and central location.',
+    image: '/Images/Talmadge.jpg', // Updated path
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Talmadge',
+    budget: {
+      min: 700000,
+      max: 1300000
+    },
+    keyFeatures: [
+      'Historic homes with character',
+      'Tree-lined streets',
+      'Central urban location',
+      'Spanish and Mediterranean architecture'
+    ],
+    tags: ['Historic', 'Character', 'Spanish', 'Trees', 'Central']
+  },
+  {
+    id: 31,
+    name: 'Bay Park',
+    description: 'Residential neighborhood with bay views, proximity to Mission Bay, and a mix of home styles.',
+    image: '/Images/Bay-Park.jpg',
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Bay+Park',
+    budget: {
+      min: 750000,
+      max: 1400000
+    },
+    keyFeatures: [
+      'Views of Mission Bay and city skyline',
+      'Close to Mission Bay Park',
+      'Mix of mid-century and newer homes',
+      'Quiet residential streets'
+    ],
+    tags: ['Views', 'Bay', 'Residential', 'Convenient', 'Central']
+  },
+  {
+    id: 32,
+    name: 'Chula Vista',
+    description: 'Large South Bay city with diverse communities, family amenities, and waterfront development.',
+    image: '/Images/Chula-Vista.jpg',
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Chula+Vista',
+    budget: {
+      min: 550000,
+      max: 950000
+    },
+    keyFeatures: [
+      'Affordable housing options',
+      'Family-friendly parks and schools',
+      'Waterfront development and marina',
+      'Diverse community'
+    ],
+    tags: ['Affordable', 'Family-Friendly', 'Diverse', 'South Bay', 'Waterfront']
+  },
+  {
+    id: 33,
+    name: 'El Cajon',
+    description: 'East County city with a mix of housing options, shopping, and community events.',
+    image: '/Images/El-Cajon.jpg',
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=El+Cajon',
+    budget: {
+      min: 450000,
+      max: 850000
+    },
+    keyFeatures: [
+      'Affordable housing options',
+      'Shopping and dining centers',
+      'Community events and parks',
+      'Easy access to mountains and desert'
+    ],
+    tags: ['Affordable', 'East County', 'Convenient', 'Family-Friendly', 'Diverse']
+  },
+  {
+    id: 34,
+    name: 'Poway',
+    description: 'Inland North County community known for excellent schools, parks, and family-oriented events.',
+    image: '/Images/Poway.jpg',
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Poway',
+    budget: {
+      min: 800000,
+      max: 1600000
+    },
+    keyFeatures: [
+      'Top-rated Poway Unified School District',
+      'Parks and recreation areas',
+      'Family-friendly community events',
+      'Safe and quiet neighborhoods'
+    ],
+    tags: ['Schools', 'Family-Friendly', 'Safe', 'Suburban', 'Parks']
+  },
+  {
+    id: 35,
+    name: 'Santee',
+    description: 'East County city with a mix of housing, shopping, and outdoor recreational opportunities.',
+    image: '/Images/Santee.jpg',
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Santee',
     budget: {
       min: 600000,
-      max: 1000000
+      max: 1100000
+    },
+    keyFeatures: [
+      'Santee Lakes Recreation Preserve',
+      'Affordable housing options',
+      'Shopping and dining centers',
+      'Family-friendly community'
+    ],
+    tags: ['Recreation', 'Affordable', 'Family-Friendly', 'East County', 'Lakes']
+  },
+  {
+    id: 36,
+    name: '4s Ranch',
+    description: 'Planned community in North County with excellent schools, parks, and family-oriented lifestyle.',
+    image: '/Images/4S-Ranch.jpg',
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=4S+Ranch',
+    budget: {
+      min: 900000,
+      max: 1800000
+    },
+    keyFeatures: [
+      'Top-rated Poway Unified School District',
+      'Community parks and recreation',
+      'Safe and well-maintained neighborhoods',
+      'Family-oriented community events'
+    ],
+    tags: ['Master-Planned', 'Schools', 'Family-Friendly', 'Safe', 'Suburban']
+  },
+  {
+    id: 37,
+    name: 'Bay Ho',
+    description: 'Residential neighborhood with bay views, proximity to Mission Bay, and a mix of home styles.',
+    image: '/Images/Bay-Ho.jpg',
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Bay+Ho',
+    budget: {
+      min: 700000,
+      max: 1300000
+    },
+    keyFeatures: [
+      'Views of Mission Bay and the city',
+      'Close to Mission Bay Park',
+      'Mix of mid-century and newer homes',
+      'Quiet residential streets'
+    ],
+    tags: ['Views', 'Bay', 'Residential', 'Convenient', 'Central']
+  },
+  {
+    id: 38,
+    name: 'Mira Mesa',
+    description: 'Large suburban community with diverse housing, shopping, and convenient freeway access.',
+    image: '/Images/Mira-Mesa.jpg',
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Mira+Mesa',
+    budget: {
+      min: 650000,
+      max: 1200000
+    },
+    keyFeatures: [
+      'Affordable housing options',
+      'Diverse shopping and dining',
+      'Convenient freeway access',
+      'Large community park'
+    ],
+    tags: ['Affordable', 'Convenient', 'Diverse', 'Suburban', 'Central']
+  },
+  {
+    id: 39,
+    name: 'Serra Mesa',
+    description: 'Central residential community with canyon views, parks, and convenient access to amenities.',
+    image: '/Images/Serra-Mesa.jpg',
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Serra+Mesa',
+    budget: {
+      min: 680000,
+      max: 1250000
+    },
+    keyFeatures: [
+      'Canyon views and open space',
+      'Parks and recreation areas',
+      'Central location',
+      'Family-friendly neighborhoods'
+    ],
+    tags: ['Central', 'Views', 'Residential', 'Convenient', 'Parks']
+  },
+  {
+    id: 40,
+    name: 'Linda Vista',
+    description: 'Central community with a mix of housing options, the University of San Diego, and convenient location.',
+    image: '/Images/Linda-Vista.jpg',
+    kvCoreLink: 'https://jaredharmanrealtor.kvcoreidx.com/search/results?community=Linda+Vista',
+    budget: {
+      min: 620000,
+      max: 1150000
+    },
+    keyFeatures: [
+      'University of San Diego',
+      'Mix of housing options',
+      'Central location',
+      'Parks and recreation areas'
+    ],
+    tags: ['Central', 'Education', 'Convenient', 'Diverse', 'Residential']
+  }
+];
