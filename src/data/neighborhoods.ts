@@ -270,7 +270,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
   {
     id: 'national-city',
     name: 'National City',
-    description: 'One of San Diegos oldest cities, offering historic charm and diverse cultural influence.',
+    description: 'One of San Diego\'s oldest cities, offering historic charm and diverse cultural influence.',
     image: 'Photos/National-City.jpg',
     matchScore: 0,
     keyFeatures: ['Historic and diverse community', 'Affordable housing options', 'Naval base proximity', 'Growing small business scene', 'Easy freeway and transit access'],
