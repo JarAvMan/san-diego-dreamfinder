@@ -335,4 +335,4 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
       max: 4000000
     },
     tags: ['upscale', 'historic', 'views'],
-    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=Bankers+Hill&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%
+    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=Bankers+Hill&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=
