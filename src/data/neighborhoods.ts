@@ -1,4 +1,3 @@
-
 import { Neighborhood } from '../types';
 
 export const sandiegoNeighborhoods: Neighborhood[] = [
@@ -334,22 +333,3 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     budget: {
       min: 600000,
       max: 1000000
-    },
-    tags: ['suburban', 'schools', 'family'],
-    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=San+Carlos&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=&pak=neighborhood%3Ag10_9muepwta&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
-  },
-  {
-    id: 'poway',
-    name: 'Poway',
-    description: 'A family-centered community known as "The City in the Country" with excellent schools and outdoor recreation.',
-    image: 'src/data/Photos/Poway.jpg',
-    matchScore: 0,
-    keyFeatures: ['Top-rated school district', 'Semi-rural atmosphere', 'Expansive outdoor spaces', 'Family-friendly community', 'Mix of suburban and rural living'],
-    budget: {
-      min: 800000,
-      max: 1500000
-    },
-    tags: ['suburban', 'schools', 'family'],
-    kvCoreLink: 'https://jaredharman.exprealty.com/index.php?advanced=1&display=Poway&min=0&max=100000000&beds=0&baths=0&types%5B%5D=1&types%5B%5D=2&types%5B%5D=3&types%5B%5D=31&statuses%5B%5D=0&minfootage=0&maxfootage=30000&minacres=0&maxacres=0&yearbuilt=0&maxyearbuilt=0&walkscore=0&keywords=&pak=city%3Ag30_9mueu97v&sortby=listings.listingdate+DESC&rtype=grid&leadid=122098710'
-  }
-];
