@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -15,7 +16,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { sendToZapier } from '@/utils/zapierIntegration';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -28,7 +28,6 @@ type FormValues = z.infer<typeof formSchema>;
 
 const Contact = () => {
   const { toast } = useToast();
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -39,57 +38,17 @@ const Contact = () => {
     },
   });
 
-  const onSubmit = async (data: FormValues) => {
-    setIsSubmitting(true);
+  const onSubmit = (data: FormValues) => {
     console.log('Contact form submitted:', data);
     
-    // Get contact form webhook URL - use a different one than the quiz
-    const webhookUrl = localStorage.getItem('contactFormWebhookUrl') || '';
+    // Show success toast
+    toast({
+      title: "Message Sent!",
+      description: "Thank you for reaching out. I'll get back to you shortly.",
+    });
     
-    // Store the contact submission locally as a backup
-    try {
-      const currentContacts = JSON.parse(localStorage.getItem('storedContactFormSubmissions') || '[]');
-      currentContacts.push({
-        contact: {
-          name: data.name,
-          email: data.email,
-          phone: data.phone,
-        },
-        message: data.message,
-        timestamp: new Date().toISOString(),
-      });
-      localStorage.setItem('storedContactFormSubmissions', JSON.stringify(currentContacts));
-    } catch (error) {
-      console.error('Error storing contact locally:', error);
-    }
-    
-    // Send to Zapier if webhook URL exists
-    let zapierSuccess = false;
-    if (webhookUrl) {
-      zapierSuccess = await sendToZapier(
-        webhookUrl, 
-        { name: data.name, email: data.email, phone: data.phone },
-        [], // No areas for contact form
-        data.message // Pass message as additional data
-      );
-    }
-    
-    // Show appropriate toast message
-    if (webhookUrl && zapierSuccess) {
-      toast({
-        title: "Message Sent!",
-        description: "Thank you for reaching out. I'll get back to you shortly.",
-      });
-    } else {
-      toast({
-        title: "Message Received!",
-        description: "Thank you for reaching out. I'll get back to you shortly.",
-      });
-    }
-    
-    // Reset the form and submission state
+    // Reset the form
     form.reset();
-    setIsSubmitting(false);
   };
 
   return (
@@ -226,13 +185,7 @@ const Contact = () => {
                     )}
                   />
                   
-                  <Button 
-                    type="submit" 
-                    className="w-full" 
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? 'Sending...' : 'Submit'}
-                  </Button>
+                  <Button type="submit" className="w-full">Submit</Button>
                 </form>
               </Form>
             </div>

@@ -1,7 +1,10 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 const About = () => {
-  return <div className="min-h-screen flex flex-col bg-background">
+  return (
+    <div className="min-h-screen flex flex-col bg-background">
       <header className="border-b py-4 px-6">
         <div className="container flex justify-between items-center">
           <div className="font-semibold text-xl tracking-tight">Jared Harman Real Estate</div>
@@ -23,7 +26,11 @@ const About = () => {
           <div className="flex flex-col md:flex-row gap-8 mb-12">
             <div className="md:w-1/3">
               <div className="rounded-lg overflow-hidden shadow-lg">
-                <img alt="Jared Harman" className="w-full h-auto object-cover" src="/lovable-uploads/389ee96f-29cd-453c-a7dc-e2f2d7b080f1.jpg" />
+                <img 
+                  src="https://placehold.co/400x500/e2e8f0/1e293b?text=Jared+Harman&font=playfair" 
+                  alt="Jared Harman" 
+                  className="w-full h-auto object-cover"
+                />
               </div>
             </div>
             
@@ -66,7 +73,10 @@ const About = () => {
           </div>
           
           <div className="text-center">
-            <Link to="/contact" className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2">
+            <Link 
+              to="/contact" 
+              className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
+            >
               Get in Touch
             </Link>
           </div>
@@ -78,6 +88,8 @@ const About = () => {
           <p>© 2023 Jared Harman Real Estate. All rights reserved. DRE #02193879</p>
         </div>
       </footer>
-    </div>;
+    </div>
+  );
 };
+
 export default About;

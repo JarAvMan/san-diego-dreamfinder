@@ -3,161 +3,161 @@ import { QuizQuestion } from '../types';
 
 export const quizQuestions: QuizQuestion[] = [
   {
-    id: 'outdoor_time',
-    question: "I enjoy spending my free time outdoors — at the beach, hiking trails, or local parks.",
-    text: "I enjoy spending my free time outdoors — at the beach, hiking trails, or local parks.",
+    id: 'nature_sounds',
+    question: "I prefer waking up to the sound of nature rather than city noise.",
+    text: "I prefer waking up to the sound of nature rather than city noise.",
     category: 'environment',
     type: 'likert',
     options: []
   },
   {
-    id: 'walkability',
-    question: "Walkability to shops, cafés, and everyday amenities is important to me.",
-    text: "Walkability to shops, cafés, and everyday amenities is important to me.",
+    id: 'discover_shops',
+    question: "My ideal weekend includes discovering new cafes, restaurants, and boutique shops.",
+    text: "My ideal weekend includes discovering new cafes, restaurants, and boutique shops.",
     category: 'environment',
     type: 'likert',
     options: []
   },
   {
-    id: 'quiet_residential',
-    question: "I prefer neighborhoods that feel quiet, safe, and residential.",
-    text: "I prefer neighborhoods that feel quiet, safe, and residential.",
+    id: 'fast_paced',
+    question: "I thrive in a fast-paced environment where there's always something happening.",
+    text: "I thrive in a fast-paced environment where there's always something happening.",
     category: 'environment',
     type: 'likert',
     options: []
   },
   {
-    id: 'historic_character',
-    question: "I'm drawn to homes with historic character or unique architecture.",
-    text: "I'm drawn to homes with historic character or unique architecture.",
+    id: 'slow_paced',
+    question: "I prefer a slower-paced, relaxed environment where things feel more laid-back.",
+    text: "I prefer a slower-paced, relaxed environment where things feel more laid-back.",
     category: 'environment',
     type: 'likert',
     options: []
   },
   {
-    id: 'scenic_views',
-    question: "Scenic views — like the ocean, hills, or city skyline — enhance my living experience.",
-    text: "Scenic views — like the ocean, hills, or city skyline — enhance my living experience.",
+    id: 'community_involvement',
+    question: "I enjoy getting to know my neighbors and participating in local events or community activities.",
+    text: "I enjoy getting to know my neighbors and participating in local events or community activities.",
     category: 'environment',
     type: 'likert',
     options: []
   },
   {
-    id: 'schools',
-    question: "Living in an area with well-rated public schools is a priority for me.",
-    text: "Living in an area with well-rated public schools is a priority for me.",
+    id: 'privacy',
+    question: "I prefer a neighborhood where people generally keep to themselves, and privacy is valued.",
+    text: "I prefer a neighborhood where people generally keep to themselves, and privacy is valued.",
     category: 'environment',
     type: 'likert',
     options: []
   },
   {
-    id: 'social_scene',
-    question: "I thrive in neighborhoods with a lively social or cultural scene.",
-    text: "I thrive in neighborhoods with a lively social or cultural scene.",
+    id: 'creative_area',
+    question: "I would love to live in an area that attracts creative people like artists, musicians, and writers.",
+    text: "I would love to live in an area that attracts creative people like artists, musicians, and writers.",
     category: 'environment',
     type: 'likert',
     options: []
   },
   {
-    id: 'diversity',
-    question: "I value living in a culturally diverse and inclusive community.",
-    text: "I value living in a culturally diverse and inclusive community.",
+    id: 'diverse_neighborhood',
+    question: "I feel most at home in a neighborhood where people come from diverse backgrounds and cultures.",
+    text: "I feel most at home in a neighborhood where people come from diverse backgrounds and cultures.",
     category: 'environment',
     type: 'likert',
     options: []
   },
   {
-    id: 'distance_downtown',
-    question: "I'm open to living further from downtown if it better suits my lifestyle.",
-    text: "I'm open to living further from downtown if it better suits my lifestyle.",
+    id: 'outdoor_spaces',
+    question: "I need to be close to outdoor spaces where I can hike, bike, or go on runs regularly.",
+    text: "I need to be close to outdoor spaces where I can hike, bike, or go on runs regularly.",
     category: 'environment',
     type: 'likert',
     options: []
   },
   {
-    id: 'beach_proximity',
-    question: "Proximity to the beach or bay is important to my lifestyle.",
-    text: "Proximity to the beach or bay is important to my lifestyle.",
+    id: 'marina_access',
+    question: "I would love to have a neighborhood with access to a marina or boating activities.",
+    text: "I would love to have a neighborhood with access to a marina or boating activities.",
     category: 'environment',
     type: 'likert',
     options: []
   },
   {
-    id: 'flexible_commute',
-    question: "I don't rely on a daily commute and have flexibility in where I live.",
-    text: "I don't rely on a daily commute and have flexibility in where I live.",
+    id: 'beach_access',
+    question: "I enjoy being near a beach where I can surf, swim, or simply relax by the water.",
+    text: "I enjoy being near a beach where I can surf, swim, or simply relax by the water.",
     category: 'environment',
     type: 'likert',
     options: []
   },
   {
-    id: 'newer_homes',
-    question: "I prefer newer or recently updated homes over older properties.",
-    text: "I prefer newer or recently updated homes over older properties.",
+    id: 'active_lifestyle',
+    question: "I want to live somewhere where fitness and an active lifestyle are a big part of the local culture.",
+    text: "I want to live somewhere where fitness and an active lifestyle are a big part of the local culture.",
     category: 'environment',
     type: 'likert',
     options: []
   },
   {
-    id: 'community_oriented',
-    question: "I enjoy being part of a close, community-oriented neighborhood.",
-    text: "I enjoy being part of a close, community-oriented neighborhood.",
+    id: 'nightlife',
+    question: "I enjoy a neighborhood with an exciting nightlife scene, including bars, lounges, and live music.",
+    text: "I enjoy a neighborhood with an exciting nightlife scene, including bars, lounges, and live music.",
+    category: 'nightlife',
+    type: 'likert',
+    options: []
+  },
+  {
+    id: 'daytime_activities',
+    question: "I prefer a neighborhood where the entertainment revolves around daytime activities rather than late-night options.",
+    text: "I prefer a neighborhood where the entertainment revolves around daytime activities rather than late-night options.",
     category: 'environment',
     type: 'likert',
     options: []
   },
   {
-    id: 'dining_nightlife',
-    question: "I'm drawn to areas with strong dining, arts, or nightlife options.",
-    text: "I'm drawn to areas with strong dining, arts, or nightlife options.",
+    id: 'cultural_events',
+    question: "I like living in a place where there are frequent cultural events, festivals, or street fairs.",
+    text: "I like living in a place where there are frequent cultural events, festivals, or street fairs.",
     category: 'environment',
     type: 'likert',
     options: []
   },
   {
-    id: 'tourist_friendly',
-    question: "I wouldn't mind living in a neighborhood that also attracts tourists.",
-    text: "I wouldn't mind living in a neighborhood that also attracts tourists.",
+    id: 'food_culture',
+    question: "I want to live in an area known for its food culture, with a mix of trendy restaurants and hidden gems.",
+    text: "I want to live in an area known for its food culture, with a mix of trendy restaurants and hidden gems.",
     category: 'environment',
     type: 'likert',
     options: []
   },
   {
-    id: 'vibrant_culture',
-    question: "A vibrant local arts, food, or cultural scene is important to me.",
-    text: "A vibrant local arts, food, or cultural scene is important to me.",
+    id: 'farmers_markets',
+    question: "I prefer living in a neighborhood with many farmer's markets and organic grocery options.",
+    text: "I prefer living in a neighborhood with many farmer's markets and organic grocery options.",
     category: 'environment',
     type: 'likert',
     options: []
   },
   {
-    id: 'affordability',
-    question: "Housing affordability plays a big role in where I choose to live.",
-    text: "Housing affordability plays a big role in where I choose to live.",
+    id: 'coffee_shops',
+    question: "I want to be near a variety of coffee shops and bakeries where I can work or relax.",
+    text: "I want to be near a variety of coffee shops and bakeries where I can work or relax.",
     category: 'environment',
     type: 'likert',
     options: []
   },
   {
-    id: 'outdoor_recreation',
-    question: "I prioritize access to outdoor recreation like trails, water sports, or parks.",
-    text: "I prioritize access to outdoor recreation like trails, water sports, or parks.",
+    id: 'historical_charm',
+    question: "I prefer neighborhoods with a strong historical charm, where the architecture and character reflect the city's history.",
+    text: "I prefer neighborhoods with a strong historical charm, where the architecture and character reflect the city's history.",
     category: 'environment',
     type: 'likert',
     options: []
   },
   {
-    id: 'privacy_space',
-    question: "I value privacy and space over being near the action.",
-    text: "I value privacy and space over being near the action.",
-    category: 'environment',
-    type: 'likert',
-    options: []
-  },
-  {
-    id: 'long_term_home',
-    question: "I'm looking for a long-term home that aligns with my lifestyle and future goals.",
-    text: "I'm looking for a long-term home that aligns with my lifestyle and future goals.",
+    id: 'beach_vibe',
+    question: "I love the idea of living in a neighborhood where there is a strong beach-town vibe, even if it's not right on the water.",
+    text: "I love the idea of living in a neighborhood where there is a strong beach-town vibe, even if it's not right on the water.",
     category: 'environment',
     type: 'likert',
     options: []

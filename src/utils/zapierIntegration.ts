@@ -11,14 +11,12 @@ interface ZapierPayload {
   };
   recommendedAreas: string[];
   timestamp: string;
-  message?: string; // Optional message for contact form
 }
 
 export const sendToZapier = async (
   webhookUrl: string,
   contactInfo: { name: string; email: string; phone: string },
-  recommendedAreas: string[],
-  message?: string // Optional message parameter
+  recommendedAreas: string[]
 ): Promise<boolean> => {
   if (!webhookUrl) {
     console.error("No Zapier webhook URL provided");
@@ -30,11 +28,6 @@ export const sendToZapier = async (
     recommendedAreas,
     timestamp: new Date().toISOString(),
   };
-  
-  // Add message if provided (for contact form)
-  if (message) {
-    payload.message = message;
-  }
 
   try {
     const response = await fetch(webhookUrl, {
