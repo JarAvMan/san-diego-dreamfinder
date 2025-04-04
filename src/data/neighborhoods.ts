@@ -5,7 +5,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'chula-vista',
     name: 'Chula Vista',
     description: 'A fast-growing city offering suburban comfort, good schools, and convenient access to both downtown San Diego and the border.',
-    image: '/src/data/Photos/Chula-Vista.jpg',
+    image: '/Photos/Chula-Vista.jpg',
     matchScore: 0,
     keyFeatures: ['Master-planned communities', 'Excellent public schools', 'Parks and recreation centers', 'Family-friendly environment', 'Newer construction homes'],
     budget: {
@@ -19,7 +19,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'otay-mesa',
     name: 'Otay Mesa',
     description: 'A border-adjacent neighborhood known for its industrial growth, new residential developments, and proximity to Tijuana.',
-    image: '/src/data/Photos/Otay-Mesa.jpg',
+    image: '/Photos/Otay-Mesa.jpg',
     matchScore: 0,
     keyFeatures: ['Proximity to US-Mexico border', 'Affordable housing developments', 'Industrial and logistics growth', 'Emerging residential areas', 'Easy freeway access'],
     budget: {
@@ -33,7 +33,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'national-city',
     name: 'National City',
     description: 'One of the oldest cities in San Diego County, known for its diversity, vibrant community, and affordable living.',
-    image: '/src/data/Photos/National-City.jpg',
+    image: '/Photos/National-City.jpg',
     matchScore: 0,
     keyFeatures: ['Diverse community', 'Affordable housing options', 'Proximity to downtown San Diego', 'Local events and festivals', 'Easy access to transportation'],
     budget: {
@@ -47,7 +47,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'paradise-hills',
     name: 'Paradise Hills',
     description: 'A residential neighborhood offering a mix of housing options, community parks, and a suburban atmosphere.',
-    image: '/src/data/Photos/Paradise-Hills.jpg',
+    image: '/Photos/Paradise-Hills.jpg',
     matchScore: 0,
     keyFeatures: ['Residential community', 'Parks and recreation', 'Diverse housing options', 'Community events', 'Convenient location'],
     budget: {
@@ -61,7 +61,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'encanto',
     name: 'Encanto',
     description: 'Known for its rich history, cultural diversity, and community spirit, offering a variety of housing styles and local businesses.',
-    image: '/src/data/Photos/Encanto.jpg',
+    image: '/Photos/Encanto.jpg',
     matchScore: 0,
     keyFeatures: ['Historic neighborhood', 'Cultural diversity', 'Community events', 'Local businesses', 'Varied housing styles'],
     budget: {
@@ -75,7 +75,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'la-jolla',
     name: 'La Jolla',
     description: 'A picturesque coastal community known for its stunning beaches, upscale residences, and vibrant village atmosphere.',
-    image: '/src/data/Photos/La-Jolla.jpg',
+    image: '/Photos/La-Jolla.jpg',
     matchScore: 0,
     keyFeatures: ['Beautiful beaches', 'Upscale residences', 'Village atmosphere', 'Cultural attractions', 'Outdoor activities'],
     budget: {
@@ -89,7 +89,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'del-mar',
     name: 'Del Mar',
     description: 'A charming seaside village famous for its beautiful beaches, horse racing, and upscale dining and shopping.',
-    image: '/src/data/Photos/Del-Mar.jpg',
+    image: '/Photos/Del-Mar.jpg',
     matchScore: 0,
     keyFeatures: ['Beaches', 'Horse racing', 'Upscale dining', 'Boutique shopping', 'Coastal lifestyle'],
     budget: {
@@ -103,7 +103,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'solana-beach',
     name: 'Solana Beach',
     description: 'A laid-back coastal town offering a mix of sandy beaches, eclectic shops, and a thriving arts scene.',
-    image: '/src/data/Photos/Solana-Beach.jpg',
+    image: '/Photos/Solana-Beach.jpg',
     matchScore: 0,
     keyFeatures: ['Sandy beaches', 'Eclectic shops', 'Arts scene', 'Coastal vibe', 'Outdoor activities'],
     budget: {
@@ -117,7 +117,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'carlsbad',
     name: 'Carlsbad',
     description: 'A vibrant coastal city known for its beautiful beaches, family-friendly attractions like Legoland, and thriving business community.',
-    image: '/src/data/Photos/Carlsbad.jpg',
+    image: '/Photos/Carlsbad.jpg',
     matchScore: 0,
     keyFeatures: ['Beaches', 'Legoland', 'Business community', 'Family-friendly', 'Outdoor recreation'],
     budget: {
@@ -131,7 +131,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'oceanside',
     name: 'Oceanside',
     description: 'A coastal city offering a mix of sandy beaches, a historic pier, and a revitalized downtown area.',
-    image: '/src/data/Photos/Oceanside.jpg',
+    image: '/Photos/Oceanside.jpg',
     matchScore: 0,
     keyFeatures: ['Beaches', 'Historic pier', 'Downtown revitalization', 'Surfing', 'Military presence'],
     budget: {
@@ -145,7 +145,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'cardiff',
     name: 'Cardiff',
     description: 'A laid-back surf town known for its beautiful beaches, health-conscious eateries, and relaxed lifestyle.',
-    image: '/src/data/Photos/Cardiff.jpg',
+    image: '/Photos/Cardiff.jpg',
     matchScore: 0,
     keyFeatures: ['Surfing', 'Beaches', 'Health-conscious', 'Relaxed lifestyle', 'Coastal charm'],
     budget: {
@@ -159,7 +159,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'imperial-beach',
     name: 'Imperial Beach',
     description: 'The most southwesterly city in the continental United States, known for its surf beaches and laid-back lifestyle.',
-    image: '/src/data/Photos/Imperial-Beach.jpg',
+    image: '/Photos/Imperial-Beach.jpg',
     matchScore: 0,
     keyFeatures: ['Surfing', 'Beaches', 'Laid-back lifestyle', 'Small-town charm', 'Close to the border'],
     budget: {
@@ -173,7 +173,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'coronado',
     name: 'Coronado',
     description: 'An island city known for its beautiful beaches, the iconic Hotel del Coronado, and a relaxed, resort-like atmosphere.',
-    image: '/src/data/Photos/Coronado.jpg',
+    image: '/Photos/Coronado.jpg',
     matchScore: 0,
     keyFeatures: ['Beaches', 'Hotel del Coronado', 'Resort atmosphere', 'Family-friendly', 'Golfing'],
     budget: {
@@ -187,7 +187,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'mission-beach',
     name: 'Mission Beach',
     description: 'A lively beach community known for its boardwalk, Belmont Park amusement park, and vibrant nightlife.',
-    image: '/src/data/Photos/Mission-Beach.jpg',
+    image: '/Photos/Mission-Beach.jpg',
     matchScore: 0,
     keyFeatures: ['Boardwalk', 'Belmont Park', 'Nightlife', 'Beach activities', 'Casual dining'],
     budget: {
@@ -201,7 +201,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'pacific-beach',
     name: 'Pacific Beach',
     description: 'A popular beach neighborhood with a mix of surf shops, casual eateries, and a lively bar scene.',
-    image: '/src/data/Photos/Pacific-Beach.jpg',
+    image: '/Photos/Pacific-Beach.jpg',
     matchScore: 0,
     keyFeatures: ['Surf shops', 'Casual dining', 'Bar scene', 'Beach activities', 'Young crowd'],
     budget: {
@@ -215,7 +215,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'ocean-beach',
     name: 'Ocean Beach',
     description: 'A quirky and laid-back beach town known for its vintage shops, surf culture, and dog-friendly atmosphere.',
-    image: '/src/data/Photos/Ocean-Beach.jpg',
+    image: '/Photos/Ocean-Beach.jpg',
     matchScore: 0,
     keyFeatures: ['Vintage shops', 'Surf culture', 'Dog-friendly', 'Farmers market', 'Community events'],
     budget: {
@@ -229,7 +229,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'point-loma',
     name: 'Point Loma',
     description: 'A scenic peninsula offering stunning views, historic landmarks, and a mix of residential neighborhoods and marinas.',
-    image: '/src/data/Photos/Point-Loma.jpg',
+    image: '/Photos/Point-Loma.jpg',
     matchScore: 0,
     keyFeatures: ['Scenic views', 'Historic landmarks', 'Residential neighborhoods', 'Marinas', 'Outdoor recreation'],
     budget: {
@@ -243,7 +243,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'bay-park',
     name: 'Bay Park',
     description: 'A residential neighborhood known for its bay views, proximity to Mission Bay Park, and a mix of mid-century homes.',
-    image: '/src/data/Photos/Bay-Park.jpg',
+    image: '/Photos/Bay-Park.jpg',
     matchScore: 0,
     keyFeatures: ['Bay views', 'Mission Bay Park', 'Mid-century homes', 'Residential', 'Convenient location'],
     budget: {
@@ -257,7 +257,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'bay-ho',
     name: 'Bay Ho',
     description: 'A residential neighborhood offering affordable housing options, bay views, and a convenient location near major freeways.',
-    image: '/src/data/Photos/Bay-Ho.jpg',
+    image: '/Photos/Bay-Ho.jpg',
     matchScore: 0,
     keyFeatures: ['Affordable housing', 'Bay views', 'Convenient location', 'Residential', 'Family-friendly'],
     budget: {
@@ -271,7 +271,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'north-park',
     name: 'North Park',
     description: 'A vibrant urban neighborhood known for its craft breweries, trendy restaurants, and historic Craftsman homes.',
-    image: '/src/data/Photos/North-Park.jpg',
+    image: '/Photos/North-Park.jpg',
     matchScore: 0,
     keyFeatures: ['Craft breweries', 'Trendy restaurants', 'Craftsman homes', 'Walkable', 'Arts and culture'],
     budget: {
@@ -285,7 +285,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'south-park',
     name: 'South Park',
     description: 'A charming historic neighborhood with tree-lined streets, independent shops, and a strong sense of community.',
-    image: '/src/data/Photos/South-Park.jpg',
+    image: '/Photos/South-Park.jpg',
     matchScore: 0,
     keyFeatures: ['Tree-lined streets', 'Independent shops', 'Community', 'Historic', 'Walkable'],
     budget: {
@@ -299,7 +299,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'hillcrest',
     name: 'Hillcrest',
     description: 'A diverse and vibrant neighborhood known for its LGBTQ+ community, eclectic restaurants, and lively nightlife.',
-    image: '/src/data/Photos/Hillcrest.jpg',
+    image: '/Photos/Hillcrest.jpg',
     matchScore: 0,
     keyFeatures: ['LGBTQ+ community', 'Eclectic restaurants', 'Nightlife', 'Walkable', 'Diverse'],
     budget: {
@@ -313,7 +313,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'downtown-san-diego',
     name: 'Downtown San Diego',
     description: 'A bustling urban center with high-rise condos, trendy restaurants, and attractions like the Gaslamp Quarter and Petco Park.',
-    image: '/src/data/Photos/Downtown-San-Diego.jpg',
+    image: '/Photos/Downtown-San-Diego.jpg',
     matchScore: 0,
     keyFeatures: ['High-rise condos', 'Trendy restaurants', 'Gaslamp Quarter', 'Petco Park', 'Urban living'],
     budget: {
@@ -327,7 +327,7 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'bankers-hill',
     name: 'Bankers Hill',
     description: 'An upscale residential neighborhood with historic homes, panoramic views, and a central location near Balboa Park.',
-    image: '/src/data/Photos/Bankers-Hill.jpg',
+    image: '/Photos/Bankers-Hill.jpg',
     matchScore: 0,
     keyFeatures: ['Historic homes', 'Panoramic views', 'Balboa Park', 'Upscale', 'Residential'],
     budget: {
