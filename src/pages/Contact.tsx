@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -14,8 +13,11 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { Menu, X } from 'lucide-react';
 
 const formSchema = z.object({
-  name: z.string().min(2, {
-    message: 'Name must be at least 2 characters.'
+  firstName: z.string().min(2, {
+    message: 'First name must be at least 2 characters.'
+  }),
+  lastName: z.string().min(2, {
+    message: 'Last name must be at least 2 characters.'
   }),
   email: z.string().email({
     message: 'Please enter a valid email address.'
@@ -39,7 +41,8 @@ const Contact = () => {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: '',
+      firstName: '',
+      lastName: '',
       email: '',
       phone: '',
       message: ''
@@ -58,7 +61,8 @@ const Contact = () => {
       const currentContacts = JSON.parse(localStorage.getItem('storedContactFormSubmissions') || '[]');
       currentContacts.push({
         contact: {
-          name: data.name,
+          firstName: data.firstName,
+          lastName: data.lastName,
           email: data.email,
           phone: data.phone
         },
@@ -74,7 +78,8 @@ const Contact = () => {
     let zapierSuccess = false;
     if (webhookUrl) {
       zapierSuccess = await sendToZapier(webhookUrl, {
-        name: data.name,
+        firstName: data.firstName,
+        lastName: data.lastName,
         email: data.email,
         phone: data.phone
       }, [],
@@ -203,45 +208,77 @@ const Contact = () => {
               
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                  <FormField control={form.control} name="name" render={({
-                  field
-                }) => <FormItem>
-                        <FormLabel>Name</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Your name" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>} />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <FormField 
+                      control={form.control} 
+                      name="firstName" 
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>First Name</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Your first name" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )} 
+                    />
+                    
+                    <FormField 
+                      control={form.control} 
+                      name="lastName" 
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Last Name</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Your last name" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )} 
+                    />
+                  </div>
                   
-                  <FormField control={form.control} name="email" render={({
-                  field
-                }) => <FormItem>
+                  <FormField 
+                    control={form.control} 
+                    name="email" 
+                    render={({ field }) => (
+                      <FormItem>
                         <FormLabel>Email</FormLabel>
                         <FormControl>
                           <Input placeholder="Your email" {...field} />
                         </FormControl>
                         <FormMessage />
-                      </FormItem>} />
+                      </FormItem>
+                    )} 
+                  />
                   
-                  <FormField control={form.control} name="phone" render={({
-                  field
-                }) => <FormItem>
+                  <FormField 
+                    control={form.control} 
+                    name="phone" 
+                    render={({ field }) => (
+                      <FormItem>
                         <FormLabel>Phone</FormLabel>
                         <FormControl>
                           <Input placeholder="Your phone number" {...field} />
                         </FormControl>
                         <FormMessage />
-                      </FormItem>} />
+                      </FormItem>
+                    )} 
+                  />
                   
-                  <FormField control={form.control} name="message" render={({
-                  field
-                }) => <FormItem>
+                  <FormField 
+                    control={form.control} 
+                    name="message" 
+                    render={({ field }) => (
+                      <FormItem>
                         <FormLabel>Message</FormLabel>
                         <FormControl>
                           <Textarea placeholder="How can I help you?" className="resize-none min-h-[120px]" {...field} />
                         </FormControl>
                         <FormMessage />
-                      </FormItem>} />
+                      </FormItem>
+                    )} 
+                  />
                   
                   <Button type="submit" className="w-full" disabled={isSubmitting}>
                     {isSubmitting ? 'Sending...' : 'Submit'}

@@ -13,7 +13,8 @@ interface LeadFormProps {
 
 const LeadForm: React.FC<LeadFormProps> = ({ onSubmit, className }) => {
   const [formData, setFormData] = useState<LeadInfo>({
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
     phone: ''
   });
@@ -36,8 +37,12 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSubmit, className }) => {
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {};
     
-    if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
+    if (!formData.firstName.trim()) {
+      newErrors.firstName = 'First name is required';
+    }
+    
+    if (!formData.lastName.trim()) {
+      newErrors.lastName = 'Last name is required';
     }
     
     if (!formData.email.trim()) {
@@ -72,19 +77,36 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSubmit, className }) => {
       </p>
       
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="space-y-2">
-          <Label htmlFor="name">Full Name</Label>
-          <Input
-            id="name"
-            name="name"
-            placeholder="Your name"
-            value={formData.name}
-            onChange={handleChange}
-            className={errors.name ? "border-destructive" : ""}
-          />
-          {errors.name && (
-            <p className="text-destructive text-sm">{errors.name}</p>
-          )}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="firstName">First Name</Label>
+            <Input
+              id="firstName"
+              name="firstName"
+              placeholder="Your first name"
+              value={formData.firstName}
+              onChange={handleChange}
+              className={errors.firstName ? "border-destructive" : ""}
+            />
+            {errors.firstName && (
+              <p className="text-destructive text-sm">{errors.firstName}</p>
+            )}
+          </div>
+          
+          <div className="space-y-2">
+            <Label htmlFor="lastName">Last Name</Label>
+            <Input
+              id="lastName"
+              name="lastName"
+              placeholder="Your last name"
+              value={formData.lastName}
+              onChange={handleChange}
+              className={errors.lastName ? "border-destructive" : ""}
+            />
+            {errors.lastName && (
+              <p className="text-destructive text-sm">{errors.lastName}</p>
+            )}
+          </div>
         </div>
         
         <div className="space-y-2">
