@@ -15,7 +15,9 @@ const likertToValue = (option: LikertOption): number => {
 
 // Calculate neighborhood match scores based on user answers
 export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhood[] => {
-  // Create a copy of neighborhoods to work with
+  console.log("Starting matching algorithm with answers:", answers);
+  
+  // Create a deep copy of neighborhoods to work with
   const neighborhoods = JSON.parse(JSON.stringify(sandiegoNeighborhoods)) as Neighborhood[];
   
   // Reset all match scores
@@ -42,6 +44,7 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
   // Process each answer
   answers.forEach(answer => {
     const value = likertToValue(answer.value);
+    console.log(`Processing answer for question ${answer.questionId}: value=${value}`);
     
     // Determine the question category from the ID
     let category = 'lifestyle'; // default category
@@ -63,10 +66,12 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
       
     // Apply the category weight to the value
     const weightedValue = value * (categoryWeights[category as keyof typeof categoryWeights] || 1);
+    console.log(`Category: ${category}, weighted value: ${weightedValue}`);
     
     // Adjust scores based on answer
     switch (answer.questionId) {
       case 'outdoor_time':
+      case 'q1_outdoor_activities': // Added this alternate ID format
         // Preference for outdoor activities
         neighborhoods.forEach(n => {
           if (n.tags.includes('outdoors') || n.tags.includes('parks') || n.tags.includes('beach') || n.tags.includes('hiking')) {
@@ -79,6 +84,7 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
         break;
         
       case 'walkability':
+      case 'q4_walkability': // Added this alternate ID format
         // Preference for walkable areas
         neighborhoods.forEach(n => {
           if (n.tags.includes('walkable') || n.tags.includes('urban') || n.tags.includes('shopping')) {
@@ -91,6 +97,7 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
         break;
         
       case 'quiet_residential':
+      case 'q6_quiet_residential': // Added this alternate ID format
         // Preference for quiet residential areas
         neighborhoods.forEach(n => {
           if (n.tags.includes('quiet') || n.tags.includes('suburban') || n.tags.includes('safe')) {
@@ -103,6 +110,7 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
         break;
         
       case 'historic_character':
+      case 'q8_local_history': // Added this alternate ID format
         // Preference for historic character
         neighborhoods.forEach(n => {
           if (n.tags.includes('historic') || n.tags.includes('character') || n.tags.includes('charming')) {
@@ -115,9 +123,10 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
         break;
 
       case 'scenic_views':
+      case 'q2_waterfront_proximity': // Added this alternate ID format
         // Preference for scenic views
         neighborhoods.forEach(n => {
-          if (n.tags.includes('views') || n.tags.includes('scenic') || n.tags.includes('coastal')) {
+          if (n.tags.includes('views') || n.tags.includes('scenic') || n.tags.includes('coastal') || n.tags.includes('beach')) {
             n.matchScore += weightedValue * 1.2;
           } else {
             // Small penalty for non-scenic areas
@@ -127,9 +136,10 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
         break;
 
       case 'schools':
+      case 'q10_school_quality': // Added this alternate ID format
         // Preference for good schools
         neighborhoods.forEach(n => {
-          if (n.tags.includes('good-schools') || n.tags.includes('family') || n.tags.includes('education')) {
+          if (n.tags.includes('good-schools') || n.tags.includes('schools') || n.tags.includes('family') || n.tags.includes('education')) {
             n.matchScore += weightedValue * 1.5;
           } else {
             // Significant impact on score for areas without good schools when this is important
@@ -139,6 +149,8 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
         break;
 
       case 'social_scene':
+      case 'q5_urban_vibrancy': // Added this alternate ID format
+      case 'q14_nightlife_dining': // Added this alternate ID format
         // Preference for social scene
         neighborhoods.forEach(n => {
           if (n.tags.includes('nightlife') || n.tags.includes('entertainment') || n.tags.includes('culture')) {
@@ -151,6 +163,7 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
         break;
 
       case 'diversity':
+      case 'q7_cultural_diversity': // Added this alternate ID format
         // Preference for diverse communities
         neighborhoods.forEach(n => {
           if (n.tags.includes('diverse') || n.tags.includes('inclusive') || n.tags.includes('culture')) {
@@ -160,6 +173,8 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
         break;
 
       case 'distance_downtown':
+      case 'q12_commute_distance': // Added this alternate ID format
+      case 'q22_commute_tradeoff': // Added this alternate ID format
         // Openness to living away from downtown
         neighborhoods.forEach(n => {
           if (n.tags.includes('suburban') || n.tags.includes('rural') || n.tags.includes('quiet')) {
@@ -171,6 +186,7 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
         break;
 
       case 'beach_proximity':
+      case 'q2_waterfront_proximity': // Added this alternate ID format
         // Preference for beach proximity
         neighborhoods.forEach(n => {
           if (n.tags.includes('beach') || n.tags.includes('coastal') || n.tags.includes('waterfront')) {
@@ -183,6 +199,7 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
         break;
         
       case 'flexible_commute':
+      case 'q13_public_transit': // Added this alternate ID format
         // Flexibility in commute
         neighborhoods.forEach(n => {
           if (n.tags.includes('suburban') || n.tags.includes('rural')) {
@@ -195,6 +212,7 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
         break;
 
       case 'newer_homes':
+      case 'q9_housing_age': // Added this alternate ID format
         // Preference for newer homes
         neighborhoods.forEach(n => {
           if (n.tags.includes('modern') || n.tags.includes('new-development') || n.tags.includes('luxury')) {
@@ -207,6 +225,7 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
         break;
         
       case 'community_oriented':
+      case 'q15_community_interaction': // Added this alternate ID format
         // Preference for community orientation
         neighborhoods.forEach(n => {
           if (n.tags.includes('community') || n.tags.includes('family') || n.tags.includes('events')) {
@@ -216,6 +235,8 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
         break;
         
       case 'dining_nightlife':
+      case 'q14_nightlife_dining': // Added this alternate ID format
+      case 'q21_culinary_culture': // Added this alternate ID format
         // Preference for dining and nightlife
         neighborhoods.forEach(n => {
           if (n.tags.includes('dining') || n.tags.includes('nightlife') || n.tags.includes('entertainment')) {
@@ -240,6 +261,7 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
         break;
         
       case 'vibrant_culture':
+      case 'q21_culinary_culture': // Added this alternate ID format
         // Preference for vibrant culture
         neighborhoods.forEach(n => {
           if (n.tags.includes('arts') || n.tags.includes('culture') || n.tags.includes('foodie')) {
@@ -252,6 +274,7 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
         break;
         
       case 'affordability':
+      case 'q11_affordability': // Added this alternate ID format
         // Importance of affordability
         neighborhoods.forEach(n => {
           // Use budget information to determine affordability
@@ -265,9 +288,11 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
         break;
         
       case 'outdoor_recreation':
+      case 'q3_parks_recreation': // Added this alternate ID format
+      case 'q20_sports_recreation': // Added this alternate ID format
         // Preference for outdoor recreation
         neighborhoods.forEach(n => {
-          if (n.tags.includes('outdoors') || n.tags.includes('recreation') || n.tags.includes('active')) {
+          if (n.tags.includes('outdoors') || n.tags.includes('recreation') || n.tags.includes('active') || n.tags.includes('parks')) {
             n.matchScore += weightedValue * 1.2;
           } else {
             // Small penalty for areas without outdoor recreation
@@ -277,6 +302,7 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
         break;
         
       case 'privacy_space':
+      case 'q23_space_privacy': // Added this alternate ID format
         // Preference for privacy and space
         neighborhoods.forEach(n => {
           if (n.tags.includes('spacious') || n.tags.includes('quiet') || n.tags.includes('rural')) {
@@ -289,6 +315,7 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
         break;
         
       case 'long_term_home':
+      case 'q24_long_term': // Added this alternate ID format
         // Looking for long-term home
         neighborhoods.forEach(n => {
           if (n.tags.includes('established') || n.tags.includes('stable') || n.tags.includes('family')) {
@@ -299,6 +326,53 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
           }
         });
         break;
+        
+      case 'q16_pet_friendly': // Pet friendly
+        neighborhoods.forEach(n => {
+          if (n.tags.includes('family') || n.tags.includes('parks') || n.tags.includes('outdoors') || n.tags.includes('spacious')) {
+            n.matchScore += weightedValue * 1.1;
+          }
+        });
+        break;
+        
+      case 'q17_healthcare_access': // Healthcare access
+        neighborhoods.forEach(n => {
+          if (n.tags.includes('urban') || n.tags.includes('central')) {
+            n.matchScore += weightedValue * 1.0;
+          }
+        });
+        break;
+        
+      case 'q18_sustainability': // Sustainability
+        neighborhoods.forEach(n => {
+          if (n.tags.includes('walkable') || n.tags.includes('urban')) {
+            n.matchScore += weightedValue * 1.1;
+          }
+        });
+        break;
+        
+      case 'q19_noise_levels': // Noise sensitivity
+        neighborhoods.forEach(n => {
+          if (n.tags.includes('quiet') || n.tags.includes('suburban') || n.tags.includes('rural')) {
+            n.matchScore += weightedValue * 1.3;
+          } else if (n.tags.includes('nightlife') || n.tags.includes('busy') || n.tags.includes('urban')) {
+            n.matchScore -= weightedValue * 0.8;
+          }
+        });
+        break;
+        
+      case 'q25_lifestyle_balance': // Lifestyle balance
+        neighborhoods.forEach(n => {
+          if (n.tags.includes('walkable') || n.tags.includes('central')) {
+            n.matchScore += weightedValue * 1.1;
+          }
+        });
+        break;
+        
+      default:
+        // For any unrecognized question IDs, log but don't crash
+        console.log(`Unrecognized question ID: ${answer.questionId}`);
+        break;
     }
   });
 
@@ -307,7 +381,19 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
     // Add a small random factor (±5%) to each score
     const randomFactor = 0.95 + Math.random() * 0.1;
     n.matchScore = n.matchScore * randomFactor;
+    
+    // Ensure match scores are never negative (makes UI cleaner)
+    if (n.matchScore < 0) n.matchScore = 0;
   });
+  
+  // Log scores for all neighborhoods to help with debugging
+  console.log("Neighborhood scores before sorting:", 
+    neighborhoods.map(n => ({ 
+      name: n.name, 
+      score: n.matchScore.toFixed(2),
+      tags: n.tags
+    }))
+  );
   
   // Sort by match score (highest first)
   return neighborhoods.sort((a, b) => b.matchScore - a.matchScore);
@@ -315,6 +401,11 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
 
 // Get top 3 recommended neighborhoods
 export const getTopNeighborhoods = (answers: QuizAnswer[]): Neighborhood[] => {
+  if (!answers || answers.length === 0) {
+    console.error("No quiz answers provided to getTopNeighborhoods");
+    return sandiegoNeighborhoods.slice(0, 3); // Return first 3 as fallback
+  }
+  
   const rankedNeighborhoods = calculateNeighborhoodMatches(answers);
   // Log the top 5 neighborhoods with their scores for debugging
   console.log("Top 5 matched neighborhoods:", 
