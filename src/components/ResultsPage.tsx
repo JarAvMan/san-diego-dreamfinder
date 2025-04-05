@@ -169,7 +169,7 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
             </CardContent>
             <CardFooter className="flex flex-col gap-2">
               <Button variant="outline" onClick={() => window.open(getNeighborhoodSearchLink(neighborhood), '_blank')} className="w-full group text-center">
-                Browse {neighborhood.name} Properties
+                Browse Properties
                 <ArrowRight size={16} className="ml-2 transition-transform group-hover:translate-x-1" />
               </Button>
             </CardFooter>
