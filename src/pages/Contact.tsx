@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -9,6 +10,9 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/use-toast';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { sendToZapier } from '@/utils/zapierIntegration';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { Menu, X } from 'lucide-react';
+
 const formSchema = z.object({
   name: z.string().min(2, {
     message: 'Name must be at least 2 characters.'
@@ -23,12 +27,15 @@ const formSchema = z.object({
     message: 'Message must be at least 10 characters.'
   })
 });
+
 type FormValues = z.infer<typeof formSchema>;
+
 const Contact = () => {
-  const {
-    toast
-  } = useToast();
+  const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const isMobile = useIsMobile();
+  
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -38,6 +45,7 @@ const Contact = () => {
       message: ''
     }
   });
+
   const onSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
     console.log('Contact form submitted:', data);
@@ -92,26 +100,56 @@ const Contact = () => {
     form.reset();
     setIsSubmitting(false);
   };
-  return <div className="min-h-screen flex flex-col bg-background">
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col bg-background">
       <header className="border-b py-4 px-6">
         <div className="container flex justify-between items-center">
           <div className="font-semibold text-xl tracking-tight">San Diego Dream Home Matchmaker</div>
-          <nav>
-            <ul className="flex space-x-6">
-              <li><Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">Home</Link></li>
-              <li><Link to="/about" className="text-muted-foreground hover:text-foreground transition-colors">About</Link></li>
-              <li><Link to="/areas" className="text-muted-foreground hover:text-foreground transition-colors">Areas</Link></li>
-              <li><Link to="/contact" className="text-foreground font-medium transition-colors">Contact</Link></li>
-            </ul>
-          </nav>
+          
+          {isMobile ? (
+            <div className="md:hidden">
+              <button 
+                onClick={toggleMobileMenu}
+                className="text-muted-foreground p-2 rounded-md hover:bg-muted/50"
+                aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              >
+                {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </button>
+              
+              {mobileMenuOpen && (
+                <nav className="absolute top-16 right-0 left-0 bg-background z-50 border-b shadow-lg">
+                  <ul className="flex flex-col p-4">
+                    <li className="py-2"><Link to="/" onClick={() => setMobileMenuOpen(false)} className="text-muted-foreground hover:text-foreground transition-colors">Home</Link></li>
+                    <li className="py-2"><Link to="/about" onClick={() => setMobileMenuOpen(false)} className="text-muted-foreground hover:text-foreground transition-colors">About</Link></li>
+                    <li className="py-2"><Link to="/areas" onClick={() => setMobileMenuOpen(false)} className="text-muted-foreground hover:text-foreground transition-colors">Areas</Link></li>
+                    <li className="py-2"><Link to="/contact" onClick={() => setMobileMenuOpen(false)} className="text-foreground font-medium transition-colors">Contact</Link></li>
+                  </ul>
+                </nav>
+              )}
+            </div>
+          ) : (
+            <nav className="hidden md:block">
+              <ul className="flex space-x-6">
+                <li><Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">Home</Link></li>
+                <li><Link to="/about" className="text-muted-foreground hover:text-foreground transition-colors">About</Link></li>
+                <li><Link to="/areas" className="text-muted-foreground hover:text-foreground transition-colors">Areas</Link></li>
+                <li><Link to="/contact" className="text-foreground font-medium transition-colors">Contact</Link></li>
+              </ul>
+            </nav>
+          )}
         </div>
       </header>
       
-      <main className="flex-1 container py-12">
+      <main className="flex-1 container py-8 px-4 md:py-12 md:px-6">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-4xl font-bold mb-8">Contact Me</h1>
+          <h1 className="text-3xl md:text-4xl font-bold mb-6 md:mb-8">Contact Me</h1>
           
-          <div className="grid md:grid-cols-2 gap-12 mb-12">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 mb-12">
             <div>
               <h2 className="text-2xl font-semibold mb-6">Get in Touch</h2>
               <p className="text-muted-foreground mb-8">
@@ -160,7 +198,7 @@ const Contact = () => {
               </div>
             </div>
             
-            <div>
+            <div className="mt-8 md:mt-0">
               <h2 className="text-2xl font-semibold mb-6">Send a Message</h2>
               
               <Form {...form}>
@@ -220,6 +258,8 @@ const Contact = () => {
           <p>© 2025 Jared Harman Real Estate. All rights reserved. DRE #02193879</p>
         </div>
       </footer>
-    </div>;
+    </div>
+  );
 };
+
 export default Contact;
