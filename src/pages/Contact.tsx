@@ -7,27 +7,27 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/use-toast';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { sendToZapier } from '@/utils/zapierIntegration';
-
 const formSchema = z.object({
-  name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
-  email: z.string().email({ message: 'Please enter a valid email address.' }),
-  phone: z.string().min(10, { message: 'Please enter a valid phone number.' }),
-  message: z.string().min(10, { message: 'Message must be at least 10 characters.' }),
+  name: z.string().min(2, {
+    message: 'Name must be at least 2 characters.'
+  }),
+  email: z.string().email({
+    message: 'Please enter a valid email address.'
+  }),
+  phone: z.string().min(10, {
+    message: 'Please enter a valid phone number.'
+  }),
+  message: z.string().min(10, {
+    message: 'Message must be at least 10 characters.'
+  })
 });
-
 type FormValues = z.infer<typeof formSchema>;
-
 const Contact = () => {
-  const { toast } = useToast();
+  const {
+    toast
+  } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -35,17 +35,16 @@ const Contact = () => {
       name: '',
       email: '',
       phone: '',
-      message: '',
-    },
+      message: ''
+    }
   });
-
   const onSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
     console.log('Contact form submitted:', data);
-    
+
     // Get contact form webhook URL - use a different one than the quiz
     const webhookUrl = localStorage.getItem('contactFormWebhookUrl') || '';
-    
+
     // Store the contact submission locally as a backup
     try {
       const currentContacts = JSON.parse(localStorage.getItem('storedContactFormSubmissions') || '[]');
@@ -53,47 +52,47 @@ const Contact = () => {
         contact: {
           name: data.name,
           email: data.email,
-          phone: data.phone,
+          phone: data.phone
         },
         message: data.message,
-        timestamp: new Date().toISOString(),
+        timestamp: new Date().toISOString()
       });
       localStorage.setItem('storedContactFormSubmissions', JSON.stringify(currentContacts));
     } catch (error) {
       console.error('Error storing contact locally:', error);
     }
-    
+
     // Send to Zapier if webhook URL exists
     let zapierSuccess = false;
     if (webhookUrl) {
-      zapierSuccess = await sendToZapier(
-        webhookUrl, 
-        { name: data.name, email: data.email, phone: data.phone },
-        [], // No areas for contact form
-        data.message // Pass message as additional data
+      zapierSuccess = await sendToZapier(webhookUrl, {
+        name: data.name,
+        email: data.email,
+        phone: data.phone
+      }, [],
+      // No areas for contact form
+      data.message // Pass message as additional data
       );
     }
-    
+
     // Show appropriate toast message
     if (webhookUrl && zapierSuccess) {
       toast({
         title: "Message Sent!",
-        description: "Thank you for reaching out. I'll get back to you shortly.",
+        description: "Thank you for reaching out. I'll get back to you shortly."
       });
     } else {
       toast({
         title: "Message Received!",
-        description: "Thank you for reaching out. I'll get back to you shortly.",
+        description: "Thank you for reaching out. I'll get back to you shortly."
       });
     }
-    
+
     // Reset the form and submission state
     form.reset();
     setIsSubmitting(false);
   };
-
-  return (
-    <div className="min-h-screen flex flex-col bg-background">
+  return <div className="min-h-screen flex flex-col bg-background">
       <header className="border-b py-4 px-6">
         <div className="container flex justify-between items-center">
           <div className="font-semibold text-xl tracking-tight">Jared Harman Real Estate</div>
@@ -166,71 +165,47 @@ const Contact = () => {
               
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                  <FormField
-                    control={form.control}
-                    name="name"
-                    render={({ field }) => (
-                      <FormItem>
+                  <FormField control={form.control} name="name" render={({
+                  field
+                }) => <FormItem>
                         <FormLabel>Name</FormLabel>
                         <FormControl>
                           <Input placeholder="Your name" {...field} />
                         </FormControl>
                         <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                      </FormItem>} />
                   
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
+                  <FormField control={form.control} name="email" render={({
+                  field
+                }) => <FormItem>
                         <FormLabel>Email</FormLabel>
                         <FormControl>
                           <Input placeholder="Your email" {...field} />
                         </FormControl>
                         <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                      </FormItem>} />
                   
-                  <FormField
-                    control={form.control}
-                    name="phone"
-                    render={({ field }) => (
-                      <FormItem>
+                  <FormField control={form.control} name="phone" render={({
+                  field
+                }) => <FormItem>
                         <FormLabel>Phone</FormLabel>
                         <FormControl>
                           <Input placeholder="Your phone number" {...field} />
                         </FormControl>
                         <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                      </FormItem>} />
                   
-                  <FormField
-                    control={form.control}
-                    name="message"
-                    render={({ field }) => (
-                      <FormItem>
+                  <FormField control={form.control} name="message" render={({
+                  field
+                }) => <FormItem>
                         <FormLabel>Message</FormLabel>
                         <FormControl>
-                          <Textarea 
-                            placeholder="How can I help you?" 
-                            className="resize-none min-h-[120px]" 
-                            {...field} 
-                          />
+                          <Textarea placeholder="How can I help you?" className="resize-none min-h-[120px]" {...field} />
                         </FormControl>
                         <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                      </FormItem>} />
                   
-                  <Button 
-                    type="submit" 
-                    className="w-full" 
-                    disabled={isSubmitting}
-                  >
+                  <Button type="submit" className="w-full" disabled={isSubmitting}>
                     {isSubmitting ? 'Sending...' : 'Submit'}
                   </Button>
                 </form>
@@ -242,11 +217,9 @@ const Contact = () => {
       
       <footer className="border-t py-6 px-6 bg-muted/30">
         <div className="container text-center text-sm text-muted-foreground">
-          <p>© 2023 Jared Harman Real Estate. All rights reserved. DRE #02193879</p>
+          <p>© 2025 Jared Harman Real Estate. All rights reserved. DRE #02193879</p>
         </div>
       </footer>
-    </div>
-  );
+    </div>;
 };
-
 export default Contact;
