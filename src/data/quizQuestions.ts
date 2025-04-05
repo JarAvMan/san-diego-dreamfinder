@@ -1,164 +1,203 @@
-
 import { QuizQuestion } from '../types';
 
 export const quizQuestions: QuizQuestion[] = [
   {
-    id: 'outdoor_time',
-    question: "I enjoy spending my free time outdoors — at the beach, hiking trails, or local parks.",
-    text: "I enjoy spending my free time outdoors — at the beach, hiking trails, or local parks.",
+    id: 'q1_outdoor_activities',
+    question: "I regularly spend time outdoors—whether hiking, biking, or simply relaxing in nature.",
+    text: "I regularly spend time outdoors—whether hiking, biking, or simply relaxing in nature.",
+    category: 'lifestyle',
+    type: 'likert',
+    options: []
+  },
+  {
+    id: 'q2_waterfront_proximity',
+    question: "Proximity to a beach, bay, or waterfront is essential for my lifestyle.",
+    text: "Proximity to a beach, bay, or waterfront is essential for my lifestyle.",
     category: 'environment',
     type: 'likert',
     options: []
   },
   {
-    id: 'walkability',
-    question: "Walkability to shops, cafés, and everyday amenities is important to me.",
-    text: "Walkability to shops, cafés, and everyday amenities is important to me.",
+    id: 'q3_parks_recreation',
+    question: "Access to parks and outdoor recreational spaces significantly enhances my quality of life.",
+    text: "Access to parks and outdoor recreational spaces significantly enhances my quality of life.",
+    category: 'lifestyle',
+    type: 'likert',
+    options: []
+  },
+  {
+    id: 'q4_walkability',
+    question: "I value a neighborhood with excellent walkability to everyday amenities.",
+    text: "I value a neighborhood with excellent walkability to everyday amenities.",
     category: 'environment',
     type: 'likert',
     options: []
   },
   {
-    id: 'quiet_residential',
-    question: "I prefer neighborhoods that feel quiet, safe, and residential.",
-    text: "I prefer neighborhoods that feel quiet, safe, and residential.",
+    id: 'q5_urban_vibrancy',
+    question: "I am drawn to vibrant urban areas with diverse shopping, dining, and entertainment options.",
+    text: "I am drawn to vibrant urban areas with diverse shopping, dining, and entertainment options.",
     category: 'environment',
     type: 'likert',
     options: []
   },
   {
-    id: 'historic_character',
-    question: "I'm drawn to homes with historic character or unique architecture.",
-    text: "I'm drawn to homes with historic character or unique architecture.",
+    id: 'q6_quiet_residential',
+    question: "A quiet, safe, and residential environment is important to me.",
+    text: "A quiet, safe, and residential environment is important to me.",
+    category: 'community',
+    type: 'likert',
+    options: []
+  },
+  {
+    id: 'q7_cultural_diversity',
+    question: "I prefer living in a culturally diverse and inclusive community.",
+    text: "I prefer living in a culturally diverse and inclusive community.",
+    category: 'community',
+    type: 'likert',
+    options: []
+  },
+  {
+    id: 'q8_local_history',
+    question: "Neighborhoods with a strong sense of history and unique architectural character appeal to me.",
+    text: "Neighborhoods with a strong sense of history and unique architectural character appeal to me.",
+    category: 'housing',
+    type: 'likert',
+    options: []
+  },
+  {
+    id: 'q9_housing_age',
+    question: "I prefer modern, recently updated homes over older properties.",
+    text: "I prefer modern, recently updated homes over older properties.",
+    category: 'housing',
+    type: 'likert',
+    options: []
+  },
+  {
+    id: 'q10_school_quality',
+    question: "The quality of local public schools is a top priority for me.",
+    text: "The quality of local public schools is a top priority for me.",
+    category: 'practical',
+    type: 'likert',
+    options: []
+  },
+  {
+    id: 'q11_affordability',
+    question: "Housing affordability is a major factor in my home-buying decision.",
+    text: "Housing affordability is a major factor in my home-buying decision.",
+    category: 'practical',
+    type: 'likert',
+    options: []
+  },
+  {
+    id: 'q12_commute_distance',
+    question: "I prefer living close to my workplace to minimize commute times.",
+    text: "I prefer living close to my workplace to minimize commute times.",
+    category: 'practical',
+    type: 'likert',
+    options: []
+  },
+  {
+    id: 'q13_public_transit',
+    question: "Access to reliable public transportation is important to me.",
+    text: "Access to reliable public transportation is important to me.",
+    category: 'practical',
+    type: 'likert',
+    options: []
+  },
+  {
+    id: 'q14_nightlife_dining',
+    question: "A lively local nightlife with excellent dining and entertainment options appeals to me.",
+    text: "A lively local nightlife with excellent dining and entertainment options appeals to me.",
+    category: 'lifestyle',
+    type: 'likert',
+    options: []
+  },
+  {
+    id: 'q15_community_interaction',
+    question: "I enjoy being part of a close-knit community where neighbors interact frequently.",
+    text: "I enjoy being part of a close-knit community where neighbors interact frequently.",
+    category: 'community',
+    type: 'likert',
+    options: []
+  },
+  {
+    id: 'q16_pet_friendly',
+    question: "A pet-friendly environment with nearby green spaces is important to me.",
+    text: "A pet-friendly environment with nearby green spaces is important to me.",
+    category: 'lifestyle',
+    type: 'likert',
+    options: []
+  },
+  {
+    id: 'q17_healthcare_access',
+    question: "Access to quality healthcare facilities significantly influences my choice of neighborhood.",
+    text: "Access to quality healthcare facilities significantly influences my choice of neighborhood.",
+    category: 'practical',
+    type: 'likert',
+    options: []
+  },
+  {
+    id: 'q18_sustainability',
+    question: "I value living in a community that prioritizes environmental sustainability and green practices.",
+    text: "I value living in a community that prioritizes environmental sustainability and green practices.",
     category: 'environment',
     type: 'likert',
     options: []
   },
   {
-    id: 'scenic_views',
-    question: "Scenic views — like the ocean, hills, or city skyline — enhance my living experience.",
-    text: "Scenic views — like the ocean, hills, or city skyline — enhance my living experience.",
-    category: 'environment',
+    id: 'q19_noise_levels',
+    question: "I prefer a quieter neighborhood with low noise levels.",
+    text: "I prefer a quieter neighborhood with low noise levels.",
+    category: 'community',
     type: 'likert',
     options: []
   },
   {
-    id: 'schools',
-    question: "Living in an area with well-rated public schools is a priority for me.",
-    text: "Living in an area with well-rated public schools is a priority for me.",
-    category: 'environment',
+    id: 'q20_sports_recreation',
+    question: "Participating in outdoor sports and recreational activities is an essential part of my lifestyle.",
+    text: "Participating in outdoor sports and recreational activities is an essential part of my lifestyle.",
+    category: 'lifestyle',
     type: 'likert',
     options: []
   },
   {
-    id: 'social_scene',
-    question: "I thrive in neighborhoods with a lively social or cultural scene.",
-    text: "I thrive in neighborhoods with a lively social or cultural scene.",
-    category: 'environment',
+    id: 'q21_culinary_culture',
+    question: "I appreciate neighborhoods that offer a diverse culinary and cultural scene.",
+    text: "I appreciate neighborhoods that offer a diverse culinary and cultural scene.",
+    category: 'lifestyle',
     type: 'likert',
     options: []
   },
   {
-    id: 'diversity',
-    question: "I value living in a culturally diverse and inclusive community.",
-    text: "I value living in a culturally diverse and inclusive community.",
-    category: 'environment',
+    id: 'q22_commute_tradeoff',
+    question: "I am willing to accept a longer commute if it means living in a neighborhood that truly fits my lifestyle.",
+    text: "I am willing to accept a longer commute if it means living in a neighborhood that truly fits my lifestyle.",
+    category: 'practical',
     type: 'likert',
     options: []
   },
   {
-    id: 'distance_downtown',
-    question: "I'm open to living further from downtown if it better suits my lifestyle.",
-    text: "I'm open to living further from downtown if it better suits my lifestyle.",
-    category: 'environment',
+    id: 'q23_space_privacy',
+    question: "Spacious living areas and personal privacy are important in my ideal home.",
+    text: "Spacious living areas and personal privacy are important in my ideal home.",
+    category: 'housing',
     type: 'likert',
     options: []
   },
   {
-    id: 'beach_proximity',
-    question: "Proximity to the beach or bay is important to my lifestyle.",
-    text: "Proximity to the beach or bay is important to my lifestyle.",
-    category: 'environment',
+    id: 'q24_long_term',
+    question: "I am looking for a long-term home that supports my future goals and evolving lifestyle.",
+    text: "I am looking for a long-term home that supports my future goals and evolving lifestyle.",
+    category: 'practical',
     type: 'likert',
     options: []
   },
   {
-    id: 'flexible_commute',
-    question: "I don't rely on a daily commute and have flexibility in where I live.",
-    text: "I don't rely on a daily commute and have flexibility in where I live.",
-    category: 'environment',
-    type: 'likert',
-    options: []
-  },
-  {
-    id: 'newer_homes',
-    question: "I prefer newer or recently updated homes over older properties.",
-    text: "I prefer newer or recently updated homes over older properties.",
-    category: 'environment',
-    type: 'likert',
-    options: []
-  },
-  {
-    id: 'community_oriented',
-    question: "I enjoy being part of a close, community-oriented neighborhood.",
-    text: "I enjoy being part of a close, community-oriented neighborhood.",
-    category: 'environment',
-    type: 'likert',
-    options: []
-  },
-  {
-    id: 'dining_nightlife',
-    question: "I'm drawn to areas with strong dining, arts, or nightlife options.",
-    text: "I'm drawn to areas with strong dining, arts, or nightlife options.",
-    category: 'environment',
-    type: 'likert',
-    options: []
-  },
-  {
-    id: 'tourist_friendly',
-    question: "I wouldn't mind living in a neighborhood that also attracts tourists.",
-    text: "I wouldn't mind living in a neighborhood that also attracts tourists.",
-    category: 'environment',
-    type: 'likert',
-    options: []
-  },
-  {
-    id: 'vibrant_culture',
-    question: "A vibrant local arts, food, or cultural scene is important to me.",
-    text: "A vibrant local arts, food, or cultural scene is important to me.",
-    category: 'environment',
-    type: 'likert',
-    options: []
-  },
-  {
-    id: 'affordability',
-    question: "Housing affordability plays a big role in where I choose to live.",
-    text: "Housing affordability plays a big role in where I choose to live.",
-    category: 'environment',
-    type: 'likert',
-    options: []
-  },
-  {
-    id: 'outdoor_recreation',
-    question: "I prioritize access to outdoor recreation like trails, water sports, or parks.",
-    text: "I prioritize access to outdoor recreation like trails, water sports, or parks.",
-    category: 'environment',
-    type: 'likert',
-    options: []
-  },
-  {
-    id: 'privacy_space',
-    question: "I value privacy and space over being near the action.",
-    text: "I value privacy and space over being near the action.",
-    category: 'environment',
-    type: 'likert',
-    options: []
-  },
-  {
-    id: 'long_term_home',
-    question: "I'm looking for a long-term home that aligns with my lifestyle and future goals.",
-    text: "I'm looking for a long-term home that aligns with my lifestyle and future goals.",
-    category: 'environment',
+    id: 'q25_lifestyle_balance',
+    question: "I value a balanced lifestyle that combines urban convenience with the tranquility of suburban living.",
+    text: "I value a balanced lifestyle that combines urban convenience with the tranquility of suburban living.",
+    category: 'lifestyle',
     type: 'likert',
     options: []
   }
