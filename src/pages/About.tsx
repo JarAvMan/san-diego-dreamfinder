@@ -75,7 +75,7 @@ const About = () => {
       
       <footer className="border-t py-6 px-6 bg-muted/30">
         <div className="container text-center text-sm text-muted-foreground">
-          <p>© 2023 Jared Harman Real Estate. All rights reserved. DRE #02193879</p>
+          <p>© 2025 Jared Harman Real Estate. All rights reserved. DRE #02193879</p>
         </div>
       </footer>
     </div>;
