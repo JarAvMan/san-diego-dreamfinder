@@ -5,9 +5,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'chula-vista',
     name: 'Chula Vista',
     description: 'A fast-growing city offering suburban comfort, good schools, and convenient access to both downtown San Diego and the border.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Chula-Vista.jpg',
     matchScore: 0,
-    keyFeatures: ['Master-planned communities', 'Excellent public schools', 'Parks and recreation centers', 'Family-friendly environment', 'Newer construction homes'],
+    keyFeatures: [
+      'Master-planned communities',
+      'Excellent public schools',
+      'Parks and recreation centers',
+      'Family-friendly environment',
+      'Newer construction homes'
+    ],
     budget: {
       min: 600000,
       max: 1000000
@@ -19,9 +25,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'otay-mesa',
     name: 'Otay Mesa',
     description: 'A border-adjacent neighborhood known for its industrial growth, new residential developments, and proximity to Tijuana.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Otay-Mesa.jpg',
     matchScore: 0,
-    keyFeatures: ['Proximity to US-Mexico border', 'Affordable housing developments', 'Industrial and logistics growth', 'Emerging residential areas', 'Easy freeway access'],
+    keyFeatures: [
+      'Proximity to US-Mexico border',
+      'Affordable housing developments',
+      'Industrial and logistics growth',
+      'Emerging residential areas',
+      'Easy freeway access'
+    ],
     budget: {
       min: 700000,
       max: 1500000
@@ -33,9 +45,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'imperial-beach',
     name: 'Imperial Beach',
     description: 'A laid-back beach town with surf culture, oceanfront dining, and a quieter vibe compared to other coastal communities.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Imperial-Beach.jpg',
     matchScore: 0,
-    keyFeatures: ['Beachfront access and surfing', 'Laid-back, small-town vibe', 'Affordable coastal living', 'Eclectic dining and shops', 'Birdwatching at the estuary'],
+    keyFeatures: [
+      'Beachfront access and surfing',
+      'Laid-back, small-town vibe',
+      'Affordable coastal living',
+      'Eclectic dining and shops',
+      'Birdwatching at the estuary'
+    ],
     budget: {
       min: 700000,
       max: 1500000
@@ -47,9 +65,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'solana-beach',
     name: 'Solana Beach',
     description: 'A charming coastal town known for its walkable neighborhoods, scenic cliffs, and the Cedros Design District.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Solana-Beach.jpg',
     matchScore: 0,
-    keyFeatures: ['Blufftop ocean views', 'Cedros Design District', 'Trendy coastal restaurants', 'Walkable beach town feel', 'Access to Amtrak/Coaster'],
+    keyFeatures: [
+      'Blufftop ocean views',
+      'Cedros Design District',
+      'Trendy coastal restaurants',
+      'Walkable beach town feel',
+      'Access to Amtrak/Coaster'
+    ],
     budget: {
       min: 700000,
       max: 1500000
@@ -61,9 +85,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'del-mar',
     name: 'Del Mar',
     description: 'An upscale seaside community famous for its beaches, luxury homes, and the iconic Del Mar Racetrack.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Del-Mar.jpg',
     matchScore: 0,
-    keyFeatures: ['Luxury coastal estates', 'Home to Del Mar Racetrack', 'Charming beach village', 'Oceanfront dining and shops', 'Seaside parks and trails'],
+    keyFeatures: [
+      'Luxury coastal estates',
+      'Home to Del Mar Racetrack',
+      'Charming beach village',
+      'Oceanfront dining and shops',
+      'Seaside parks and trails'
+    ],
     budget: {
       min: 1500000,
       max: 10000000
@@ -75,9 +105,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'la-jolla',
     name: 'La Jolla',
     description: 'An upscale coastal community with stunning ocean views, beautiful beaches, and a vibrant village atmosphere.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/La-Jolla.jpg',
     matchScore: 0,
-    keyFeatures: ['Luxury coastal living', 'Top-rated schools', 'Beautiful beaches and coves', 'High-end shopping and dining', 'UCSD campus nearby'],
+    keyFeatures: [
+      'Luxury coastal living',
+      'Top-rated schools',
+      'Beautiful beaches and coves',
+      'High-end shopping and dining',
+      'UCSD campus nearby'
+    ],
     budget: {
       min: 1500000,
       max: 10000000
@@ -89,9 +125,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'rancho-santa-fe',
     name: 'Rancho Santa Fe',
     description: 'One of the most affluent communities in the country, known for sprawling estates, equestrian living, and elite privacy.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Rancho-Santa-Fe.jpg',
     matchScore: 0,
-    keyFeatures: ['Exclusive gated estates', 'Equestrian properties', 'Lush, rural landscapes', 'Golf and country clubs', 'Elite private schools nearby'],
+    keyFeatures: [
+      'Exclusive gated estates',
+      'Equestrian properties',
+      'Lush, rural landscapes',
+      'Golf and country clubs',
+      'Elite private schools nearby'
+    ],
     budget: {
       min: 700000,
       max: 1500000
@@ -103,9 +145,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'north-park',
     name: 'North Park',
     description: 'A hip, walkable neighborhood filled with craft breweries, local shops, and historic homes.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/North-Park.jpg',
     matchScore: 0,
-    keyFeatures: ['Craft beer and dining scene', 'Walkable urban core', 'Historic Craftsman homes', 'Lively arts and music culture', 'Popular with young professionals'],
+    keyFeatures: [
+      'Craft beer and dining scene',
+      'Walkable urban core',
+      'Historic Craftsman homes',
+      'Lively arts and music culture',
+      'Popular with young professionals'
+    ],
     budget: {
       min: 700000,
       max: 1500000
@@ -117,9 +165,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'south-park',
     name: 'South Park',
     description: 'A quiet, tree-lined community with craftsman-style homes, indie shops, and a strong local vibe.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/South-Park.jpg',
     matchScore: 0,
-    keyFeatures: ['Tree-lined streets', 'Independent cafes and boutiques', 'Craftsman and Spanish homes', 'Close-knit community feel', 'Easy access to Balboa Park'],
+    keyFeatures: [
+      'Tree-lined streets',
+      'Independent cafes and boutiques',
+      'Craftsman and Spanish homes',
+      'Close-knit community feel',
+      'Easy access to Balboa Park'
+    ],
     budget: {
       min: 700000,
       max: 1500000
@@ -131,9 +185,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'bankers-hill',
     name: 'Bankers Hill',
     description: 'An elegant area with historic homes, urban views, and proximity to Balboa Park and downtown.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Bankers-Hill.jpg',
     matchScore: 0,
-    keyFeatures: ['Panoramic city and bay views', 'Elegant historic architecture', 'Close to Balboa Park', 'Mix of condos and mansions', 'Peaceful yet central location'],
+    keyFeatures: [
+      'Panoramic city and bay views',
+      'Elegant historic architecture',
+      'Close to Balboa Park',
+      'Mix of condos and mansions',
+      'Peaceful yet central location'
+    ],
     budget: {
       min: 800000,
       max: 2000000
@@ -145,9 +205,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'downtown-san-diego',
     name: 'Downtown San Diego',
     description: 'The urban core of San Diego with luxury condos, high-rise living, nightlife, and waterfront attractions.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Downtown-San-Diego.jpg',
     matchScore: 0,
-    keyFeatures: ['Urban high-rise living', 'Waterfront marina access', 'Gaslamp Quarter nightlife', 'Cultural venues and museums', 'Walkable lifestyle'],
+    keyFeatures: [
+      'Urban high-rise living',
+      'Waterfront marina access',
+      'Gaslamp Quarter nightlife',
+      'Cultural venues and museums',
+      'Walkable lifestyle'
+    ],
     budget: {
       min: 1500000,
       max: 10000000
@@ -159,9 +225,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'hillcrest',
     name: 'Hillcrest',
     description: 'A lively and inclusive neighborhood known for its LGBTQ+ community, dining, and walkability.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Hillcrest.jpg',
     matchScore: 0,
-    keyFeatures: ['LGBTQ+ inclusive community', 'Vibrant nightlife and dining', 'Eclectic shopping options', 'Urban walkability', 'Historic homes and condos'],
+    keyFeatures: [
+      'LGBTQ+ inclusive community',
+      'Vibrant nightlife and dining',
+      'Eclectic shopping options',
+      'Urban walkability',
+      'Historic homes and condos'
+    ],
     budget: {
       min: 700000,
       max: 1500000
@@ -173,9 +245,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'mira-mesa',
     name: 'Mira Mesa',
     description: 'A diverse, family-friendly suburb known for its parks, schools, and strong tech employment presence nearby.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Mira-Mesa.jpg',
     matchScore: 0,
-    keyFeatures: ['Family-friendly environment', 'Diverse food options', 'Close to tech employers', 'Top-rated public schools', 'Numerous parks and trails'],
+    keyFeatures: [
+      'Family-friendly environment',
+      'Diverse food options',
+      'Close to tech employers',
+      'Top-rated public schools',
+      'Numerous parks and trails'
+    ],
     budget: {
       min: 600000,
       max: 1000000
@@ -187,9 +265,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'el-cajon',
     name: 'El Cajon',
     description: 'A valley community offering suburban living, affordability, and a blend of cultures.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/El-Cajon.jpg',
     matchScore: 0,
-    keyFeatures: ['Affordable home options', 'Cultural diversity', 'Suburban convenience', 'Local dining and shopping', 'Mountain view surroundings'],
+    keyFeatures: [
+      'Affordable home options',
+      'Cultural diversity',
+      'Suburban convenience',
+      'Local dining and shopping',
+      'Mountain view surroundings'
+    ],
     budget: {
       min: 600000,
       max: 1000000
@@ -201,9 +285,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'santee',
     name: 'Santee',
     description: 'An East County suburb with family-friendly vibes, outdoor recreation, and growing retail centers.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Santee.jpg',
     matchScore: 0,
-    keyFeatures: ['Excellent school districts', 'Family-oriented neighborhoods', 'Outdoor recreation at Mission Trails', 'Newer housing developments', 'Community sports complexes'],
+    keyFeatures: [
+      'Excellent school districts',
+      'Family-oriented neighborhoods',
+      'Outdoor recreation at Mission Trails',
+      'Newer housing developments',
+      'Community sports complexes'
+    ],
     budget: {
       min: 600000,
       max: 1000000
@@ -215,9 +305,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'city-heights',
     name: 'City Heights',
     description: 'An urban, culturally diverse neighborhood known for its local eateries and community programs.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/City-Heights.jpg',
     matchScore: 0,
-    keyFeatures: ['Rich cultural diversity', 'Affordable housing', 'Urban redevelopment projects', 'Authentic international cuisine', 'Community-led initiatives'],
+    keyFeatures: [
+      'Rich cultural diversity',
+      'Affordable housing',
+      'Urban redevelopment projects',
+      'Authentic international cuisine',
+      'Community-led initiatives'
+    ],
     budget: {
       min: 800000,
       max: 2000000
@@ -229,9 +325,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'rancho-san-diego',
     name: 'Rancho San Diego',
     description: 'A suburban enclave with large homes, top schools, and a peaceful residential feel.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Rancho-San-Diego.jpg',
     matchScore: 0,
-    keyFeatures: ['Peaceful suburban setting', 'Top-rated schools nearby', 'Rolling hills and scenic views', 'Shopping and restaurants', 'Spacious family homes'],
+    keyFeatures: [
+      'Peaceful suburban setting',
+      'Top-rated schools nearby',
+      'Rolling hills and scenic views',
+      'Shopping and restaurants',
+      'Spacious family homes'
+    ],
     budget: {
       min: 600000,
       max: 1000000
@@ -243,9 +345,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'encanto',
     name: 'Encanto',
     description: 'A hilly, diverse residential neighborhood offering great views and a central location.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Encanto.jpg',
     matchScore: 0,
-    keyFeatures: ['Centrally located neighborhood', 'Diverse community', 'Elevated views of the city', 'Access to public transit', 'Community redevelopment zone'],
+    keyFeatures: [
+      'Centrally located neighborhood',
+      'Diverse community',
+      'Elevated views of the city',
+      'Access to public transit',
+      'Community redevelopment zone'
+    ],
     budget: {
       min: 700000,
       max: 1500000
@@ -257,9 +365,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'barrio-logan',
     name: 'Barrio Logan',
     description: 'A historic and artistic neighborhood with deep Chicano roots and a thriving creative scene.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Barrio-Logan.jpg',
     matchScore: 0,
-    keyFeatures: ['Strong Chicano cultural identity', 'Murals and street art at Chicano Park', 'Creative arts scene', 'Local breweries and eateries', 'Proximity to downtown'],
+    keyFeatures: [
+      'Strong Chicano cultural identity',
+      'Murals and street art at Chicano Park',
+      'Creative arts scene',
+      'Local breweries and eateries',
+      'Proximity to downtown'
+    ],
     budget: {
       min: 700000,
       max: 1500000
@@ -271,9 +385,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'national-city',
     name: 'National City',
     description: 'One of San Diego’s oldest cities, offering historic charm and diverse cultural influence.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/National-City.jpg',
     matchScore: 0,
-    keyFeatures: ['Historic and diverse community', 'Affordable housing options', 'Naval base proximity', 'Growing small business scene', 'Easy freeway and transit access'],
+    keyFeatures: [
+      'Historic and diverse community',
+      'Affordable housing options',
+      'Naval base proximity',
+      'Growing small business scene',
+      'Easy freeway and transit access'
+    ],
     budget: {
       min: 700000,
       max: 1500000
@@ -285,9 +405,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'mission-valley',
     name: 'Mission Valley',
     description: 'A centrally located hub with shopping, business centers, and convenient access to all of San Diego.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Mission-Valley.jpg',
     matchScore: 0,
-    keyFeatures: ['Major shopping and entertainment centers', 'Central location', 'New mixed-use developments', 'Access to trolley lines', 'Proximity to freeways and downtown'],
+    keyFeatures: [
+      'Major shopping and entertainment centers',
+      'Central location',
+      'New mixed-use developments',
+      'Access to trolley lines',
+      'Proximity to freeways and downtown'
+    ],
     budget: {
       min: 700000,
       max: 1500000
@@ -299,9 +425,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'la-mesa',
     name: 'La Mesa',
     description: 'A walkable suburban downtown known for its community events, antique shops, and family-friendly feel.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/La-Mesa.jpg',
     matchScore: 0,
-    keyFeatures: ['Charming walkable village', 'Regular farmer’s markets', 'Family-friendly parks and schools', 'Historic architecture', 'Local shops and cafes'],
+    keyFeatures: [
+      'Charming walkable village',
+      'Regular farmer’s markets',
+      'Family-friendly parks and schools',
+      'Historic architecture',
+      'Local shops and cafes'
+    ],
     budget: {
       min: 600000,
       max: 1000000
@@ -313,9 +445,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'fletcher-hills',
     name: 'Fletcher Hills',
     description: 'A quiet, residential area with rolling hills and scenic views, tucked near El Cajon and La Mesa.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Fletcher-Hills.jpg',
     matchScore: 0,
-    keyFeatures: ['Quiet, residential setting', 'Established suburban feel', 'Hilltop views and wide streets', 'Close to Grossmont College', 'Mid-century homes'],
+    keyFeatures: [
+      'Quiet, residential setting',
+      'Established suburban feel',
+      'Hilltop views and wide streets',
+      'Close to Grossmont College',
+      'Mid-century homes'
+    ],
     budget: {
       min: 700000,
       max: 1500000
@@ -327,9 +465,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'san-carlos',
     name: 'San Carlos',
     description: 'A peaceful, suburban neighborhood near Mission Trails with excellent schools and outdoor access.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/San-Carlos.jpg',
     matchScore: 0,
-    keyFeatures: ['Close to Mission Trails Regional Park', 'Well-rated public schools', 'Safe and suburban', 'Family-friendly atmosphere', 'Views of Cowles Mountain'],
+    keyFeatures: [
+      'Close to Mission Trails Regional Park',
+      'Well-rated public schools',
+      'Safe and suburban',
+      'Family-friendly atmosphere',
+      'Views of Cowles Mountain'
+    ],
     budget: {
       min: 600000,
       max: 1000000
@@ -341,9 +485,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'poway',
     name: 'Poway',
     description: 'Known as “The City in the Country,” Poway offers large lots, top-ranked schools, and a rural-suburban balance.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Poway.jpg',
     matchScore: 0,
-    keyFeatures: ['Top-rated public schools', 'Large lot homes and estates', 'Equestrian and hiking trails', 'Safe, quiet neighborhoods', 'Suburban-meets-rural charm'],
+    keyFeatures: [
+      'Top-rated public schools',
+      'Large lot homes and estates',
+      'Equestrian and hiking trails',
+      'Safe, quiet neighborhoods',
+      'Suburban-meets-rural charm'
+    ],
     budget: {
       min: 600000,
       max: 1000000
@@ -355,9 +505,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'escondido',
     name: 'Escondido',
     description: 'A North County inland city with historic roots, vineyards, and access to hiking and Lake Hodges.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Escondido.jpg',
     matchScore: 0,
-    keyFeatures: ['Historic downtown district', 'Family-friendly community', 'Local wineries and breweries', 'Access to Lake Hodges trails', 'Arts and theater scene'],
+    keyFeatures: [
+      'Historic downtown district',
+      'Family-friendly community',
+      'Local wineries and breweries',
+      'Access to Lake Hodges trails',
+      'Arts and theater scene'
+    ],
     budget: {
       min: 700000,
       max: 1500000
@@ -369,9 +525,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'rancho-bernardo',
     name: 'Rancho Bernardo',
     description: 'A master-planned community with golf courses, family neighborhoods, and retirement options.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Rancho-Bernardo.jpg',
     matchScore: 0,
-    keyFeatures: ['Golf course communities', 'Retirement villages and family homes', 'Highly rated schools', 'Local shopping centers', 'Lake Hodges nearby'],
+    keyFeatures: [
+      'Golf course communities',
+      'Retirement villages and family homes',
+      'Highly rated schools',
+      'Local shopping centers',
+      'Lake Hodges nearby'
+    ],
     budget: {
       min: 600000,
       max: 1000000
@@ -383,9 +545,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'carmel-valley',
     name: 'Carmel Valley',
     description: 'A highly desirable area with top-rated schools, business parks, and suburban luxury.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Carmel-Valley.jpg',
     matchScore: 0,
-    keyFeatures: ['Top-rated public schools', 'Master-planned communities', 'Close to tech and biotech jobs', 'Newer homes and condos', 'Suburban lifestyle with parks'],
+    keyFeatures: [
+      'Top-rated public schools',
+      'Master-planned communities',
+      'Close to tech and biotech jobs',
+      'Newer homes and condos',
+      'Suburban lifestyle with parks'
+    ],
     budget: {
       min: 1500000,
       max: 10000000
@@ -397,9 +565,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'clairemont',
     name: 'Clairemont',
     description: 'A central, mid-century suburb offering convenience, canyons, and quick freeway access.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Clairemont.jpg',
     matchScore: 0,
-    keyFeatures: ['Central location with quick access', 'Canyon views and parks', 'Variety of mid-century homes', 'Established neighborhoods', 'Close to bay and beaches'],
+    keyFeatures: [
+      'Central location with quick access',
+      'Canyon views and parks',
+      'Variety of mid-century homes',
+      'Established neighborhoods',
+      'Close to bay and beaches'
+    ],
     budget: {
       min: 700000,
       max: 1500000
@@ -411,9 +585,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'serra-mesa',
     name: 'Serra Mesa',
     description: 'A quiet neighborhood ideal for families and professionals, with easy access to major job centers.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Serra-Mesa.jpg',
     matchScore: 0,
-    keyFeatures: ['Quiet, central neighborhood', 'Affordable starter homes', 'Close to hospitals and job centers', 'Near Mission Valley amenities', 'Parks and recreation areas'],
+    keyFeatures: [
+      'Quiet, central neighborhood',
+      'Affordable starter homes',
+      'Close to hospitals and job centers',
+      'Near Mission Valley amenities',
+      'Parks and recreation areas'
+    ],
     budget: {
       min: 700000,
       max: 1500000
@@ -425,9 +605,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'linda-vista',
     name: 'Linda Vista',
     description: 'Home to the University of San Diego, Linda Vista features canyon views and cultural diversity.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Linda-Vista.jpg',
     matchScore: 0,
-    keyFeatures: ['Home to University of San Diego', 'Canyon and city views', 'Diverse community', 'Proximity to Fashion Valley', 'Convenient transit options'],
+    keyFeatures: [
+      'Home to University of San Diego',
+      'Canyon and city views',
+      'Diverse community',
+      'Proximity to Fashion Valley',
+      'Convenient transit options'
+    ],
     budget: {
       min: 700000,
       max: 1500000
@@ -439,9 +625,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'tierrasanta',
     name: 'Tierrasanta',
     description: 'Often called “The Island in the Hills,” this residential community offers quiet streets and strong schools.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Tierrasanta.jpg',
     matchScore: 0,
-    keyFeatures: ['Suburban, quiet living', 'Access to Mission Trails hiking', 'Highly rated schools', 'Family-focused community', 'Tree-lined residential streets'],
+    keyFeatures: [
+      'Suburban, quiet living',
+      'Access to Mission Trails hiking',
+      'Highly rated schools',
+      'Family-focused community',
+      'Tree-lined residential streets'
+    ],
     budget: {
       min: 700000,
       max: 1500000
@@ -453,9 +645,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'normal-heights',
     name: 'Normal Heights',
     description: 'A walkable, eclectic area along Adams Ave known for vintage shops, coffee houses, and local events.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Normal-Heights.jpg',
     matchScore: 0,
-    keyFeatures: ['Eclectic, bohemian atmosphere', 'Adams Ave dining and music', 'Walkable lifestyle', 'Craftsman homes and bungalows', 'Vibrant arts and culture scene'],
+    keyFeatures: [
+      'Eclectic, bohemian atmosphere',
+      'Adams Ave dining and music',
+      'Walkable lifestyle',
+      'Craftsman homes and bungalows',
+      'Vibrant arts and culture scene'
+    ],
     budget: {
       min: 700000,
       max: 1500000
@@ -467,9 +665,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'kensington',
     name: 'Kensington',
     description: 'An upscale historic neighborhood with Spanish-style homes, tree-lined streets, and a village feel.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Kensington.jpg',
     matchScore: 0,
-    keyFeatures: ['Spanish-style architecture', 'Upscale village feel', 'Boutique shopping and cafes', 'Tree-lined residential streets', 'Close-knit community'],
+    keyFeatures: [
+      'Spanish-style architecture',
+      'Upscale village feel',
+      'Boutique shopping and cafes',
+      'Tree-lined residential streets',
+      'Close-knit community'
+    ],
     budget: {
       min: 1500000,
       max: 10000000
@@ -481,9 +685,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'talmadge',
     name: 'Talmadge',
     description: 'Known for its historic character, architectural charm, and community pride.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Talmadge.jpg',
     matchScore: 0,
-    keyFeatures: ['Architecturally rich homes', 'Quiet residential streets', 'Central location', 'Pride of ownership', 'Strong neighborhood identity'],
+    keyFeatures: [
+      'Architecturally rich homes',
+      'Quiet residential streets',
+      'Central location',
+      'Pride of ownership',
+      'Strong neighborhood identity'
+    ],
     budget: {
       min: 700000,
       max: 1500000
@@ -495,9 +705,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'oceanside',
     name: 'Oceanside',
     description: 'A coastal city with a revitalized downtown, surf culture, and military presence from nearby Camp Pendleton.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Oceanside.jpg',
     matchScore: 0,
-    keyFeatures: ['Revitalized coastal downtown', 'Surf and beach culture', 'New dining and hotels', 'Harbor and pier access', 'Eclectic and artistic vibe'],
+    keyFeatures: [
+      'Revitalized coastal downtown',
+      'Surf and beach culture',
+      'New dining and hotels',
+      'Harbor and pier access',
+      'Eclectic and artistic vibe'
+    ],
     budget: {
       min: 800000,
       max: 2000000
@@ -509,9 +725,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'vista',
     name: 'Vista',
     description: 'An inland North County community known for affordability, parks, and breweries.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Vista.jpg',
     matchScore: 0,
-    keyFeatures: ['Affordable North County option', 'Hilly terrain and views', 'Family-friendly neighborhoods', 'Microbrewery scene', 'Parks and cultural events'],
+    keyFeatures: [
+      'Affordable North County option',
+      'Hilly terrain and views',
+      'Family-friendly neighborhoods',
+      'Microbrewery scene',
+      'Parks and cultural events'
+    ],
     budget: {
       min: 700000,
       max: 1500000
@@ -523,9 +745,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'fallbrook',
     name: 'Fallbrook',
     description: 'A rural escape with avocado groves, art galleries, and a small-town feel.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Fallbrook.jpg',
     matchScore: 0,
-    keyFeatures: ['Rural countryside charm', 'Avocado groves and farms', 'Artist and gallery scene', 'Small-town Main Street', 'Equestrian lifestyle'],
+    keyFeatures: [
+      'Rural countryside charm',
+      'Avocado groves and farms',
+      'Artist and gallery scene',
+      'Small-town Main Street',
+      'Equestrian lifestyle'
+    ],
     budget: {
       min: 500000,
       max: 900000
@@ -537,9 +765,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'scripps-ranch',
     name: 'Scripps Ranch',
     description: 'A suburban, family-centric community with lake views, eucalyptus trees, and top-rated schools.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Scripps-Ranch.jpg',
     matchScore: 0,
-    keyFeatures: ['Lake Miramar access', 'Eucalyptus-lined streets', 'Suburban with upscale homes', 'Great schools and parks', 'Family-oriented community'],
+    keyFeatures: [
+      'Lake Miramar access',
+      'Eucalyptus-lined streets',
+      'Suburban with upscale homes',
+      'Great schools and parks',
+      'Family-oriented community'
+    ],
     budget: {
       min: 600000,
       max: 1000000
@@ -551,9 +785,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: '4s-ranch',
     name: '4s Ranch',
     description: 'A master-planned community with new homes, excellent schools, and community amenities.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/4s-Ranch.jpg',
     matchScore: 0,
-    keyFeatures: ['Modern planned community', 'Highly ranked schools', 'Shopping and dining options', 'Family-friendly vibe', 'Community events and parks'],
+    keyFeatures: [
+      'Modern planned community',
+      'Highly ranked schools',
+      'Shopping and dining options',
+      'Family-friendly vibe',
+      'Community events and parks'
+    ],
     budget: {
       min: 700000,
       max: 1500000
@@ -565,9 +805,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'alpine',
     name: 'Alpine',
     description: 'A mountain foothill town with a rural vibe, horses, and wide open space.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Alpine.jpg',
     matchScore: 0,
-    keyFeatures: ['Mountain foothill location', 'Larger rural lots', 'Quiet, scenic setting', 'Equestrian-friendly properties', 'Escape from city hustle'],
+    keyFeatures: [
+      'Mountain foothill location',
+      'Larger rural lots',
+      'Quiet, scenic setting',
+      'Equestrian-friendly properties',
+      'Escape from city hustle'
+    ],
     budget: {
       min: 500000,
       max: 900000
@@ -579,9 +825,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'ramona',
     name: 'Ramona',
     description: 'Known for its country feel, wineries, and ranch-style living in San Diego’s inland mountains.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Ramona.jpg',
     matchScore: 0,
-    keyFeatures: ['Country living with space', 'Local vineyards and farms', 'Equestrian properties', 'Small-town community feel', 'Gateway to hiking trails'],
+    keyFeatures: [
+      'Country living with space',
+      'Local vineyards and farms',
+      'Equestrian properties',
+      'Small-town community feel',
+      'Gateway to hiking trails'
+    ],
     budget: {
       min: 500000,
       max: 900000
@@ -593,9 +845,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'julian',
     name: 'Julian',
     description: 'A historic mountain town famous for its apple pie, gold rush past, and charming main street.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Julian.jpg',
     matchScore: 0,
-    keyFeatures: ['Historic gold mining town', 'Famous for apple pie', 'Charming mountain village', 'Seasonal snowfall', 'Bed-and-breakfast getaways'],
+    keyFeatures: [
+      'Historic gold mining town',
+      'Famous for apple pie',
+      'Charming mountain village',
+      'Seasonal snowfall',
+      'Bed-and-breakfast getaways'
+    ],
     budget: {
       min: 500000,
       max: 900000
@@ -607,9 +865,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'rancho-penasquitos',
     name: 'Rancho Penasquitos',
     description: 'A quiet, suburban neighborhood with trails, top schools, and family-focused living.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Rancho-Penasquitos.jpg',
     matchScore: 0,
-    keyFeatures: ['Suburban hillside community', 'Great schools and parks', 'Close to tech corridors', 'Family-friendly neighborhoods', 'Access to trails and canyons'],
+    keyFeatures: [
+      'Suburban hillside community',
+      'Great schools and parks',
+      'Close to tech corridors',
+      'Family-friendly neighborhoods',
+      'Access to trails and canyons'
+    ],
     budget: {
       min: 600000,
       max: 1000000
@@ -621,9 +885,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'sorrento-valley',
     name: 'Sorrento Valley',
     description: 'A tech hub by day, with nearby hiking and freeway access to the coast or city.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Sorrento-Valley.jpg',
     matchScore: 0,
-    keyFeatures: ['Major tech employment hub', 'Central to coast and freeways', 'Business parks and offices', 'Nearby hiking trails', 'Convenient commute access'],
+    keyFeatures: [
+      'Major tech employment hub',
+      'Central to coast and freeways',
+      'Business parks and offices',
+      'Nearby hiking trails',
+      'Convenient commute access'
+    ],
     budget: {
       min: 700000,
       max: 1500000
@@ -635,9 +905,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'fairbanks-ranch',
     name: 'Fairbanks Ranch',
     description: 'A gated luxury community with estates, privacy, and equestrian amenities.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Fairbanks-Ranch.jpg',
     matchScore: 0,
-    keyFeatures: ['Exclusive gated estates', 'Luxury equestrian properties', 'Secluded and secure', 'Prestigious country club', 'Lush surroundings'],
+    keyFeatures: [
+      'Exclusive gated estates',
+      'Luxury equestrian properties',
+      'Secluded and secure',
+      'Prestigious country club',
+      'Lush surroundings'
+    ],
     budget: {
       min: 1500000,
       max: 10000000
@@ -649,9 +925,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'carlsbad',
     name: 'Carlsbad',
     description: 'A coastal city with beaches, family attractions, and a balanced lifestyle of leisure and business.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Carlsbad.jpg',
     matchScore: 0,
-    keyFeatures: ['Coastal village and beaches', 'Legoland and family attractions', 'Great schools and business parks', 'Upscale shopping and dining', 'Resort-style communities'],
+    keyFeatures: [
+      'Coastal village and beaches',
+      'Legoland and family attractions',
+      'Great schools and business parks',
+      'Upscale shopping and dining',
+      'Resort-style communities'
+    ],
     budget: {
       min: 600000,
       max: 1000000
@@ -663,9 +945,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'cardiff',
     name: 'Cardiff',
     description: 'A relaxed beach town with a surf-first attitude and scenic blufftop views.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Cardiff.jpg',
     matchScore: 0,
-    keyFeatures: ['Blufftop ocean views', 'Quaint surf town feel', 'Walkable restaurants and shops', 'Community events and schools', 'Close to beaches and parks'],
+    keyFeatures: [
+      'Blufftop ocean views',
+      'Quaint surf town feel',
+      'Walkable restaurants and shops',
+      'Community events and schools',
+      'Close to beaches and parks'
+    ],
     budget: {
       min: 700000,
       max: 1500000
@@ -677,9 +965,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'san-marcos',
     name: 'San Marcos',
     description: 'A growing inland community known for schools, universities, and suburban conveniences.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/San-Marcos.jpg',
     matchScore: 0,
-    keyFeatures: ['Growing university town', 'Affordable housing', 'Family parks and trails', 'Top-rated schools', 'Newer developments'],
+    keyFeatures: [
+      'Growing university town',
+      'Affordable housing',
+      'Family parks and trails',
+      'Top-rated schools',
+      'Newer developments'
+    ],
     budget: {
       min: 600000,
       max: 1000000
@@ -691,9 +985,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'allied-gardens',
     name: 'Allied Gardens',
     description: 'A post-war suburb with family appeal, parks, and proximity to SDSU.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Allied-Gardens.jpg',
     matchScore: 0,
-    keyFeatures: ['Mid-century suburban homes', 'Safe and quiet streets', 'Close to SDSU and Del Cerro', 'Community sports fields', 'Great starter neighborhood'],
+    keyFeatures: [
+      'Mid-century suburban homes',
+      'Safe and quiet streets',
+      'Close to SDSU and Del Cerro',
+      'Community sports fields',
+      'Great starter neighborhood'
+    ],
     budget: {
       min: 600000,
       max: 1000000
@@ -705,9 +1005,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'del-cerro',
     name: 'Del Cerro',
     description: 'An established hillside neighborhood with strong schools and suburban calm.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Del-Cerro.jpg',
     matchScore: 0,
-    keyFeatures: ['Hillside views and privacy', 'Strong community vibe', 'Large family homes', 'Close to Mission Trails', 'Highly rated schools'],
+    keyFeatures: [
+      'Hillside views and privacy',
+      'Strong community vibe',
+      'Large family homes',
+      'Close to Mission Trails',
+      'Highly rated schools'
+    ],
     budget: {
       min: 600000,
       max: 1000000
@@ -719,9 +1025,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'el-cerrito',
     name: 'El Cerrito',
     description: 'A small, residential neighborhood known for its character homes and central location.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/El-Cerrito.jpg',
     matchScore: 0,
-    keyFeatures: ['Historic charm and character', 'Centrally located', 'Quiet, tree-lined streets', 'Well-maintained homes', 'Easy access to freeways'],
+    keyFeatures: [
+      'Historic charm and character',
+      'Centrally located',
+      'Quiet, tree-lined streets',
+      'Well-maintained homes',
+      'Easy access to freeways'
+    ],
     budget: {
       min: 700000,
       max: 1500000
@@ -733,9 +1045,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'lemon-grove',
     name: 'Lemon Grove',
     description: 'A small-town community with historic charm and a suburban feel close to the city.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Lemon-Grove.jpg',
     matchScore: 0,
-    keyFeatures: ['Affordable suburban living', 'Historic lemon heritage', 'Community-focused vibe', 'Quick access to downtown', 'Public transportation nearby'],
+    keyFeatures: [
+      'Affordable suburban living',
+      'Historic lemon heritage',
+      'Community-focused vibe',
+      'Quick access to downtown',
+      'Public transportation nearby'
+    ],
     budget: {
       min: 600000,
       max: 1000000
@@ -747,9 +1065,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'spring-valley',
     name: 'Spring Valley',
     description: 'A diverse, hilly suburb with affordability and views across East County.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Spring-Valley.jpg',
     matchScore: 0,
-    keyFeatures: ['Affordable home prices', 'Hilly terrain with views', 'Diverse neighborhoods', 'Suburban and semi-rural mix', 'Convenient East County location'],
+    keyFeatures: [
+      'Affordable home prices',
+      'Hilly terrain with views',
+      'Diverse neighborhoods',
+      'Suburban and semi-rural mix',
+      'Convenient East County location'
+    ],
     budget: {
       min: 700000,
       max: 1500000
@@ -761,9 +1085,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'paradise-hills',
     name: 'Paradise Hills',
     description: 'A culturally rich residential area with strong community pride and views of the bay.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Paradise-Hills.jpg',
     matchScore: 0,
-    keyFeatures: ['Diverse and vibrant community', 'Bay and canyon views', 'Residential with parks', 'Family-oriented feel', 'Affordable housing options'],
+    keyFeatures: [
+      'Diverse and vibrant community',
+      'Bay and canyon views',
+      'Residential with parks',
+      'Family-oriented feel',
+      'Affordable housing options'
+    ],
     budget: {
       min: 700000,
       max: 1500000
@@ -775,9 +1105,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'college-area',
     name: 'College Area',
     description: 'Anchored by SDSU, this area has a mix of student life, residential streets, and eateries.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/College-Area.jpg',
     matchScore: 0,
-    keyFeatures: ['Adjacent to SDSU campus', 'Student and faculty mix', 'Walkable to restaurants and coffee shops', 'Mid-century and Spanish homes', 'Lively college-town energy'],
+    keyFeatures: [
+      'Adjacent to SDSU campus',
+      'Student and faculty mix',
+      'Walkable to restaurants and coffee shops',
+      'Mid-century and Spanish homes',
+      'Lively college-town energy'
+    ],
     budget: {
       min: 700000,
       max: 1500000
@@ -789,9 +1125,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'coronado',
     name: 'Coronado',
     description: 'An upscale island community with world-famous beaches, historic charm, and resort luxury.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Coronado.jpg',
     matchScore: 0,
-    keyFeatures: ['Coastal lifestyle', 'Luxury homes', 'Historic charm', 'Feature 4', 'Feature 5'],
+    keyFeatures: [
+      'Coastal lifestyle',
+      'Luxury homes',
+      'Historic charm',
+      'Pristine beaches',
+      'Scenic harbor views'
+    ],
     budget: {
       min: 1500000,
       max: 10000000
@@ -803,9 +1145,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'mission-hills',
     name: 'Mission Hills',
     description: 'A historic neighborhood with elegant homes, canyon views, and a refined village feel.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Mission-Hills.jpg',
     matchScore: 0,
-    keyFeatures: ['Historic estate homes', 'Stunning canyon and bay views', 'Upscale, quiet streets', 'Boutique shopping and dining', 'Close to Hillcrest and downtown'],
+    keyFeatures: [
+      'Historic estate homes',
+      'Stunning canyon and bay views',
+      'Upscale, quiet streets',
+      'Boutique shopping and dining',
+      'Close to Hillcrest and downtown'
+    ],
     budget: {
       min: 700000,
       max: 1500000
@@ -817,9 +1165,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'old-town',
     name: 'Old Town',
     description: 'The birthplace of San Diego, rich in Mexican heritage, preserved buildings, and tourist charm.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Old-Town.jpg',
     matchScore: 0,
-    keyFeatures: ['Historic birthplace of San Diego', 'Mexican heritage and culture', 'Tourist-friendly attractions', 'Adobe architecture', 'Shops and local eateries'],
+    keyFeatures: [
+      'Historic birthplace of San Diego',
+      'Mexican heritage and culture',
+      'Tourist-friendly attractions',
+      'Adobe architecture',
+      'Shops and local eateries'
+    ],
     budget: {
       min: 700000,
       max: 1500000
@@ -831,9 +1185,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'bay-park',
     name: 'Bay Park',
     description: 'A hillside neighborhood with bay views, casual restaurants, and quick freeway access.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Bay-Park.jpg',
     matchScore: 0,
-    keyFeatures: ['Views of Mission Bay', 'Quiet, family-friendly vibe', 'Centrally located', 'Mid-century homes', 'Quick freeway access'],
+    keyFeatures: [
+      'Views of Mission Bay',
+      'Quiet, family-friendly vibe',
+      'Centrally located',
+      'Mid-century homes',
+      'Quick freeway access'
+    ],
     budget: {
       min: 700000,
       max: 1500000
@@ -845,9 +1205,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'bay-ho',
     name: 'Bay Ho',
     description: 'A quiet coastal mesa community with views, mid-century homes, and access to Clairemont amenities.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Bay-Ho.jpg',
     matchScore: 0,
-    keyFeatures: ['Canyon and coastal views', 'Close to Clairemont amenities', 'Quiet, residential streets', 'Mid-century charm', 'Access to Pacific Beach'],
+    keyFeatures: [
+      'Canyon and coastal views',
+      'Close to Clairemont amenities',
+      'Quiet, residential streets',
+      'Mid-century charm',
+      'Access to Pacific Beach'
+    ],
     budget: {
       min: 700000,
       max: 1500000
@@ -859,9 +1225,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'point-loma',
     name: 'Point Loma',
     description: 'A scenic peninsula community with harbor views, historic sites, and coastal charm.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Point-Loma.jpg',
     matchScore: 0,
-    keyFeatures: ['Coastal lifestyle', 'Historic charm', 'Feature 3', 'Feature 4', 'Feature 5'],
+    keyFeatures: [
+      'Coastal lifestyle',
+      'Historic charm',
+      'Panoramic ocean views',
+      'Waterfront dining',
+      'Scenic coastal trails'
+    ],
     budget: {
       min: 700000,
       max: 1500000
@@ -873,9 +1245,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'mission-beach',
     name: 'Mission Beach',
     description: 'A classic beach community with boardwalk energy, nightlife, and surfside condos.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Mission-Beach.jpg',
     matchScore: 0,
-    keyFeatures: ['Coastal lifestyle', 'Feature 2', 'Feature 3', 'Feature 4', 'Feature 5'],
+    keyFeatures: [
+      'Coastal lifestyle',
+      'Vibrant boardwalk',
+      'Exciting nightlife',
+      'World-class surfing',
+      'Family-friendly attractions'
+    ],
     budget: {
       min: 700000,
       max: 1500000
@@ -887,9 +1265,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'pacific-beach',
     name: 'Pacific Beach',
     description: 'A vibrant beach town with surf culture, nightlife, and a youthful, active lifestyle.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Pacific-Beach.jpg',
     matchScore: 0,
-    keyFeatures: ['Coastal lifestyle', 'Feature 2', 'Feature 3', 'Feature 4', 'Feature 5'],
+    keyFeatures: [
+      'Coastal lifestyle',
+      'Vibrant beach scene',
+      'Trendy bars and eateries',
+      'Active water sports',
+      'Sunset views'
+    ],
     budget: {
       min: 700000,
       max: 1500000
@@ -901,9 +1285,15 @@ export const sandiegoNeighborhoods: Neighborhood[] = [
     id: 'ocean-beach',
     name: 'Ocean Beach',
     description: 'A bohemian beach town with vintage shops, pier views, and a laid-back spirit.',
-    image: 'https://images.unsplash.com/photo-1569398327329-36a1aeee9574?q=80&w=1000&auto=format&fit=crop',
+    image: '/Photos/Ocean-Beach.jpg',
     matchScore: 0,
-    keyFeatures: ['Coastal lifestyle', 'Feature 2', 'Feature 3', 'Feature 4', 'Feature 5'],
+    keyFeatures: [
+      'Coastal lifestyle',
+      'Bohemian vibe',
+      'Vintage shops',
+      'Historic pier',
+      'Relaxed atmosphere'
+    ],
     budget: {
       min: 700000,
       max: 1500000
