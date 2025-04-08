@@ -54,6 +54,10 @@ const Index = () => {
       </header>
       
       <main className="flex-1 container py-8 px-4 md:py-12 md:px-6">
+        <div className="max-w-4xl mx-auto text-center mb-10">
+          <h1 className="text-4xl font-bold tracking-tight text-foreground mb-4">Best Neighborhoods in San Diego – Find Your Perfect Community</h1>
+          <h2 className="text-xl text-muted-foreground mb-8">Explore vibrant neighborhoods and get personalized recommendations tailored to your lifestyle.</h2>
+        </div>
         <QuizContainer />
       </main>
       

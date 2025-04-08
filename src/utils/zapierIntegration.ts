@@ -1,55 +1,45 @@
 
-/**
- * Utility to send contact information to Zapier webhook
- */
+import { LeadInfo, Neighborhood } from "@/types";
 
-interface ZapierPayload {
-  contactInfo: {
-    name: string;
-    email: string;
-    phone: string;
-  };
-  recommendedAreas: string[];
-  timestamp: string;
-  message?: string; // Optional message for contact form
-}
-
-export const sendToZapier = async (
-  webhookUrl: string,
-  contactInfo: { name: string; email: string; phone: string },
-  recommendedAreas: string[],
-  message?: string // Optional message parameter
-): Promise<boolean> => {
-  if (!webhookUrl) {
-    console.error("No Zapier webhook URL provided");
-    return false;
-  }
-
-  const payload: ZapierPayload = {
-    contactInfo,
-    recommendedAreas,
-    timestamp: new Date().toISOString(),
-  };
-  
-  // Add message if provided (for contact form)
-  if (message) {
-    payload.message = message;
-  }
-
+export const sendToZapier = async (leadInfo: LeadInfo, recommendations: Neighborhood[]) => {
   try {
+    const webhookUrl = localStorage.getItem('zapierWebhookUrl');
+    
+    if (!webhookUrl) {
+      console.log('Zapier webhook URL not configured');
+      return false;
+    }
+    
+    // Format data for Zapier
+    const payload = {
+      firstName: leadInfo.firstName,
+      lastName: leadInfo.lastName,
+      email: leadInfo.email,
+      phone: leadInfo.phone,
+      topNeighborhood: recommendations[0]?.name || 'No match',
+      allNeighborhoods: recommendations.map(n => n.name).join(', '),
+      matchScores: recommendations.map(n => `${n.name}: ${n.matchScore}%`).join('; '),
+      timestamp: new Date().toISOString()
+    };
+    
+    // Send data to Zapier webhook
     const response = await fetch(webhookUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      mode: "no-cors", // Needed for cross-origin requests to Zapier
+      method: 'POST',
       body: JSON.stringify(payload),
+      headers: {
+        'Content-Type': 'application/json'
+      }
     });
     
-    console.log("Zapier webhook triggered", payload);
-    return true;
+    if (response.ok) {
+      console.log('Successfully sent data to Zapier');
+      return true;
+    } else {
+      console.error('Failed to send data to Zapier:', response.statusText);
+      return false;
+    }
   } catch (error) {
-    console.error("Error triggering Zapier webhook:", error);
+    console.error('Error sending data to Zapier:', error);
     return false;
   }
 };
