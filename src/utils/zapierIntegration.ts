@@ -7,12 +7,14 @@ import { LeadInfo } from '@/types';
  * @param webhookUrl - The Zapier webhook URL
  * @param leadInfo - User information collected from the lead form
  * @param recommendedNeighborhoods - Array of neighborhood names
+ * @param additionalData - Optional additional data to send
  * @returns Boolean indicating if the send was successful
  */
 export const sendToZapier = async (
   webhookUrl: string, 
   leadInfo: LeadInfo, 
-  recommendedNeighborhoods: string[]
+  recommendedNeighborhoods: string[],
+  additionalData?: string
 ): Promise<boolean> => {
   try {
     if (!webhookUrl) {
@@ -27,7 +29,8 @@ export const sendToZapier = async (
       email: leadInfo.email,
       phone: leadInfo.phone,
       neighborhoods: recommendedNeighborhoods.join(', '),
-      date: new Date().toISOString()
+      date: new Date().toISOString(),
+      additionalData: additionalData || ''
     };
 
     // Send the data to Zapier webhook

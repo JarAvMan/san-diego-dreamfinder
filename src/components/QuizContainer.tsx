@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { QuizQuestion, QuizAnswer, LeadInfo, Neighborhood, QuizStep, LikertOption } from '@/types';
 import { quizQuestions } from '@/data/quizQuestions';
@@ -126,15 +127,15 @@ const QuizContainer: React.FC = () => {
           <h3 className="text-2xl md:text-3xl font-semibold">Find Your Perfect San Diego Neighborhood</h3>
           
           <p className="text-lg text-muted-foreground max-w-xl mx-auto">
-            Answer 5 quick questions about your lifestyle and preferences, and our AI will match you with the ideal San Diego neighborhoods for your next home.
+            Answer 25 quick questions about your lifestyle and preferences, and our AI will match you with the ideal San Diego neighborhoods for your next home.
           </p>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-center max-w-lg mx-auto">
             <div className="p-3 bg-muted/50 rounded-lg">
-              <p className="font-medium">5 Simple Questions</p>
+              <p className="font-medium">25 Simple Questions</p>
             </div>
             <div className="p-3 bg-muted/50 rounded-lg">
-              <p className="font-medium">2 Minute Quiz</p>
+              <p className="font-medium">5 Minute Quiz</p>
             </div>
             <div className="p-3 bg-muted/50 rounded-lg">
               <p className="font-medium">AI-Powered</p>
