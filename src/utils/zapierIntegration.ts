@@ -1,4 +1,3 @@
-
 /**
  * Utility to send contact information to Zapier webhook
  */
