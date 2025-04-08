@@ -1,28 +1,36 @@
 
-import { LeadInfo, Neighborhood } from "@/types";
+import { LeadInfo } from '@/types';
 
-export const sendToZapier = async (leadInfo: LeadInfo, recommendations: Neighborhood[]) => {
+/**
+ * Send lead information to a Zapier webhook
+ * 
+ * @param webhookUrl - The Zapier webhook URL
+ * @param leadInfo - User information collected from the lead form
+ * @param recommendedNeighborhoods - Array of neighborhood names
+ * @returns Boolean indicating if the send was successful
+ */
+export const sendToZapier = async (
+  webhookUrl: string, 
+  leadInfo: LeadInfo, 
+  recommendedNeighborhoods: string[]
+): Promise<boolean> => {
   try {
-    const webhookUrl = localStorage.getItem('zapierWebhookUrl');
-    
     if (!webhookUrl) {
-      console.log('Zapier webhook URL not configured');
+      console.error('No Zapier webhook URL provided');
       return false;
     }
-    
-    // Format data for Zapier
+
+    // Prepare the data for Zapier
     const payload = {
       firstName: leadInfo.firstName,
       lastName: leadInfo.lastName,
       email: leadInfo.email,
       phone: leadInfo.phone,
-      topNeighborhood: recommendations[0]?.name || 'No match',
-      allNeighborhoods: recommendations.map(n => n.name).join(', '),
-      matchScores: recommendations.map(n => `${n.name}: ${n.matchScore}%`).join('; '),
-      timestamp: new Date().toISOString()
+      neighborhoods: recommendedNeighborhoods.join(', '),
+      date: new Date().toISOString()
     };
-    
-    // Send data to Zapier webhook
+
+    // Send the data to Zapier webhook
     const response = await fetch(webhookUrl, {
       method: 'POST',
       body: JSON.stringify(payload),
@@ -30,14 +38,13 @@ export const sendToZapier = async (leadInfo: LeadInfo, recommendations: Neighbor
         'Content-Type': 'application/json'
       }
     });
-    
-    if (response.ok) {
-      console.log('Successfully sent data to Zapier');
-      return true;
-    } else {
-      console.error('Failed to send data to Zapier:', response.statusText);
-      return false;
+
+    if (!response.ok) {
+      throw new Error(`Failed to send data to Zapier: ${response.statusText}`);
     }
+
+    console.log('Successfully sent lead to Zapier');
+    return true;
   } catch (error) {
     console.error('Error sending data to Zapier:', error);
     return false;
