@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { QuizQuestion, QuizAnswer, LeadInfo, Neighborhood, QuizStep, LikertOption } from '@/types';
 import { quizQuestions } from '@/data/quizQuestions';
@@ -13,7 +12,6 @@ import { useToast } from "@/hooks/use-toast";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-
 const QuizContainer: React.FC = () => {
   const [currentStep, setCurrentStep] = useState<QuizStep>(QuizStep.WELCOME);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -22,11 +20,12 @@ const QuizContainer: React.FC = () => {
   const [recommendations, setRecommendations] = useState<Neighborhood[]>([]);
   const [showZapierDialog, setShowZapierDialog] = useState(false);
   const [zapierWebhook, setZapierWebhook] = useState(localStorage.getItem('zapierWebhookUrl') || '');
-  const { toast } = useToast();
-
+  const {
+    toast
+  } = useToast();
   const currentQuestion = quizQuestions[currentQuestionIndex];
   const totalQuestions = quizQuestions.length;
-  
+
   // Check if Zapier webhook is configured
   useEffect(() => {
     const isAdmin = localStorage.getItem('isAdmin') === 'true';
@@ -34,7 +33,7 @@ const QuizContainer: React.FC = () => {
       setShowZapierDialog(true);
     }
   }, []);
-  
+
   // Find current answer if it exists
   const currentAnswer = answers.find(a => a.questionId === currentQuestion?.id)?.value || null;
 
@@ -63,24 +62,20 @@ const QuizContainer: React.FC = () => {
     setAnswers(prev => {
       // Check if we already have an answer for this question
       const existingIndex = prev.findIndex(a => a.questionId === currentQuestion.id);
-      
       if (existingIndex >= 0) {
         // Update existing answer
         const newAnswers = [...prev];
-        newAnswers[existingIndex] = { 
-          questionId: currentQuestion.id, 
-          value 
+        newAnswers[existingIndex] = {
+          questionId: currentQuestion.id,
+          value
         };
         return newAnswers;
       } else {
         // Add new answer
-        return [
-          ...prev, 
-          { 
-            questionId: currentQuestion.id, 
-            value 
-          }
-        ];
+        return [...prev, {
+          questionId: currentQuestion.id,
+          value
+        }];
       }
     });
   };
@@ -88,22 +83,22 @@ const QuizContainer: React.FC = () => {
   // Handle lead form submission
   const handleLeadSubmit = (data: LeadInfo) => {
     setLeadInfo(data);
-    
+
     // Calculate recommendations based on answers
     const topNeighborhoods = getTopNeighborhoods(answers);
     setRecommendations(topNeighborhoods);
-    
+
     // Show success toast
     toast({
       title: "Profile Created!",
-      description: "Generating your personalized neighborhood matches...",
+      description: "Generating your personalized neighborhood matches..."
     });
-    
+
     // Simulate API delay
     setTimeout(() => {
       setCurrentStep(QuizStep.RESULTS);
     }, 1500);
-    
+
     // Here you would typically send the lead info to your CRM system
     console.log('Lead captured:', data);
     console.log('Quiz answers:', answers);
@@ -117,7 +112,7 @@ const QuizContainer: React.FC = () => {
     setShowZapierDialog(false);
     toast({
       title: "Zapier Integration Configured",
-      description: "Your webhook URL has been saved.",
+      description: "Your webhook URL has been saved."
     });
   };
 
@@ -137,88 +132,54 @@ const QuizContainer: React.FC = () => {
 
   // Determine if next button should be enabled
   const isNextEnabled = currentAnswer !== null;
-
-  return (
-    <div className="quiz-container p-4">
-      {currentStep === QuizStep.WELCOME && (
-        <div className="p-8 text-center space-y-6 animate-fade-in">
-          <h1 className="text-4xl font-bold tracking-tight mb-4">Find Your Perfect San Diego Neighborhood</h1>
+  return <div className="quiz-container p-4">
+      {currentStep === QuizStep.WELCOME && <div className="p-8 text-center space-y-6 animate-fade-in">
+          
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Answer a few questions about your lifestyle and preferences, and our AI will match you with the ideal San Diego neighborhoods for your next home.
           </p>
-          <Button 
-            size="lg" 
-            onClick={startQuiz} 
-            className="mt-8 px-8 py-6 text-lg"
-          >
+          <Button size="lg" onClick={startQuiz} className="mt-8 px-8 py-6 text-lg">
             Start Quiz
             <ArrowRight className="ml-2" size={18} />
           </Button>
-        </div>
-      )}
+        </div>}
 
-      {currentStep === QuizStep.QUESTIONS && (
-        <div className="space-y-8 animate-fade-in">
+      {currentStep === QuizStep.QUESTIONS && <div className="space-y-8 animate-fade-in">
           <div className="mb-8">
             <div className="flex justify-between items-center mb-2">
               <span className="text-sm font-medium text-muted-foreground">
                 Question {currentQuestionIndex + 1} of {totalQuestions}
               </span>
               <span className="text-sm font-medium text-primary">
-                {Math.round(((currentQuestionIndex + 1) / totalQuestions) * 100)}%
+                {Math.round((currentQuestionIndex + 1) / totalQuestions * 100)}%
               </span>
             </div>
-            <ProgressBar 
-              currentStep={currentQuestionIndex + 1} 
-              totalSteps={totalQuestions} 
-            />
+            <ProgressBar currentStep={currentQuestionIndex + 1} totalSteps={totalQuestions} />
           </div>
           
-          <QuizCard 
-            question={currentQuestion}
-            answer={currentAnswer}
-            onAnswer={handleAnswer}
-            isActive={true}
-          />
+          <QuizCard question={currentQuestion} answer={currentAnswer} onAnswer={handleAnswer} isActive={true} />
           
           <div className="flex justify-between pt-4">
-            <Button
-              variant="outline"
-              onClick={handlePrevious}
-              className="flex items-center"
-            >
+            <Button variant="outline" onClick={handlePrevious} className="flex items-center">
               <ArrowLeft className="mr-2" size={16} />
               Back
             </Button>
             
-            <Button
-              onClick={handleNext}
-              disabled={!isNextEnabled}
-              className="flex items-center"
-            >
-              {currentQuestionIndex < totalQuestions - 1 ? (
-                <>
+            <Button onClick={handleNext} disabled={!isNextEnabled} className="flex items-center">
+              {currentQuestionIndex < totalQuestions - 1 ? <>
                   Next
                   <ArrowRight className="ml-2" size={16} />
-                </>
-              ) : (
-                <>
+                </> : <>
                   Complete
                   <ArrowRight className="ml-2" size={16} />
-                </>
-              )}
+                </>}
             </Button>
           </div>
-        </div>
-      )}
+        </div>}
 
-      {currentStep === QuizStep.LEAD_FORM && (
-        <LeadForm onSubmit={handleLeadSubmit} />
-      )}
+      {currentStep === QuizStep.LEAD_FORM && <LeadForm onSubmit={handleLeadSubmit} />}
 
-      {currentStep === QuizStep.RESULTS && recommendations.length > 0 && (
-        <ResultsPage neighborhoods={recommendations} leadInfo={leadInfo || undefined} />
-      )}
+      {currentStep === QuizStep.RESULTS && recommendations.length > 0 && <ResultsPage neighborhoods={recommendations} leadInfo={leadInfo || undefined} />}
       
       {/* Zapier Configuration Dialog */}
       <Dialog open={showZapierDialog} onOpenChange={setShowZapierDialog}>
@@ -233,12 +194,7 @@ const QuizContainer: React.FC = () => {
           <div className="space-y-4 py-4">
             <div className="space-y-2">
               <Label htmlFor="zapier-url">Zapier Webhook URL</Label>
-              <Input
-                id="zapier-url"
-                placeholder="https://hooks.zapier.com/hooks/catch/..."
-                value={zapierWebhook}
-                onChange={(e) => setZapierWebhook(e.target.value)}
-              />
+              <Input id="zapier-url" placeholder="https://hooks.zapier.com/hooks/catch/..." value={zapierWebhook} onChange={e => setZapierWebhook(e.target.value)} />
             </div>
           </div>
           <DialogFooter>
@@ -247,8 +203,6 @@ const QuizContainer: React.FC = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </div>
-  );
+    </div>;
 };
-
 export default QuizContainer;
