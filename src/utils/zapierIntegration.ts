@@ -5,7 +5,8 @@
 
 interface ZapierPayload {
   contactInfo: {
-    name: string;
+    firstName: string;
+    lastName: string;
     email: string;
     phone: string;
   };
@@ -16,7 +17,7 @@ interface ZapierPayload {
 
 export const sendToZapier = async (
   webhookUrl: string,
-  contactInfo: { name: string; email: string; phone: string },
+  contactInfo: { firstName: string; lastName: string; email: string; phone: string },
   recommendedAreas: string[],
   message?: string // Optional message parameter
 ): Promise<boolean> => {
