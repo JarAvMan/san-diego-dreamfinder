@@ -3,9 +3,9 @@ import client from './sanityClient';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   console.log('Sitemap function invoked.');
-  
+
   try {
-    // Fetch published blog posts from Sanity
+    // Fetch blog posts from Sanity. Adjust the query if your document type is different.
     const posts: Array<{ slug: string; _updatedAt: string }> = await client.fetch(
       `*[_type == "post"]{ "slug": slug.current, _updatedAt }`
     );
@@ -15,16 +15,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     let sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n`;
     sitemap += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
     
-    // Add the homepage URL entry.
+    // Add homepage entry.
     sitemap += `<url>\n`;
     sitemap += `  <loc>${baseUrl}</loc>\n`;
     sitemap += `  <changefreq>daily</changefreq>\n`;
     sitemap += `  <priority>1.0</priority>\n`;
     sitemap += `</url>\n`;
     
-    // Add each blog post URL to the sitemap.
+    // Add each blog post to the sitemap.
     posts.forEach(post => {
-      // Ensure the post has a valid slug.
       if (!post.slug) return;
       const lastmod = post._updatedAt ? post._updatedAt.substring(0, 10) : '';
       
@@ -40,7 +39,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     
     sitemap += `</urlset>`;
     
-    // Set header and return the generated sitemap XML.
     res.setHeader('Content-Type', 'text/xml');
     res.status(200).send(sitemap);
   } catch (error) {
