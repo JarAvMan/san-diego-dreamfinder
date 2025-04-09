@@ -1,10 +1,10 @@
-import sanityClient from '@sanity/client';
+import { createClient } from '@sanity/client';
 
-const client = sanityClient({
-  projectId: 'czumqwya',
-  dataset: 'production', // Or your chosen dataset
-  useCdn: false,         // `true` if you want cached data; `false` ensures the latest
-  apiVersion: '2025-04-08' // or today's date
+const client = createClient({
+  projectId: 'czumqwya', // Replace with your actual Sanity project ID
+  dataset: 'production',        // Or your preferred dataset
+  useCdn: false,                // false if you need fresh data
+  apiVersion: '2025-04-08',       // Use current date or specific API version
 });
 
 export default client;
