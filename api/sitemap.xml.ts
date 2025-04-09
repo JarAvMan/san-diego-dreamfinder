@@ -1,11 +1,11 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import client from './sanityClient';
+import client from './sanityClient.js'; // Note the .js extension
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   console.log('Sitemap function invoked.');
 
   try {
-    // Fetch blog posts from Sanity. Adjust the query if your document type is different.
+    // Fetch published blog posts from Sanity.
     const posts: Array<{ slug: string; _updatedAt: string }> = await client.fetch(
       `*[_type == "post"]{ "slug": slug.current, _updatedAt }`
     );
@@ -22,7 +22,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     sitemap += `  <priority>1.0</priority>\n`;
     sitemap += `</url>\n`;
     
-    // Add each blog post to the sitemap.
+    // Add each blog post URL.
     posts.forEach(post => {
       if (!post.slug) return;
       const lastmod = post._updatedAt ? post._updatedAt.substring(0, 10) : '';
