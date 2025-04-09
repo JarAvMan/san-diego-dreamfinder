@@ -1,5 +1,5 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
-import client from '/workspaces/san-diego-dreamfinder/san-diego-neighborhood-match/sanityClient.ts'; // Adjust the path to your Sanity client file
+import client from '/workspaces/san-diego-dreamfinder/src/sanityClient.ts'; // Adjust the path to your Sanity client file
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
