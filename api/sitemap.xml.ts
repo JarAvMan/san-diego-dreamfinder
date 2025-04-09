@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import client from '../san-diego-neighborhood-match/sanityClient';
+import client from '/workspaces/san-diego-dreamfinder/san-diego-neighborhood-match/sanityClient.ts';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   console.log('Sitemap function invoked.');
