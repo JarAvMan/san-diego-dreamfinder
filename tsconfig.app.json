@@ -26,5 +26,7 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src", "san-diego-neighborhood-match/sanityClient.ts", "san-diego-neighborhood-match/sanityClient.ts"]
+  "include": [ "src/**/*",
+  "san-diego-neighborhood-match/**/*"
+, "api/sanityClient.ts"]
 }

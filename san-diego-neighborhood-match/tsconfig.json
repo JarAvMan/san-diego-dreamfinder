@@ -12,6 +12,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["**/*.ts", "**/*.tsx", "../src/sanityClient.ts"],
+  "include": ["**/*.ts", "**/*.tsx", "../src/sanityClient.ts", "../api/sanityClient.ts"],
   "exclude": ["node_modules"]
 }
