@@ -20,22 +20,33 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Helmet>
+        {/* Title & Primary Meta */}
         <title>San Diego Neighborhood Match</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta
           name="description"
           content="Discover your ideal San Diego neighborhood with this AI-powered personality test in under 5 minutes!"
         />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="canonical" href="https://sandiegoneighborhoodmatch.com" />
+        <meta name="author" content="Jared Harman" />
+        <meta
+          name="keywords"
+          content="San Diego, neighborhoods, dream home, real estate, best neighborhood san diego"
+        />
+        
         {/* Open Graph Tags */}
         <meta property="og:title" content="San Diego Neighborhood Match" />
         <meta
           property="og:description"
           content="Discover your ideal San Diego neighborhood with this AI-powered personality test in under 5 minutes!"
         />
-        <meta property="og:image" content="/Social-Preview.jpg" />
         <meta property="og:url" content="https://sandiegoneighborhoodmatch.com" />
         <meta property="og:type" content="website" />
+        <meta
+          property="og:image"
+          content="https://sandiegoneighborhoodmatch.com/Social-Preview.jpg"
+        />
+        
         {/* Twitter Card Tags */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="San Diego Neighborhood Match" />
@@ -43,20 +54,32 @@ const App = () => (
           name="twitter:description"
           content="Discover your ideal San Diego neighborhood with this AI-powered personality test in under 5 minutes!"
         />
-        <meta name="twitter:image" content="/Social-Preview.jpg" />
+        <meta
+          name="twitter:image"
+          content="https://sandiegoneighborhoodmatch.com/Social-Preview.jpg"
+        />
+
         {/* Theme Color */}
         <meta name="theme-color" content="#ffffff" />
-        {/* Optional: Google Site Verification */}
-        {/* <meta name="google-site-verification" content="your-verification-code" /> */}
-        {/* Optional: Keywords */}
-        <meta
-          name="keywords"
-          content="San Diego, neighborhoods, dream home, real estate, best neighborhood san diego"
-        />
+        
+        {/* JSON-LD Structured Data */}
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "WebPage",
+              "name": "San Diego Neighborhood Match",
+              "description": "Discover your ideal San Diego neighborhood with this AI-powered personality test in under 5 minutes!",
+              "url": "https://sandiegoneighborhoodmatch.com"
+            }
+          `}
+        </script>
       </Helmet>
+      
       <Toaster />
       <Sonner />
       <AdminSettings />
+      
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
@@ -66,6 +89,7 @@ const App = () => (
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
+      
       {/* Vercel Analytics Plugins */}
       <SpeedInsights />
       <Analytics />
