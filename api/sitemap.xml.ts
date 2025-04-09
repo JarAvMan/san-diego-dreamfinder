@@ -18,6 +18,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // Add homepage entry.
     sitemap += `<url>\n`;
     sitemap += `  <loc>${baseUrl}</loc>\n`;
+    sitemap += `  <lastmod>2025-04-07</lastmod>`;
     sitemap += `  <changefreq>daily</changefreq>\n`;
     sitemap += `  <priority>1.0</priority>\n`;
     sitemap += `</url>\n`;
