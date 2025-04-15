@@ -117,7 +117,7 @@ const Areas = () => {
   return <div className="min-h-screen flex flex-col bg-background">
       <header className="border-b py-4 px-6">
         <div className="container flex justify-between items-center">
-          <div className="font-semibold text-xl tracking-tight">San Diego Dream Home Matchmaker</div>
+          <div className="font-semibold text-xl tracking-tight">San Diego Neighborhood Matchmaker</div>
           <nav>
             <ul className="flex space-x-6">
               <li><Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">Home</Link></li>
