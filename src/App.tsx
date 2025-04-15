@@ -20,7 +20,6 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Helmet>
-        {/* Title & Primary Meta */}
         <title>San Diego Neighborhood Match</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta
@@ -34,7 +33,6 @@ const App = () => (
           content="San Diego, neighborhoods, dream home, real estate, best neighborhood san diego"
         />
         
-        {/* Open Graph Tags */}
         <meta property="og:title" content="San Diego Neighborhood Match" />
         <meta
           property="og:description"
@@ -47,7 +45,6 @@ const App = () => (
           content="https://sandiegoneighborhoodmatch.com/Social-Preview.jpg"
         />
         
-        {/* Twitter Card Tags */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="San Diego Neighborhood Match" />
         <meta
@@ -59,10 +56,8 @@ const App = () => (
           content="https://sandiegoneighborhoodmatch.com/Social-Preview.jpg"
         />
 
-        {/* Theme Color */}
         <meta name="theme-color" content="#ffffff" />
         
-        {/* JSON-LD Structured Data */}
         <script type="application/ld+json">
           {`
             {
@@ -86,11 +81,11 @@ const App = () => (
           <Route path="/about" element={<About />} />
           <Route path="/areas" element={<Areas />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/privacy" element={<Privacy />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
       
-      {/* Vercel Analytics Plugins */}
       <SpeedInsights />
       <Analytics />
     </TooltipProvider>
