@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -59,9 +60,11 @@ const Contact = () => {
     setIsSubmitting(true);
     console.log('Contact form submitted:', data);
 
-    const webhookUrl = localStorage.getItem('contactFormWebhookUrl') || '';
+    // Get the Zapier webhook URL from localStorage - try contactFormWebhookUrl first, then fall back to general webhook
+    const webhookUrl = localStorage.getItem('contactFormWebhookUrl') || localStorage.getItem('zapierWebhookUrl') || '';
 
     try {
+      // Always store contact form submissions locally
       const currentContacts = JSON.parse(localStorage.getItem('storedContactFormSubmissions') || '[]');
       currentContacts.push({
         contact: {
@@ -74,20 +77,28 @@ const Contact = () => {
         timestamp: new Date().toISOString()
       });
       localStorage.setItem('storedContactFormSubmissions', JSON.stringify(currentContacts));
+      console.log('Contact stored locally:', currentContacts);
     } catch (error) {
       console.error('Error storing contact locally:', error);
     }
 
     let zapierSuccess = false;
     if (webhookUrl) {
-      zapierSuccess = await sendToZapier(webhookUrl, {
-        firstName: data.firstName,
-        lastName: data.lastName,
-        email: data.email,
-        phone: data.phone
-      }, [],
-      data.message
+      console.log('Attempting to send contact to Zapier using webhook:', webhookUrl);
+      zapierSuccess = await sendToZapier(
+        webhookUrl,
+        {
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+          phone: data.phone
+        },
+        [],
+        data.message
       );
+      console.log('Zapier send result:', zapierSuccess);
+    } else {
+      console.warn('No Zapier webhook URL found in localStorage');
     }
 
     if (webhookUrl && zapierSuccess) {

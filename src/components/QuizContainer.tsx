@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { QuizQuestion, QuizAnswer, LeadInfo, Neighborhood, QuizStep, LikertOption } from '@/types';
 import { quizQuestions } from '@/data/quizQuestions';
@@ -22,6 +21,7 @@ const QuizContainer: React.FC = () => {
   const [recommendations, setRecommendations] = useState<Neighborhood[]>([]);
   const [showZapierDialog, setShowZapierDialog] = useState(false);
   const [zapierWebhook, setZapierWebhook] = useState(localStorage.getItem('zapierWebhookUrl') || '');
+  const [contactFormWebhook, setContactFormWebhook] = useState(localStorage.getItem('contactFormWebhookUrl') || '');
 
   const {
     toast
@@ -96,11 +96,16 @@ const QuizContainer: React.FC = () => {
 
   const saveZapierWebhook = () => {
     localStorage.setItem('zapierWebhookUrl', zapierWebhook);
+    
+    if (contactFormWebhook) {
+      localStorage.setItem('contactFormWebhookUrl', contactFormWebhook);
+    }
+    
     localStorage.setItem('isAdmin', 'true');
     setShowZapierDialog(false);
     toast({
       title: "Zapier Integration Configured",
-      description: "Your webhook URL has been saved."
+      description: "Your webhook URLs have been saved."
     });
   };
 
@@ -193,14 +198,31 @@ const QuizContainer: React.FC = () => {
           <DialogHeader>
             <DialogTitle>Configure Zapier Integration</DialogTitle>
             <DialogDescription>
-              Enter your Zapier webhook URL to connect with your CRM system.
-              This will allow you to automatically send leads with their matched neighborhoods.
+              Enter your Zapier webhook URLs to connect with your CRM system.
+              This will allow you to automatically send leads and contact form submissions.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div className="space-y-2">
-              <Label htmlFor="zapier-url">Zapier Webhook URL</Label>
-              <Input id="zapier-url" placeholder="https://hooks.zapier.com/hooks/catch/..." value={zapierWebhook} onChange={e => setZapierWebhook(e.target.value)} />
+              <Label htmlFor="zapier-url">Quiz Results Webhook URL</Label>
+              <Input 
+                id="zapier-url" 
+                placeholder="https://hooks.zapier.com/hooks/catch/..." 
+                value={zapierWebhook} 
+                onChange={e => setZapierWebhook(e.target.value)} 
+              />
+              <p className="text-xs text-muted-foreground">Used for sending quiz results</p>
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="contact-form-url">Contact Form Webhook URL</Label>
+              <Input 
+                id="contact-form-url" 
+                placeholder="https://hooks.zapier.com/hooks/catch/..." 
+                value={contactFormWebhook} 
+                onChange={e => setContactFormWebhook(e.target.value)} 
+              />
+              <p className="text-xs text-muted-foreground">Used for contact form submissions</p>
             </div>
           </div>
           <DialogFooter>
