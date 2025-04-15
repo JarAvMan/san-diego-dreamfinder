@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Helmet } from "react-helmet";
 import { Toaster } from "@/components/ui/toaster";
@@ -10,6 +11,7 @@ import About from "./pages/About";
 import Areas from "./pages/Areas";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import Privacy from "./pages/Privacy";
 import AdminSettings from "./components/AdminSettings";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
