@@ -16,7 +16,7 @@ const Privacy = () => {
     <div className="min-h-screen flex flex-col bg-background">
       <header className="border-b py-4 px-6">
         <div className="container flex justify-between items-center">
-          <div className="font-semibold text-xl tracking-tight">San Diego Dream Home Matchmaker</div>
+          <div className="font-semibold text-xl tracking-tight">San Diego Neighborhood Matchmaker</div>
           
           {isMobile ? (
             <div className="md:hidden">
