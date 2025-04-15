@@ -6,11 +6,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { sendToZapier } from '@/utils/zapierIntegration';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Menu, X } from 'lucide-react';
+import { Checkbox } from '@/components/ui/checkbox';
+
 const formSchema = z.object({
   firstName: z.string().min(2, {
     message: 'First name must be at least 2 characters.'
@@ -26,9 +28,14 @@ const formSchema = z.object({
   }),
   message: z.string().min(10, {
     message: 'Message must be at least 10 characters.'
+  }),
+  consent: z.boolean().refine(val => val === true, {
+    message: 'You must agree to receive communications'
   })
 });
+
 type FormValues = z.infer<typeof formSchema>;
+
 const Contact = () => {
   const {
     toast
@@ -43,17 +50,17 @@ const Contact = () => {
       lastName: '',
       email: '',
       phone: '',
-      message: ''
+      message: '',
+      consent: false
     }
   });
+
   const onSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
     console.log('Contact form submitted:', data);
 
-    // Get contact form webhook URL - use a different one than the quiz
     const webhookUrl = localStorage.getItem('contactFormWebhookUrl') || '';
 
-    // Store the contact submission locally as a backup
     try {
       const currentContacts = JSON.parse(localStorage.getItem('storedContactFormSubmissions') || '[]');
       currentContacts.push({
@@ -71,7 +78,6 @@ const Contact = () => {
       console.error('Error storing contact locally:', error);
     }
 
-    // Send to Zapier if webhook URL exists
     let zapierSuccess = false;
     if (webhookUrl) {
       zapierSuccess = await sendToZapier(webhookUrl, {
@@ -80,12 +86,10 @@ const Contact = () => {
         email: data.email,
         phone: data.phone
       }, [],
-      // No areas for contact form
-      data.message // Pass message as additional data
+      data.message
       );
     }
 
-    // Show appropriate toast message
     if (webhookUrl && zapierSuccess) {
       toast({
         title: "Message Sent!",
@@ -98,13 +102,14 @@ const Contact = () => {
       });
     }
 
-    // Reset the form and submission state
     form.reset();
     setIsSubmitting(false);
   };
+
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
+
   return <div className="min-h-screen flex flex-col bg-background">
       <header className="border-b py-4 px-6">
         <div className="container flex justify-between items-center">
@@ -244,9 +249,38 @@ const Contact = () => {
                         <FormMessage />
                       </FormItem>} />
                   
+                  <FormField
+                    control={form.control}
+                    name="consent"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                        <FormControl>
+                          <Checkbox
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                          />
+                        </FormControl>
+                        <div className="space-y-1 leading-none">
+                          <FormLabel>
+                            I agree to receive marketing emails and occasional texts from Jared Harman, San Diego Realtor. I understand I can unsubscribe at any time.
+                          </FormLabel>
+                          <FormMessage />
+                        </div>
+                      </FormItem>
+                    )}
+                  />
+                  
                   <Button type="submit" className="w-full" disabled={isSubmitting}>
                     {isSubmitting ? 'Sending...' : 'Submit'}
                   </Button>
+
+                  <p className="text-xs text-muted-foreground text-center pt-3">
+                    Your information is secure and will never be shared. By submitting this form, you agree to our{" "}
+                    <Link to="/privacy" target="_blank" className="text-primary hover:underline">
+                      Privacy Policy
+                    </Link>
+                    {" "}and consent to be contacted by email, phone, or text.
+                  </p>
                 </form>
               </Form>
             </div>
@@ -261,4 +295,5 @@ const Contact = () => {
       </footer>
     </div>;
 };
+
 export default Contact;
