@@ -11,7 +11,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { sendToZapier } from '@/utils/zapierIntegration';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Menu, X } from 'lucide-react';
-
 const formSchema = z.object({
   firstName: z.string().min(2, {
     message: 'First name must be at least 2 characters.'
@@ -29,15 +28,14 @@ const formSchema = z.object({
     message: 'Message must be at least 10 characters.'
   })
 });
-
 type FormValues = z.infer<typeof formSchema>;
-
 const Contact = () => {
-  const { toast } = useToast();
+  const {
+    toast
+  } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const isMobile = useIsMobile();
-  
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -48,7 +46,6 @@ const Contact = () => {
       message: ''
     }
   });
-
   const onSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
     console.log('Contact form submitted:', data);
@@ -105,48 +102,35 @@ const Contact = () => {
     form.reset();
     setIsSubmitting(false);
   };
-
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
-
-  return (
-    <div className="min-h-screen flex flex-col bg-background">
+  return <div className="min-h-screen flex flex-col bg-background">
       <header className="border-b py-4 px-6">
         <div className="container flex justify-between items-center">
-          <div className="font-semibold text-xl tracking-tight">San Diego Dream Home Matchmaker</div>
+          <div className="font-semibold text-xl tracking-tight">San Diego Neighborhood Matchmaker</div>
           
-          {isMobile ? (
-            <div className="md:hidden">
-              <button 
-                onClick={toggleMobileMenu}
-                className="text-muted-foreground p-2 rounded-md hover:bg-muted/50"
-                aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-              >
+          {isMobile ? <div className="md:hidden">
+              <button onClick={toggleMobileMenu} className="text-muted-foreground p-2 rounded-md hover:bg-muted/50" aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}>
                 {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
               </button>
               
-              {mobileMenuOpen && (
-                <nav className="absolute top-16 right-0 left-0 bg-background z-50 border-b shadow-lg">
+              {mobileMenuOpen && <nav className="absolute top-16 right-0 left-0 bg-background z-50 border-b shadow-lg">
                   <ul className="flex flex-col p-4">
                     <li className="py-2"><Link to="/" onClick={() => setMobileMenuOpen(false)} className="text-muted-foreground hover:text-foreground transition-colors">Home</Link></li>
                     <li className="py-2"><Link to="/about" onClick={() => setMobileMenuOpen(false)} className="text-muted-foreground hover:text-foreground transition-colors">About</Link></li>
                     <li className="py-2"><Link to="/areas" onClick={() => setMobileMenuOpen(false)} className="text-muted-foreground hover:text-foreground transition-colors">Areas</Link></li>
                     <li className="py-2"><Link to="/contact" onClick={() => setMobileMenuOpen(false)} className="text-foreground font-medium transition-colors">Contact</Link></li>
                   </ul>
-                </nav>
-              )}
-            </div>
-          ) : (
-            <nav className="hidden md:block">
+                </nav>}
+            </div> : <nav className="hidden md:block">
               <ul className="flex space-x-6">
                 <li><Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">Home</Link></li>
                 <li><Link to="/about" className="text-muted-foreground hover:text-foreground transition-colors">About</Link></li>
                 <li><Link to="/areas" className="text-muted-foreground hover:text-foreground transition-colors">Areas</Link></li>
                 <li><Link to="/contact" className="text-foreground font-medium transition-colors">Contact</Link></li>
               </ul>
-            </nav>
-          )}
+            </nav>}
         </div>
       </header>
       
@@ -209,76 +193,56 @@ const Contact = () => {
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <FormField 
-                      control={form.control} 
-                      name="firstName" 
-                      render={({ field }) => (
-                        <FormItem>
+                    <FormField control={form.control} name="firstName" render={({
+                    field
+                  }) => <FormItem>
                           <FormLabel>First Name</FormLabel>
                           <FormControl>
                             <Input placeholder="Your first name" {...field} />
                           </FormControl>
                           <FormMessage />
-                        </FormItem>
-                      )} 
-                    />
+                        </FormItem>} />
                     
-                    <FormField 
-                      control={form.control} 
-                      name="lastName" 
-                      render={({ field }) => (
-                        <FormItem>
+                    <FormField control={form.control} name="lastName" render={({
+                    field
+                  }) => <FormItem>
                           <FormLabel>Last Name</FormLabel>
                           <FormControl>
                             <Input placeholder="Your last name" {...field} />
                           </FormControl>
                           <FormMessage />
-                        </FormItem>
-                      )} 
-                    />
+                        </FormItem>} />
                   </div>
                   
-                  <FormField 
-                    control={form.control} 
-                    name="email" 
-                    render={({ field }) => (
-                      <FormItem>
+                  <FormField control={form.control} name="email" render={({
+                  field
+                }) => <FormItem>
                         <FormLabel>Email</FormLabel>
                         <FormControl>
                           <Input placeholder="Your email" {...field} />
                         </FormControl>
                         <FormMessage />
-                      </FormItem>
-                    )} 
-                  />
+                      </FormItem>} />
                   
-                  <FormField 
-                    control={form.control} 
-                    name="phone" 
-                    render={({ field }) => (
-                      <FormItem>
+                  <FormField control={form.control} name="phone" render={({
+                  field
+                }) => <FormItem>
                         <FormLabel>Phone</FormLabel>
                         <FormControl>
                           <Input placeholder="Your phone number" {...field} />
                         </FormControl>
                         <FormMessage />
-                      </FormItem>
-                    )} 
-                  />
+                      </FormItem>} />
                   
-                  <FormField 
-                    control={form.control} 
-                    name="message" 
-                    render={({ field }) => (
-                      <FormItem>
+                  <FormField control={form.control} name="message" render={({
+                  field
+                }) => <FormItem>
                         <FormLabel>Message</FormLabel>
                         <FormControl>
                           <Textarea placeholder="How can I help you?" className="resize-none min-h-[120px]" {...field} />
                         </FormControl>
                         <FormMessage />
-                      </FormItem>
-                    )} 
-                  />
+                      </FormItem>} />
                   
                   <Button type="submit" className="w-full" disabled={isSubmitting}>
                     {isSubmitting ? 'Sending...' : 'Submit'}
@@ -295,8 +259,6 @@ const Contact = () => {
           <p>© 2025 Jared Harman Real Estate. All rights reserved. DRE #02193879</p>
         </div>
       </footer>
-    </div>
-  );
+    </div>;
 };
-
 export default Contact;
