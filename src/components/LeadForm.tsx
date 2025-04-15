@@ -175,7 +175,7 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSubmit, className }) => {
         
         <p className="text-xs text-muted-foreground text-center pt-3">
           Your information is secure and will never be shared. By submitting this form, you agree to our{" "}
-          <Link to="/privacy" className="text-primary hover:underline">Privacy Policy</Link>
+          <Link to="/privacy" target="_blank" className="text-primary hover:underline">Privacy Policy</Link>
           {" "}and consent to be contacted by email, phone, or text.
         </p>
       </form>
