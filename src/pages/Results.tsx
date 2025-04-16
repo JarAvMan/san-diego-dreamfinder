@@ -36,7 +36,11 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
           const storedResults = localStorage.getItem(`quiz_results_${resultId}`);
           if (storedResults) {
             const { neighborhoods: storedNeighborhoods, leadInfo: storedLeadInfo } = JSON.parse(storedResults);
-            setNeighborhoods(storedNeighborhoods);
+            // Sort neighborhoods by match score and take top 3
+            const sortedNeighborhoods = storedNeighborhoods
+              .sort((a: Neighborhood, b: Neighborhood) => (b.matchScore || 0) - (a.matchScore || 0))
+              .slice(0, 3);
+            setNeighborhoods(sortedNeighborhoods);
             setLeadInfo(storedLeadInfo);
           } else {
             setError("Results not found. They may have expired or been cleared.");
@@ -48,7 +52,11 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
           }
         } else if (propNeighborhoods) {
           // Use props if available (direct navigation from quiz)
-          setNeighborhoods(propNeighborhoods);
+          // Sort neighborhoods by match score and take top 3
+          const sortedNeighborhoods = propNeighborhoods
+            .sort((a: Neighborhood, b: Neighborhood) => (b.matchScore || 0) - (a.matchScore || 0))
+            .slice(0, 3);
+          setNeighborhoods(sortedNeighborhoods);
           setLeadInfo(propLeadInfo);
         }
       } catch (error) {

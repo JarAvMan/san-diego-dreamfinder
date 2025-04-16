@@ -70,6 +70,14 @@ const AdminSettings: React.FC = () => {
     }
   }, []);
 
+  // Save settings when webhook URLs change
+  useEffect(() => {
+    if (isAuthenticated) {
+      localStorage.setItem('zapierWebhookUrl', zapierWebhook);
+      localStorage.setItem('contactFormWebhookUrl', contactFormWebhook);
+    }
+  }, [zapierWebhook, contactFormWebhook, isAuthenticated]);
+
   // Load stored contacts and form submissions
   useEffect(() => {
     const loadData = () => {
@@ -264,40 +272,32 @@ const AdminSettings: React.FC = () => {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="sm:max-w-xl">
+      <DialogContent className="sm:max-w-[425px]">
         {!isAuthenticated ? (
           <>
             <DialogHeader>
-              <DialogTitle>Admin Authentication</DialogTitle>
+              <DialogTitle>Admin Login</DialogTitle>
               <DialogDescription>
-                Enter your password to access admin settings.
-                {isFirstTimeLogin && (
-                  <p className="mt-2 text-sm font-medium text-amber-500">
-                    First time login: Set your admin password.
-                  </p>
-                )}
+                Enter your admin password to access settings.
               </DialogDescription>
             </DialogHeader>
-            <div className="space-y-4 py-4">
-              <div className="space-y-2">
-                <Label htmlFor="admin-password">Password</Label>
+            <div className="grid gap-4 py-4">
+              <div className="grid gap-2">
+                <Label htmlFor="password">Password</Label>
                 <Input
-                  id="admin-password"
+                  id="password"
                   type="password"
-                  placeholder="Enter password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   onKeyDown={handlePasswordKeyDown}
                 />
                 {passwordError && (
-                  <p className="text-sm text-red-500">{passwordError}</p>
+                  <p className="text-sm text-destructive">{passwordError}</p>
                 )}
               </div>
             </div>
             <DialogFooter>
-              <Button onClick={handleLogin}>
-                {isFirstTimeLogin ? 'Set Password' : 'Login'}
-              </Button>
+              <Button onClick={handleLogin}>Login</Button>
             </DialogFooter>
           </>
         ) : (
@@ -317,31 +317,33 @@ const AdminSettings: React.FC = () => {
                 <TabsTrigger value="security">Security</TabsTrigger>
               </TabsList>
               
-              <TabsContent value="webhooks" className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="quiz-webhook">Quiz Webhook URL</Label>
-                  <Input
-                    id="quiz-webhook"
-                    placeholder="https://hooks.zapier.com/hooks/catch/..."
-                    value={zapierWebhook}
-                    onChange={(e) => setZapierWebhook(e.target.value)}
-                  />
-                  <p className="text-sm text-muted-foreground">
-                    This webhook will receive contact info and matched neighborhoods from the quiz.
-                  </p>
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="contact-form-webhook">Contact Form Webhook URL</Label>
-                  <Input
-                    id="contact-form-webhook"
-                    placeholder="https://hooks.zapier.com/hooks/catch/..."
-                    value={contactFormWebhook}
-                    onChange={(e) => setContactFormWebhook(e.target.value)}
-                  />
-                  <p className="text-sm text-muted-foreground">
-                    This webhook will receive submissions from the contact form.
-                  </p>
+              <TabsContent value="webhooks">
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="quiz-webhook">Quiz Webhook URL</Label>
+                    <Input
+                      id="quiz-webhook"
+                      placeholder="https://hooks.zapier.com/hooks/catch/..."
+                      value={zapierWebhook}
+                      onChange={(e) => setZapierWebhook(e.target.value)}
+                    />
+                    <p className="text-sm text-muted-foreground">
+                      This webhook will receive contact info and matched neighborhoods from the quiz.
+                    </p>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="contact-form-webhook">Contact Form Webhook URL</Label>
+                    <Input
+                      id="contact-form-webhook"
+                      placeholder="https://hooks.zapier.com/hooks/catch/..."
+                      value={contactFormWebhook}
+                      onChange={(e) => setContactFormWebhook(e.target.value)}
+                    />
+                    <p className="text-sm text-muted-foreground">
+                      This webhook will receive submissions from the contact form.
+                    </p>
+                  </div>
                 </div>
               </TabsContent>
               

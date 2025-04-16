@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Neighborhood, LeadInfo } from '@/types';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -8,22 +9,49 @@ import { cn } from '@/lib/utils';
 import { useToast } from "@/hooks/use-toast";
 import { sendToZapier } from '@/utils/zapierIntegration';
 
-// Get webhook URL from localStorage or use default
-const ZAPIER_WEBHOOK_URL = localStorage.getItem('zapierWebhookUrl') || '';
-
 interface ResultsPageProps {
-  neighborhoods: Neighborhood[];
+  neighborhoods?: Neighborhood[];
   className?: string;
   leadInfo?: LeadInfo;
 }
 
 const ResultsPage: React.FC<ResultsPageProps> = ({
-  neighborhoods = [],
+  neighborhoods: propNeighborhoods = [],
   className,
-  leadInfo
+  leadInfo: propLeadInfo
 }) => {
+  const { resultId } = useParams();
   const { toast } = useToast();
   const [zapierSent, setZapierSent] = useState(false);
+  const [localNeighborhoods, setLocalNeighborhoods] = useState<Neighborhood[]>([]);
+  const [localLeadInfo, setLocalLeadInfo] = useState<LeadInfo | undefined>();
+  const [webhookUrl, setWebhookUrl] = useState<string>('');
+
+  // Load webhook URL from localStorage
+  useEffect(() => {
+    const url = localStorage.getItem('zapierWebhookUrl') || '';
+    setWebhookUrl(url);
+  }, []);
+
+  // Load data from localStorage if resultId is present
+  useEffect(() => {
+    if (resultId) {
+      const storedResults = localStorage.getItem(`quiz_results_${resultId}`);
+      if (storedResults) {
+        try {
+          const { neighborhoods, leadInfo } = JSON.parse(storedResults);
+          setLocalNeighborhoods(neighborhoods);
+          setLocalLeadInfo(leadInfo);
+        } catch (error) {
+          console.error('Error parsing stored results:', error);
+        }
+      }
+    }
+  }, [resultId]);
+
+  // Use either props or local state
+  const neighborhoods = localNeighborhoods.length > 0 ? localNeighborhoods : propNeighborhoods;
+  const leadInfo = localLeadInfo || propLeadInfo;
 
   // Get only the top 3 neighborhoods
   const topNeighborhoods = neighborhoods.slice(0, 3);
@@ -50,28 +78,31 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
 
   // Send contact info to Zapier
   const sendContactToZapier = async () => {
-    if (!leadInfo) return;
+    if (!leadInfo || !webhookUrl) {
+      console.warn('Cannot send to Zapier: missing leadInfo or webhook URL');
+      return;
+    }
     
     try {
-      // Only send to Zapier if webhook URL is configured
-      if (ZAPIER_WEBHOOK_URL) {
-        const zapierSuccess = await sendToZapier(
-          leadInfo,
-          topNeighborhoods.map(n => n.name),
-          ZAPIER_WEBHOOK_URL
-        );
+      const zapierSuccess = await sendToZapier(
+        leadInfo,
+        topNeighborhoods.map(n => n.name),
+        webhookUrl
+      );
 
-        if (zapierSuccess) {
-          setZapierSent(true);
-          toast({
-            title: "Success!",
-            description: "Your information has been sent successfully.",
-          });
-        } else {
-          console.warn('Failed to send data to Zapier');
-        }
+      if (zapierSuccess) {
+        setZapierSent(true);
+        toast({
+          title: "Success!",
+          description: "Your information has been sent successfully.",
+        });
       } else {
-        console.warn('No Zapier webhook URL configured');
+        console.warn('Failed to send data to Zapier');
+        toast({
+          title: "Error",
+          description: "There was a problem sending your information. Please try again.",
+          variant: "destructive",
+        });
       }
     } catch (error) {
       console.error('Error sending to Zapier:', error);
@@ -85,8 +116,19 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
 
   // Send user data to Zapier when component loads if leadInfo is available
   useEffect(() => {
-    sendContactToZapier();
-  }, [leadInfo, toast, zapierSent]);
+    if (leadInfo && !zapierSent && webhookUrl) {
+      sendContactToZapier();
+    }
+  }, [leadInfo, zapierSent, webhookUrl]);
+
+  if (!neighborhoods.length) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen space-y-4">
+        <h1 className="text-2xl font-bold">No Results Found</h1>
+        <p className="text-muted-foreground">We couldn't find any matching neighborhoods for your preferences.</p>
+      </div>
+    );
+  }
 
   return (
     <div className={cn("space-y-8 animate-fade-in", className)}>
@@ -114,15 +156,7 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
                   Match #{index + 1}
                 </Badge>
                 <div className="text-sm text-muted-foreground">
-                  {neighborhood.budget.min.toLocaleString('en-US', {
-                    style: 'currency',
-                    currency: 'USD',
-                    maximumFractionDigits: 0
-                  })} - {neighborhood.budget.max.toLocaleString('en-US', {
-                    style: 'currency',
-                    currency: 'USD',
-                    maximumFractionDigits: 0
-                  })}
+                  {formatPriceWithSuffix(neighborhood.budget.min)} - {formatPriceWithSuffix(neighborhood.budget.max)}
                 </div>
               </div>
               <CardTitle className="flex items-center">
@@ -146,24 +180,12 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
                 <div className="flex items-center text-sm">
                   <Building size={16} className="mr-2 text-primary" />
                   <span className="font-medium">Condos starting at </span>
-                  <span className="ml-1">
-                    {getCondoPrice(neighborhood).toLocaleString('en-US', {
-                      style: 'currency',
-                      currency: 'USD',
-                      maximumFractionDigits: 0
-                    })}
-                  </span>
+                  <span className="ml-1">{formatPriceWithSuffix(getCondoPrice(neighborhood))}</span>
                 </div>
                 <div className="flex items-center text-sm">
                   <Home size={16} className="mr-2 text-primary" />
                   <span className="font-medium">Homes starting at </span>
-                  <span className="ml-1">
-                    {neighborhood.budget.min.toLocaleString('en-US', {
-                      style: 'currency',
-                      currency: 'USD',
-                      maximumFractionDigits: 0
-                    })}
-                  </span>
+                  <span className="ml-1">{formatPriceWithSuffix(neighborhood.budget.min)}</span>
                 </div>
                 <div className="text-xs text-muted-foreground mt-2 flex items-start">
                   <Info size={12} className="mr-1 mt-0.5 shrink-0" />
