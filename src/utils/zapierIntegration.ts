@@ -26,7 +26,7 @@ export const sendToZapier = async (
       firstName: leadInfo.firstName,
       lastName: leadInfo.lastName,
       email: leadInfo.email,
-      phone: leadInfo.phone,
+      marketingConsent: leadInfo.marketingConsent,
       neighborhoods: recommendedNeighborhoods.join(', '),
       date: new Date().toISOString(),
       additionalData: additionalData || ''

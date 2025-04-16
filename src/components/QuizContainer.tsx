@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { sendToZapier } from '@/utils/zapierIntegration';
 import { useNavigate } from 'react-router-dom';
+import { getAIRecommendations } from '@/utils/aiRecommendations';
 
 const QuizContainer: React.FC = () => {
   const [currentStep, setCurrentStep] = useState<QuizStep>(QuizStep.WELCOME);
@@ -78,17 +79,18 @@ const QuizContainer: React.FC = () => {
     setLeadInfo(data);
     setError(null);
     setIsSubmitting(true);
-
+    
     try {
-      const topNeighborhoods = getTopNeighborhoods(answers);
-      setRecommendations(topNeighborhoods);
+      // Get AI-based recommendations
+      const recommendedNeighborhoods = await getAIRecommendations(answers);
+      setRecommendations(recommendedNeighborhoods);
 
       // Generate a unique result ID
       const resultId = generateResultId();
       
       // Store results in localStorage
       localStorage.setItem(`quiz_results_${resultId}`, JSON.stringify({
-        neighborhoods: topNeighborhoods,
+        neighborhoods: recommendedNeighborhoods,
         leadInfo: data,
         timestamp: new Date().toISOString()
       }));
@@ -101,19 +103,19 @@ const QuizContainer: React.FC = () => {
       // Send data to Zapier using the shared utility
       await sendToZapier(
         data,
-        topNeighborhoods.map(n => n.name),
+        recommendedNeighborhoods.map(n => n.name),
         ZAPIER_WEBHOOK_URL
       );
 
       // Navigate to results page with the unique ID
       navigate(`/results/${resultId}`);
-    } catch (err) {
-      console.error('Error processing recommendations:', err);
+    } catch (error) {
+      console.error('Error getting recommendations:', error);
       setError('There was an error generating your recommendations. Please try again.');
       toast({
         title: "Error",
-        description: "There was a problem generating your recommendations. Please try again.",
-        variant: "destructive",
+        description: "There was an error generating your recommendations. Please try again.",
+        variant: "destructive"
       });
     } finally {
       setIsSubmitting(false);

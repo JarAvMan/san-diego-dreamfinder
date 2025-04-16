@@ -24,9 +24,6 @@ const formSchema = z.object({
   email: z.string().email({
     message: 'Please enter a valid email address.'
   }),
-  phone: z.string().min(10, {
-    message: 'Please enter a valid phone number.'
-  }),
   message: z.string().min(10, {
     message: 'Message must be at least 10 characters.'
   }),
@@ -50,7 +47,6 @@ const Contact = () => {
       firstName: '',
       lastName: '',
       email: '',
-      phone: '',
       message: '',
       consent: false
     }
@@ -91,7 +87,6 @@ const Contact = () => {
           firstName: data.firstName,
           lastName: data.lastName,
           email: data.email,
-          phone: data.phone
         },
         [],
         data.message

@@ -2,8 +2,7 @@ export interface LeadInfo {
   firstName: string;
   lastName: string;
   email: string;
-  phone: string;
-  preferredContact: 'email' | 'phone';
+  marketingConsent: boolean;
 }
 
 export interface Neighborhood {

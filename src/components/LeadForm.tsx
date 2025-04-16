@@ -20,17 +20,15 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSubmit, isSubmitting = false, cla
     firstName: '',
     lastName: '',
     email: '',
-    phone: '',
-    preferredContact: 'email'
+    marketingConsent: false
   });
-  const [consent, setConsent] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: type === 'checkbox' ? checked : value
     }));
     
     if (errors[name]) {
@@ -131,60 +129,18 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSubmit, isSubmitting = false, cla
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="phone">Phone Number</Label>
-          <Input
-            id="phone"
-            name="phone"
-            type="tel"
-            placeholder="(555) 123-4567"
-            value={formData.phone}
-            onChange={handleChange}
-            disabled={isSubmitting}
-          />
-        </div>
-
-        <div className="space-y-2">
-          <Label>Preferred Contact Method</Label>
-          <div className="flex space-x-4">
-            <label className="flex items-center space-x-2">
-              <input
-                type="radio"
-                name="preferredContact"
-                value="email"
-                checked={formData.preferredContact === 'email'}
-                onChange={handleChange}
-                disabled={isSubmitting}
-                className="form-radio"
-              />
-              <span>Email</span>
-            </label>
-            <label className="flex items-center space-x-2">
-              <input
-                type="radio"
-                name="preferredContact"
-                value="phone"
-                checked={formData.preferredContact === 'phone'}
-                onChange={handleChange}
-                disabled={isSubmitting}
-                className="form-radio"
-              />
-              <span>Phone</span>
-            </label>
-          </div>
-        </div>
-
-        <div className="space-y-2">
           <div className="flex items-start space-x-2">
             <Checkbox
-              id="consent"
-              checked={consent}
-              onCheckedChange={(checked) => setConsent(checked as boolean)}
+              id="marketingConsent"
+              name="marketingConsent"
+              checked={formData.marketingConsent}
+              onCheckedChange={(checked) => setFormData(prev => ({ ...prev, marketingConsent: checked as boolean }))}
               className="mt-1"
               disabled={isSubmitting}
             />
             <div className="space-y-1 leading-none">
-              <Label htmlFor="consent" className="text-sm leading-tight">
-                I'd like to receive marketing emails and occasional texts from Jared Harman, San Diego Realtor (optional).
+              <Label htmlFor="marketingConsent" className="text-sm leading-tight">
+                I'd like to receive marketing emails from Jared Harman, San Diego Realtor (optional).
               </Label>
             </div>
           </div>

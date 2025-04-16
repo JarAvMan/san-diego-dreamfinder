@@ -178,10 +178,45 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
     const weightedValue = importance * (categoryWeights[category as keyof typeof categoryWeights] || 1);
     console.log(`Category: ${category}, weighted value: ${weightedValue}`);
     
-    // Adjust scores based on answer
-    switch (answer.questionId) {
-      // ... keep existing switch statement logic
+    // Get the tags associated with this question
+    const questionTags = getQuestionTags(answer.questionId);
+    
+    if (questionTags) {
+      // For each neighborhood, calculate its match score based on the question's tags
+      neighborhoods.forEach(neighborhood => {
+        let matchScore = 0;
+        
+        // Check each tag associated with the question
+        questionTags.forEach(tag => {
+          // If the neighborhood has this tag, add to its score
+          if (neighborhood.tags.includes(tag)) {
+            const tagWeight = TAG_WEIGHTS[tag as keyof typeof TAG_WEIGHTS] || 1;
+            matchScore += weightedValue * tagWeight;
+          }
+        });
+        
+        // Add the match score to the neighborhood's total
+        neighborhood.matchScore += matchScore;
+      });
     }
+  });
+
+  // Normalize scores based on the number of questions answered in each category
+  neighborhoods.forEach(neighborhood => {
+    let normalizedScore = 0;
+    let totalWeight = 0;
+    
+    // Calculate weighted average based on category question counts
+    Object.entries(categoryQuestionCounts).forEach(([category, count]) => {
+      if (count > 0) {
+        const weight = categoryWeights[category as keyof typeof categoryWeights] || 1;
+        normalizedScore += (neighborhood.matchScore / count) * weight;
+        totalWeight += weight;
+      }
+    });
+    
+    // Set the final normalized score
+    neighborhood.matchScore = totalWeight > 0 ? normalizedScore / totalWeight : 0;
   });
 
   // Add some randomization to break ties and ensure variety in results
