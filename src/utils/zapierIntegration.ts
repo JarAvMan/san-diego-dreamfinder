@@ -21,14 +21,19 @@ export const sendToZapier = async (
       return false;
     }
 
-    // Prepare the data for Zapier
+    // Prepare the data for Zapier in a standardized format
     const payload = {
-      firstName: leadInfo.firstName,
-      lastName: leadInfo.lastName,
-      email: leadInfo.email,
-      marketingConsent: leadInfo.marketingConsent,
-      neighborhoods: recommendedNeighborhoods.join(', '),
-      date: new Date().toISOString(),
+      contact: {
+        firstName: leadInfo.firstName,
+        lastName: leadInfo.lastName,
+        email: leadInfo.email,
+        marketingConsent: leadInfo.marketingConsent
+      },
+      recommendations: {
+        neighborhoods: recommendedNeighborhoods,
+        timestamp: new Date().toISOString()
+      },
+      source: 'neighborhood_quiz',
       additionalData: additionalData || ''
     };
 
@@ -37,15 +42,17 @@ export const sendToZapier = async (
       method: 'POST',
       body: JSON.stringify(payload),
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
       }
     });
 
     if (!response.ok) {
-      throw new Error(`Failed to send data to Zapier: ${response.statusText}`);
+      const errorText = await response.text();
+      throw new Error(`Failed to send data to Zapier: ${response.status} ${response.statusText} - ${errorText}`);
     }
 
-    console.log('Successfully sent lead to Zapier');
+    console.log('Successfully sent lead to Zapier:', payload);
     return true;
   } catch (error) {
     console.error('Error sending data to Zapier:', error);

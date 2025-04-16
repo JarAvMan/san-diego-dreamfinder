@@ -30,7 +30,8 @@ const QuizContainer: React.FC = () => {
   const currentQuestion = quizQuestions[currentQuestionIndex];
   const totalQuestions = quizQuestions.length;
   
-  const ZAPIER_WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/20518038/2eliqxb/";
+  // Get webhook URL from localStorage or use default
+  const ZAPIER_WEBHOOK_URL = localStorage.getItem('zapierWebhookUrl') || '';
 
   const currentAnswer = answers.find(a => a.questionId === currentQuestion?.id)?.value || null;
 
@@ -100,12 +101,20 @@ const QuizContainer: React.FC = () => {
         description: "Generating your personalized neighborhood matches..."
       });
 
-      // Send data to Zapier using the shared utility
-      await sendToZapier(
-        data,
-        recommendedNeighborhoods.map(n => n.name),
-        ZAPIER_WEBHOOK_URL
-      );
+      // Only send to Zapier if webhook URL is configured
+      if (ZAPIER_WEBHOOK_URL) {
+        const zapierSuccess = await sendToZapier(
+          data,
+          recommendedNeighborhoods.map(n => n.name),
+          ZAPIER_WEBHOOK_URL
+        );
+
+        if (!zapierSuccess) {
+          console.warn('Failed to send data to Zapier, but continuing with results');
+        }
+      } else {
+        console.warn('No Zapier webhook URL configured');
+      }
 
       // Navigate to results page with the unique ID
       navigate(`/results/${resultId}`);

@@ -8,7 +8,8 @@ import { cn } from '@/lib/utils';
 import { useToast } from "@/hooks/use-toast";
 import { sendToZapier } from '@/utils/zapierIntegration';
 
-const ZAPIER_WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/20518038/2eliqxb/";
+// Get webhook URL from localStorage or use default
+const ZAPIER_WEBHOOK_URL = localStorage.getItem('zapierWebhookUrl') || '';
 
 interface ResultsPageProps {
   neighborhoods: Neighborhood[];
@@ -49,17 +50,28 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
     if (!leadInfo) return;
     
     try {
-      await sendToZapier(
-        leadInfo,
-        neighborhoods.map(n => n.name),
-        ZAPIER_WEBHOOK_URL
-      );
-      setZapierSent(true);
-      toast({
-        title: "Success!",
-        description: "Your information has been sent successfully.",
-      });
+      // Only send to Zapier if webhook URL is configured
+      if (ZAPIER_WEBHOOK_URL) {
+        const zapierSuccess = await sendToZapier(
+          leadInfo,
+          neighborhoods.map(n => n.name),
+          ZAPIER_WEBHOOK_URL
+        );
+
+        if (zapierSuccess) {
+          setZapierSent(true);
+          toast({
+            title: "Success!",
+            description: "Your information has been sent successfully.",
+          });
+        } else {
+          console.warn('Failed to send data to Zapier');
+        }
+      } else {
+        console.warn('No Zapier webhook URL configured');
+      }
     } catch (error) {
+      console.error('Error sending to Zapier:', error);
       toast({
         title: "Error",
         description: "There was a problem sending your information. Please try again.",
@@ -165,7 +177,8 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
           </Card>
         ))}
       </div>
-    </div>;
+    </div>
+  );
 };
 
 export default ResultsPage;

@@ -258,7 +258,11 @@ export const getTopNeighborhoods = (answers: QuizAnswer[]): Neighborhood[] => {
       tags: n.tags
     }))
   );
-  return rankedNeighborhoods.slice(0, 3);
+  
+  // Always return exactly 3 neighborhoods, sorted by match score
+  return rankedNeighborhoods
+    .sort((a, b) => b.matchScore - a.matchScore)
+    .slice(0, 3);
 };
 
 function calculateMatchScore(answers: QuizAnswer[], neighborhood: Neighborhood): number {
