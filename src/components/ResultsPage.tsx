@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Neighborhood, LeadInfo } from '@/types';
 import { Button } from '@/components/ui/button';
@@ -28,44 +27,17 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
     return neighborhood.kvCoreLink || '#';
   };
 
-  // Function to generate a combined search link for all selected neighborhoods
-  // Note: Since kvCORE doesn't support combined search in the same way,
-  // we'll just use the first neighborhood's link as a fallback
-  const getCombinedSearchLink = () => {
-    if (neighborhoods.length === 0) return '#';
-
-    // Just use the first neighborhood's link when multiple are selected
-    // We could potentially create a custom landing page in the future that shows all areas
-    return neighborhoods[0].kvCoreLink || '#';
-  };
-
   // Calculate condo price - condos are typically priced at 60-80% of homes in the same area
   const getCondoPrice = (neighborhood: Neighborhood) => {
-    // Using 75% as a reasonable average for condo pricing compared to homes
     return Math.round(neighborhood.budget.min * 0.75);
-  };
-
-  // Format price with appropriate suffix for larger amounts
-  const formatPriceWithSuffix = (price: number): string => {
-    if (price >= 1000000) {
-      return `$${(price / 1000000).toLocaleString('en-US', { maximumFractionDigits: 1 })}M`;
-    } else if (price >= 1000) {
-      return `$${(price / 1000).toLocaleString('en-US', { maximumFractionDigits: 0 })}K`;
-    } else {
-      return price.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
-    }
   };
 
   // Send user data to Zapier when component loads if leadInfo is available
   useEffect(() => {
     const sendContactToZapier = async () => {
       if (leadInfo && !zapierSent) {
-        // Replace with your actual Zapier webhook URL
-        const ZAPIER_WEBHOOK_URL = localStorage.getItem('zapierWebhookUrl') || '';
-        if (!ZAPIER_WEBHOOK_URL) {
-          console.log('No Zapier webhook URL configured');
-          return;
-        }
+        // Fixed Zapier webhook URL is now hardcoded
+        const ZAPIER_WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/20518038/2eliqxb/";
         const success = await sendToZapier(ZAPIER_WEBHOOK_URL, leadInfo, neighborhoods.map(n => n.name));
         if (success) {
           setZapierSent(true);
@@ -73,7 +45,6 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
             title: "Contact Saved",
             description: "Your information has been sent to our team."
           });
-
           // Store contact in localStorage for backup
           const storedContacts = JSON.parse(localStorage.getItem('storedContacts') || '[]');
           storedContacts.push({
@@ -88,7 +59,8 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
     sendContactToZapier();
   }, [leadInfo, neighborhoods, toast, zapierSent]);
 
-  return <div className={cn("space-y-8 animate-fade-in", className)}>
+  return (
+    <div className={cn("space-y-8 animate-fade-in", className)}>
       <div className="text-center space-y-4 mb-8">
         <div className="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-2">
           <Check size={14} className="mr-1" /> Results Ready
@@ -102,7 +74,8 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
       </div>
 
       <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-        {neighborhoods.map((neighborhood, index) => <Card key={neighborhood.id} className="overflow-hidden transition-all duration-300 hover:shadow-md border">
+        {neighborhoods.map((neighborhood, index) => (
+          <Card key={neighborhood.id} className="overflow-hidden transition-all duration-300 hover:shadow-md border">
             <div className="aspect-video w-full overflow-hidden">
               <img src={neighborhood.image} alt={neighborhood.name} className="w-full h-full object-cover transform transition-transform duration-500 hover:scale-105" />
             </div>
@@ -113,14 +86,14 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
                 </Badge>
                 <div className="text-sm text-muted-foreground">
                   {neighborhood.budget.min.toLocaleString('en-US', {
-                style: 'currency',
-                currency: 'USD',
-                maximumFractionDigits: 0
-              })} - {neighborhood.budget.max.toLocaleString('en-US', {
-                style: 'currency',
-                currency: 'USD',
-                maximumFractionDigits: 0
-              })}
+                    style: 'currency',
+                    currency: 'USD',
+                    maximumFractionDigits: 0
+                  })} - {neighborhood.budget.max.toLocaleString('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                    maximumFractionDigits: 0
+                  })}
                 </div>
               </div>
               <CardTitle className="flex items-center">
@@ -132,10 +105,12 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
             <CardContent className="pb-0">
               <h4 className="font-medium mb-2 text-sm">Neighborhood Highlights:</h4>
               <ul className="space-y-1 mb-4">
-                {neighborhood.keyFeatures.map((feature, i) => <li key={i} className="text-sm flex items-start">
+                {neighborhood.keyFeatures.map((feature, i) => (
+                  <li key={i} className="text-sm flex items-start">
                     <Check size={14} className="mr-2 text-primary mt-1 shrink-0" />
                     <span>{feature}</span>
-                  </li>)}
+                  </li>
+                ))}
               </ul>
               
               <div className="space-y-2 bg-muted/30 p-3 rounded-md mb-4">
@@ -144,10 +119,10 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
                   <span className="font-medium">Condos starting at </span>
                   <span className="ml-1">
                     {getCondoPrice(neighborhood).toLocaleString('en-US', {
-                  style: 'currency',
-                  currency: 'USD',
-                  maximumFractionDigits: 0
-                })}
+                      style: 'currency',
+                      currency: 'USD',
+                      maximumFractionDigits: 0
+                    })}
                   </span>
                 </div>
                 <div className="flex items-center text-sm">
@@ -155,10 +130,10 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
                   <span className="font-medium">Homes starting at </span>
                   <span className="ml-1">
                     {neighborhood.budget.min.toLocaleString('en-US', {
-                  style: 'currency',
-                  currency: 'USD',
-                  maximumFractionDigits: 0
-                })}
+                      style: 'currency',
+                      currency: 'USD',
+                      maximumFractionDigits: 0
+                    })}
                   </span>
                 </div>
                 <div className="text-xs text-muted-foreground mt-2 flex items-start">
@@ -173,15 +148,11 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
                 <ArrowRight size={16} className="ml-2 transition-transform group-hover:translate-x-1" />
               </Button>
             </CardFooter>
-          </Card>)}
+          </Card>
+        ))}
       </div>
-
-      <div className="text-center pt-8">
-        <Button className="px-8" onClick={() => window.open(getCombinedSearchLink(), '_blank')}>
-          View Properties in All My Matched Areas
-        </Button>
-      </div>
-    </div>;
+    </div>
+  );
 };
 
 export default ResultsPage;
