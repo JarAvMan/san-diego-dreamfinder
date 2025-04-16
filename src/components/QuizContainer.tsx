@@ -19,9 +19,6 @@ const QuizContainer: React.FC = () => {
   const [answers, setAnswers] = useState<QuizAnswer[]>([]);
   const [leadInfo, setLeadInfo] = useState<LeadInfo | null>(null);
   const [recommendations, setRecommendations] = useState<Neighborhood[]>([]);
-  const [showZapierDialog, setShowZapierDialog] = useState(false);
-  const [zapierWebhook, setZapierWebhook] = useState(localStorage.getItem('zapierWebhookUrl') || '');
-  const [contactFormWebhook, setContactFormWebhook] = useState(localStorage.getItem('contactFormWebhookUrl') || '');
 
   const {
     toast
@@ -29,13 +26,8 @@ const QuizContainer: React.FC = () => {
 
   const currentQuestion = quizQuestions[currentQuestionIndex];
   const totalQuestions = quizQuestions.length;
-
-  useEffect(() => {
-    const isAdmin = localStorage.getItem('isAdmin') === 'true';
-    if (isAdmin && !localStorage.getItem('zapierWebhookUrl')) {
-      setShowZapierDialog(true);
-    }
-  }, []);
+  
+  const ZAPIER_WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/20518038/2eliqxb/";
 
   const currentAnswer = answers.find(a => a.questionId === currentQuestion?.id)?.value || null;
 
@@ -85,28 +77,25 @@ const QuizContainer: React.FC = () => {
       description: "Generating your personalized neighborhood matches..."
     });
 
+    // Send data to Zapier
+    fetch(ZAPIER_WEBHOOK_URL, {
+      method: 'POST',
+      body: JSON.stringify({
+        ...data,
+        answers,
+        neighborhoods: topNeighborhoods.map(n => n.name).join(', '),
+        date: new Date().toISOString()
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).catch(error => {
+      console.error('Error sending data to Zapier:', error);
+    });
+
     setTimeout(() => {
       setCurrentStep(QuizStep.RESULTS);
     }, 1500);
-
-    console.log('Lead captured:', data);
-    console.log('Quiz answers:', answers);
-    console.log('Recommendations:', topNeighborhoods);
-  };
-
-  const saveZapierWebhook = () => {
-    localStorage.setItem('zapierWebhookUrl', zapierWebhook);
-    
-    if (contactFormWebhook) {
-      localStorage.setItem('contactFormWebhookUrl', contactFormWebhook);
-    }
-    
-    localStorage.setItem('isAdmin', 'true');
-    setShowZapierDialog(false);
-    toast({
-      title: "Zapier Integration Configured",
-      description: "Your webhook URLs have been saved."
-    });
   };
 
   const startQuiz = () => {
@@ -192,45 +181,6 @@ const QuizContainer: React.FC = () => {
       {currentStep === QuizStep.LEAD_FORM && <LeadForm onSubmit={handleLeadSubmit} />}
 
       {currentStep === QuizStep.RESULTS && recommendations.length > 0 && <ResultsPage neighborhoods={recommendations} leadInfo={leadInfo || undefined} />}
-      
-      <Dialog open={showZapierDialog} onOpenChange={setShowZapierDialog}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>Configure Zapier Integration</DialogTitle>
-            <DialogDescription>
-              Enter your Zapier webhook URLs to connect with your CRM system.
-              This will allow you to automatically send leads and contact form submissions.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="space-y-4 py-4">
-            <div className="space-y-2">
-              <Label htmlFor="zapier-url">Quiz Results Webhook URL</Label>
-              <Input 
-                id="zapier-url" 
-                placeholder="https://hooks.zapier.com/hooks/catch/..." 
-                value={zapierWebhook} 
-                onChange={e => setZapierWebhook(e.target.value)} 
-              />
-              <p className="text-xs text-muted-foreground">Used for sending quiz results</p>
-            </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="contact-form-url">Contact Form Webhook URL</Label>
-              <Input 
-                id="contact-form-url" 
-                placeholder="https://hooks.zapier.com/hooks/catch/..." 
-                value={contactFormWebhook} 
-                onChange={e => setContactFormWebhook(e.target.value)} 
-              />
-              <p className="text-xs text-muted-foreground">Used for contact form submissions</p>
-            </div>
-          </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setShowZapierDialog(false)}>Cancel</Button>
-            <Button onClick={saveZapierWebhook}>Save Configuration</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </div>;
 };
 

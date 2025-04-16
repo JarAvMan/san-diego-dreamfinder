@@ -1,4 +1,3 @@
-
 export interface LeadInfo {
   firstName: string;
   lastName: string;
@@ -21,7 +20,7 @@ export interface Neighborhood {
   kvCoreLink?: string;
 }
 
-export type LikertOption = 'strongly_disagree' | 'somewhat_disagree' | 'neutral' | 'somewhat_agree' | 'strongly_agree';
+export type LikertOption = 'not_important' | 'somewhat_important' | 'very_important';
 
 export interface QuizAnswer {
   questionId: string;

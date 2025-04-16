@@ -204,9 +204,7 @@ export const quizQuestions: QuizQuestion[] = [
 ];
 
 export const likertLabels = {
-  strongly_disagree: 'Strongly Disagree',
-  somewhat_disagree: 'Somewhat Disagree',
-  neutral: 'Neutral',
-  somewhat_agree: 'Somewhat Agree',
-  strongly_agree: 'Strongly Agree'
+  not_important: 'Not Important',
+  somewhat_important: 'Somewhat Important',
+  very_important: 'Very Important'
 };

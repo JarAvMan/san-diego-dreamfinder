@@ -18,7 +18,7 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSubmit, className }) => {
     firstName: '',
     lastName: '',
     email: '',
-    phone: ''
+    phone: '' // Keeping this in the type but not showing the field
   });
   const [consent, setConsent] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -27,7 +27,6 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSubmit, className }) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
     
-    // Clear error when user types
     if (errors[name]) {
       setErrors(prev => {
         const newErrors = { ...prev };
@@ -54,16 +53,6 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSubmit, className }) => {
       newErrors.email = 'Please enter a valid email address';
     }
     
-    if (!formData.phone.trim()) {
-      newErrors.phone = 'Phone number is required';
-    } else if (!/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(formData.phone)) {
-      newErrors.phone = 'Please enter a valid phone number';
-    }
-
-    if (!consent) {
-      newErrors.consent = 'Please agree to receive communications';
-    }
-    
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -72,7 +61,10 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSubmit, className }) => {
     e.preventDefault();
     
     if (validateForm()) {
-      onSubmit(formData);
+      onSubmit({
+        ...formData,
+        phone: '' // Send empty string for phone
+      });
     }
   };
 
@@ -80,21 +72,23 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSubmit, className }) => {
     <div className={cn("p-8 rounded-2xl border bg-card/80 backdrop-blur-sm shadow-sm animate-fade-in", className)}>
       <h2 className="text-2xl font-semibold mb-2">One Last Step!</h2>
       <p className="text-muted-foreground mb-6">
-        Enter your details to see your personalized San Diego neighborhood recommendations
+        We ask for your email so we can send you your personalized neighborhood match results.
       </p>
       
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label htmlFor="firstName">First Name</Label>
-            <Input
-              id="firstName"
-              name="firstName"
-              placeholder="Your first name"
-              value={formData.firstName}
-              onChange={handleChange}
-              className={errors.firstName ? "border-destructive" : ""}
-            />
+            <FormControl>
+              <Input
+                id="firstName"
+                name="firstName"
+                placeholder="Your first name"
+                value={formData.firstName}
+                onChange={handleChange}
+                className={errors.firstName ? "border-destructive" : ""}
+              />
+            </FormControl>
             {errors.firstName && (
               <p className="text-destructive text-sm">{errors.firstName}</p>
             )}
@@ -102,14 +96,16 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSubmit, className }) => {
           
           <div className="space-y-2">
             <Label htmlFor="lastName">Last Name</Label>
-            <Input
-              id="lastName"
-              name="lastName"
-              placeholder="Your last name"
-              value={formData.lastName}
-              onChange={handleChange}
-              className={errors.lastName ? "border-destructive" : ""}
-            />
+            <FormControl>
+              <Input
+                id="lastName"
+                name="lastName"
+                placeholder="Your last name"
+                value={formData.lastName}
+                onChange={handleChange}
+                className={errors.lastName ? "border-destructive" : ""}
+              />
+            </FormControl>
             {errors.lastName && (
               <p className="text-destructive text-sm">{errors.lastName}</p>
             )}
@@ -118,32 +114,19 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSubmit, className }) => {
         
         <div className="space-y-2">
           <Label htmlFor="email">Email Address</Label>
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            placeholder="your.email@example.com"
-            value={formData.email}
-            onChange={handleChange}
-            className={errors.email ? "border-destructive" : ""}
-          />
+          <FormControl>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="your.email@example.com"
+              value={formData.email}
+              onChange={handleChange}
+              className={errors.email ? "border-destructive" : ""}
+            />
+          </FormControl>
           {errors.email && (
             <p className="text-destructive text-sm">{errors.email}</p>
-          )}
-        </div>
-        
-        <div className="space-y-2">
-          <Label htmlFor="phone">Phone Number</Label>
-          <Input
-            id="phone"
-            name="phone"
-            placeholder="(555) 555-5555"
-            value={formData.phone}
-            onChange={handleChange}
-            className={errors.phone ? "border-destructive" : ""}
-          />
-          {errors.phone && (
-            <p className="text-destructive text-sm">{errors.phone}</p>
           )}
         </div>
 
@@ -155,13 +138,12 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSubmit, className }) => {
               onCheckedChange={(checked) => setConsent(checked as boolean)}
               className="mt-1"
             />
-            <Label htmlFor="consent" className="text-sm leading-tight">
-              I agree to receive marketing emails and occasional texts from Jared Harman, San Diego Realtor. I understand I can unsubscribe at any time.
-            </Label>
+            <div className="space-y-1 leading-none">
+              <Label htmlFor="consent" className="text-sm leading-tight">
+                I'd like to receive marketing emails and occasional texts from Jared Harman, San Diego Realtor (optional).
+              </Label>
+            </div>
           </div>
-          {errors.consent && (
-            <p className="text-destructive text-sm">{errors.consent}</p>
-          )}
         </div>
         
         <div className="pt-4">
@@ -174,9 +156,10 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSubmit, className }) => {
         </div>
         
         <p className="text-xs text-muted-foreground text-center pt-3">
-          Your information is secure and will never be shared. By submitting this form, you agree to our{" "}
-          <Link to="/privacy" target="_blank" className="text-primary hover:underline">Privacy Policy</Link>
-          {" "}and consent to be contacted by email, phone, or text.
+          Your information is secure and will never be shared. View our{" "}
+          <Link to="/privacy" className="text-primary hover:underline">
+            Privacy Policy
+          </Link>
         </p>
       </form>
     </div>
