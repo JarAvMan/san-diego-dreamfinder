@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -38,37 +37,44 @@ const AdminSettings: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
-  const [zapierWebhook, setZapierWebhook] = useState(localStorage.getItem('zapierWebhookUrl') || '');
-  const [contactFormWebhook, setContactFormWebhook] = useState(localStorage.getItem('contactFormWebhookUrl') || '');
+  const [zapierWebhook, setZapierWebhook] = useState('');
+  const [contactFormWebhook, setContactFormWebhook] = useState('');
   const [storedContacts, setStoredContacts] = useState<StoredContact[]>([]);
   const [storedFormSubmissions, setStoredFormSubmissions] = useState<StoredContactFormSubmission[]>([]);
   const [passwordError, setPasswordError] = useState('');
+  const [isFirstTimeLogin, setIsFirstTimeLogin] = useState(false);
   const { toast } = useToast();
 
-  // Check if already authenticated
+  // Initialize state from localStorage
   useEffect(() => {
-    const adminAuth = localStorage.getItem('adminAuth');
-    if (adminAuth) {
-      try {
-        const authData = JSON.parse(adminAuth);
-        const expiryTime = new Date(authData.expiry);
-        
-        // Check if auth token is still valid (not expired)
-        if (expiryTime > new Date()) {
-          setIsAuthenticated(true);
-        } else {
-          // Clear expired auth
+    if (typeof window !== 'undefined') {
+      setZapierWebhook(localStorage.getItem('zapierWebhookUrl') || '');
+      setContactFormWebhook(localStorage.getItem('contactFormWebhookUrl') || '');
+      
+      const adminAuth = localStorage.getItem('adminAuth');
+      if (adminAuth) {
+        try {
+          const authData = JSON.parse(adminAuth);
+          if (new Date(authData.expiry) > new Date()) {
+            setIsAuthenticated(true);
+          } else {
+            localStorage.removeItem('adminAuth');
+          }
+        } catch (error) {
+          console.error('Error parsing admin auth:', error);
           localStorage.removeItem('adminAuth');
         }
-      } catch (e) {
-        localStorage.removeItem('adminAuth');
       }
+
+      setIsFirstTimeLogin(!localStorage.getItem('adminPasswordHash'));
     }
   }, []);
 
   // Load stored contacts and form submissions
   useEffect(() => {
     const loadData = () => {
+      if (typeof window === 'undefined') return;
+
       try {
         const contacts = JSON.parse(localStorage.getItem('storedContacts') || '[]');
         setStoredContacts(contacts);
@@ -89,6 +95,8 @@ const AdminSettings: React.FC = () => {
 
   // Listen for keyboard shortcut (Alt+Shift+A)
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.altKey && e.shiftKey && e.key === 'A') {
         setIsOpen(true);
@@ -102,6 +110,8 @@ const AdminSettings: React.FC = () => {
   }, []);
 
   const saveSettings = () => {
+    if (typeof window === 'undefined') return;
+
     localStorage.setItem('zapierWebhookUrl', zapierWebhook);
     localStorage.setItem('contactFormWebhookUrl', contactFormWebhook);
     localStorage.setItem('isAdmin', 'true');
@@ -113,6 +123,8 @@ const AdminSettings: React.FC = () => {
   };
 
   const handleLogin = () => {
+    if (typeof window === 'undefined') return;
+
     // Check if a password is already set
     const savedPasswordHash = localStorage.getItem('adminPasswordHash');
     
@@ -138,6 +150,8 @@ const AdminSettings: React.FC = () => {
   };
 
   const setAuthenticated = () => {
+    if (typeof window === 'undefined') return;
+
     // Set authentication with 24-hour expiry
     const expiry = new Date();
     expiry.setHours(expiry.getHours() + 24);
@@ -157,6 +171,8 @@ const AdminSettings: React.FC = () => {
   };
 
   const exportQuizContacts = () => {
+    if (typeof window === 'undefined') return;
+
     const csvContent = [
       // CSV Header
       ['Name', 'Email', 'Phone', 'Recommended Areas', 'Timestamp'].join(','),
@@ -174,6 +190,8 @@ const AdminSettings: React.FC = () => {
   };
   
   const exportFormSubmissions = () => {
+    if (typeof window === 'undefined') return;
+
     const csvContent = [
       // CSV Header
       ['Name', 'Email', 'Phone', 'Message', 'Timestamp'].join(','),
@@ -191,6 +209,8 @@ const AdminSettings: React.FC = () => {
   };
   
   const downloadCSV = (content: string, filename: string) => {
+    if (typeof window === 'undefined') return;
+
     const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
@@ -202,6 +222,8 @@ const AdminSettings: React.FC = () => {
   };
 
   const clearQuizContacts = () => {
+    if (typeof window === 'undefined') return;
+
     if (confirm('Are you sure you want to clear all stored quiz contacts? This cannot be undone.')) {
       localStorage.removeItem('storedContacts');
       setStoredContacts([]);
@@ -213,6 +235,8 @@ const AdminSettings: React.FC = () => {
   };
   
   const clearFormSubmissions = () => {
+    if (typeof window === 'undefined') return;
+
     if (confirm('Are you sure you want to clear all stored contact form submissions? This cannot be undone.')) {
       localStorage.removeItem('storedContactFormSubmissions');
       setStoredFormSubmissions([]);
@@ -224,10 +248,13 @@ const AdminSettings: React.FC = () => {
   };
 
   const resetPassword = () => {
+    if (typeof window === 'undefined') return;
+
     if (confirm('Are you sure you want to reset your admin password? You will need to set a new one.')) {
       localStorage.removeItem('adminPasswordHash');
       localStorage.removeItem('adminAuth');
       setIsAuthenticated(false);
+      setIsFirstTimeLogin(true);
       toast({
         title: "Password Reset",
         description: "Your admin password has been reset.",
@@ -244,7 +271,7 @@ const AdminSettings: React.FC = () => {
               <DialogTitle>Admin Authentication</DialogTitle>
               <DialogDescription>
                 Enter your password to access admin settings.
-                {!localStorage.getItem('adminPasswordHash') && (
+                {isFirstTimeLogin && (
                   <p className="mt-2 text-sm font-medium text-amber-500">
                     First time login: Set your admin password.
                   </p>
@@ -269,7 +296,7 @@ const AdminSettings: React.FC = () => {
             </div>
             <DialogFooter>
               <Button onClick={handleLogin}>
-                {localStorage.getItem('adminPasswordHash') ? 'Login' : 'Set Password'}
+                {isFirstTimeLogin ? 'Set Password' : 'Login'}
               </Button>
             </DialogFooter>
           </>

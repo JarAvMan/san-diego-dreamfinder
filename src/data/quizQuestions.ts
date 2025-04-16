@@ -1,205 +1,280 @@
-import { QuizQuestion } from '../types';
+import { QuizQuestion } from '@/types';
 
 export const quizQuestions: QuizQuestion[] = [
   {
-    id: 'q1_outdoor_activities',
-    question: "I regularly spend time outdoors—whether hiking, biking, or simply relaxing in nature.",
-    text: "I regularly spend time outdoors—whether hiking, biking, or simply relaxing in nature.",
-    category: 'lifestyle',
+    id: 'beach_proximity',
+    question: 'How important is proximity to the beach or waterfront?',
     type: 'likert',
-    options: []
+    options: [
+      { id: 'not_important', text: 'Not Important' },
+      { id: 'somewhat_important', text: 'Somewhat Important' },
+      { id: 'very_important', text: 'Very Important' }
+    ],
+    tags: ['beach', 'waterfront', 'coastal']
   },
   {
-    id: 'q2_waterfront_proximity',
-    question: "Proximity to a beach, bay, or waterfront is essential for my lifestyle.",
-    text: "Proximity to a beach, bay, or waterfront is essential for my lifestyle.",
-    category: 'environment',
+    id: 'parks_greenspace',
+    question: 'How important is living near parks and green spaces?',
     type: 'likert',
-    options: []
+    options: [
+      { id: 'not_important', text: 'Not Important' },
+      { id: 'somewhat_important', text: 'Somewhat Important' },
+      { id: 'very_important', text: 'Very Important' }
+    ],
+    tags: ['parks', 'greenspace', 'outdoor']
   },
   {
-    id: 'q3_parks_recreation',
-    question: "Access to parks and outdoor recreational spaces significantly enhances my quality of life.",
-    text: "Access to parks and outdoor recreational spaces significantly enhances my quality of life.",
-    category: 'lifestyle',
+    id: 'safety',
+    question: 'How important is neighborhood safety and low crime?',
     type: 'likert',
-    options: []
+    options: [
+      { id: 'not_important', text: 'Not Important' },
+      { id: 'somewhat_important', text: 'Somewhat Important' },
+      { id: 'very_important', text: 'Very Important' }
+    ],
+    tags: ['safe', 'low-crime', 'security']
   },
   {
-    id: 'q4_walkability',
-    question: "I value a neighborhood with excellent walkability to everyday amenities.",
-    text: "I value a neighborhood with excellent walkability to everyday amenities.",
-    category: 'environment',
+    id: 'schools',
+    question: 'How important is access to top-rated public and private schools?',
     type: 'likert',
-    options: []
+    options: [
+      { id: 'not_important', text: 'Not Important' },
+      { id: 'somewhat_important', text: 'Somewhat Important' },
+      { id: 'very_important', text: 'Very Important' }
+    ],
+    tags: ['schools', 'education', 'family']
   },
   {
-    id: 'q5_urban_vibrancy',
-    question: "I am drawn to vibrant urban areas with diverse shopping, dining, and entertainment options.",
-    text: "I am drawn to vibrant urban areas with diverse shopping, dining, and entertainment options.",
-    category: 'environment',
+    id: 'public_transport',
+    question: 'How important is having reliable public transportation nearby?',
     type: 'likert',
-    options: []
+    options: [
+      { id: 'not_important', text: 'Not Important' },
+      { id: 'somewhat_important', text: 'Somewhat Important' },
+      { id: 'very_important', text: 'Very Important' }
+    ],
+    tags: ['transit', 'public-transport', 'commute']
   },
   {
-    id: 'q6_quiet_residential',
-    question: "A quiet, safe, and residential environment is important to me.",
-    text: "A quiet, safe, and residential environment is important to me.",
-    category: 'community',
+    id: 'walkability',
+    question: 'How important is being in a walkable area for daily errands?',
     type: 'likert',
-    options: []
+    options: [
+      { id: 'not_important', text: 'Not Important' },
+      { id: 'somewhat_important', text: 'Somewhat Important' },
+      { id: 'very_important', text: 'Very Important' }
+    ],
+    tags: ['walkable', 'pedestrian', 'urban']
   },
   {
-    id: 'q7_cultural_diversity',
-    question: "I prefer living in a culturally diverse and inclusive community.",
-    text: "I prefer living in a culturally diverse and inclusive community.",
-    category: 'community',
+    id: 'dining',
+    question: 'How important is a vibrant local dining and restaurant scene?',
     type: 'likert',
-    options: []
+    options: [
+      { id: 'not_important', text: 'Not Important' },
+      { id: 'somewhat_important', text: 'Somewhat Important' },
+      { id: 'very_important', text: 'Very Important' }
+    ],
+    tags: ['dining', 'restaurants', 'food']
   },
   {
-    id: 'q8_local_history',
-    question: "Neighborhoods with a strong sense of history and unique architectural character appeal to me.",
-    text: "Neighborhoods with a strong sense of history and unique architectural character appeal to me.",
-    category: 'housing',
+    id: 'affordability',
+    question: 'How important is affordability and reasonable housing costs?',
     type: 'likert',
-    options: []
+    options: [
+      { id: 'not_important', text: 'Not Important' },
+      { id: 'somewhat_important', text: 'Somewhat Important' },
+      { id: 'very_important', text: 'Very Important' }
+    ],
+    tags: ['affordable', 'budget', 'value']
   },
   {
-    id: 'q9_housing_age',
-    question: "I prefer modern, recently updated homes over older properties.",
-    text: "I prefer modern, recently updated homes over older properties.",
-    category: 'housing',
+    id: 'nightlife',
+    question: 'How important is a lively nightlife and entertainment options?',
     type: 'likert',
-    options: []
+    options: [
+      { id: 'not_important', text: 'Not Important' },
+      { id: 'somewhat_important', text: 'Somewhat Important' },
+      { id: 'very_important', text: 'Very Important' }
+    ],
+    tags: ['nightlife', 'entertainment', 'social']
   },
   {
-    id: 'q10_school_quality',
-    question: "The quality of local public schools is a top priority for me.",
-    text: "The quality of local public schools is a top priority for me.",
-    category: 'practical',
+    id: 'community',
+    question: 'How important is a strong sense of community and neighborhood events?',
     type: 'likert',
-    options: []
+    options: [
+      { id: 'not_important', text: 'Not Important' },
+      { id: 'somewhat_important', text: 'Somewhat Important' },
+      { id: 'very_important', text: 'Very Important' }
+    ],
+    tags: ['community', 'events', 'social']
   },
   {
-    id: 'q11_affordability',
-    question: "Housing affordability is a major factor in my home-buying decision.",
-    text: "Housing affordability is a major factor in my home-buying decision.",
-    category: 'practical',
+    id: 'work_proximity',
+    question: 'How important is proximity to your workplace or downtown core?',
     type: 'likert',
-    options: []
+    options: [
+      { id: 'not_important', text: 'Not Important' },
+      { id: 'somewhat_important', text: 'Somewhat Important' },
+      { id: 'very_important', text: 'Very Important' }
+    ],
+    tags: ['downtown', 'work', 'commute']
   },
   {
-    id: 'q12_commute_distance',
-    question: "I prefer living close to my workplace to minimize commute times.",
-    text: "I prefer living close to my workplace to minimize commute times.",
-    category: 'practical',
+    id: 'pet_friendly',
+    question: 'How important is a pet-friendly environment with dog parks?',
     type: 'likert',
-    options: []
+    options: [
+      { id: 'not_important', text: 'Not Important' },
+      { id: 'somewhat_important', text: 'Somewhat Important' },
+      { id: 'very_important', text: 'Very Important' }
+    ],
+    tags: ['pet-friendly', 'dogs', 'parks']
   },
   {
-    id: 'q13_public_transit',
-    question: "Access to reliable public transportation is important to me.",
-    text: "Access to reliable public transportation is important to me.",
-    category: 'practical',
+    id: 'cultural',
+    question: 'How important is access to cultural venues like galleries and theaters?',
     type: 'likert',
-    options: []
+    options: [
+      { id: 'not_important', text: 'Not Important' },
+      { id: 'somewhat_important', text: 'Somewhat Important' },
+      { id: 'very_important', text: 'Very Important' }
+    ],
+    tags: ['cultural', 'arts', 'entertainment']
   },
   {
-    id: 'q14_nightlife_dining',
-    question: "A lively local nightlife with excellent dining and entertainment options appeals to me.",
-    text: "A lively local nightlife with excellent dining and entertainment options appeals to me.",
-    category: 'lifestyle',
+    id: 'shopping',
+    question: 'How important is being close to shopping centers and retail hubs?',
     type: 'likert',
-    options: []
+    options: [
+      { id: 'not_important', text: 'Not Important' },
+      { id: 'somewhat_important', text: 'Somewhat Important' },
+      { id: 'very_important', text: 'Very Important' }
+    ],
+    tags: ['shopping', 'retail', 'convenience']
   },
   {
-    id: 'q15_community_interaction',
-    question: "I enjoy being part of a close-knit community where neighbors interact frequently.",
-    text: "I enjoy being part of a close-knit community where neighbors interact frequently.",
-    category: 'community',
+    id: 'quiet',
+    question: 'How important is having quiet, residential streets and low traffic?',
     type: 'likert',
-    options: []
+    options: [
+      { id: 'not_important', text: 'Not Important' },
+      { id: 'somewhat_important', text: 'Somewhat Important' },
+      { id: 'very_important', text: 'Very Important' }
+    ],
+    tags: ['quiet', 'residential', 'peaceful']
   },
   {
-    id: 'q16_pet_friendly',
-    question: "A pet-friendly environment with nearby green spaces is important to me.",
-    text: "A pet-friendly environment with nearby green spaces is important to me.",
-    category: 'lifestyle',
+    id: 'healthcare',
+    question: 'How important is access to health care facilities and hospitals?',
     type: 'likert',
-    options: []
+    options: [
+      { id: 'not_important', text: 'Not Important' },
+      { id: 'somewhat_important', text: 'Somewhat Important' },
+      { id: 'very_important', text: 'Very Important' }
+    ],
+    tags: ['healthcare', 'medical', 'hospitals']
   },
   {
-    id: 'q17_healthcare_access',
-    question: "Access to quality healthcare facilities significantly influences my choice of neighborhood.",
-    text: "Access to quality healthcare facilities significantly influences my choice of neighborhood.",
-    category: 'practical',
+    id: 'bike_friendly',
+    question: 'How important is bike-friendly infrastructure and trails?',
     type: 'likert',
-    options: []
+    options: [
+      { id: 'not_important', text: 'Not Important' },
+      { id: 'somewhat_important', text: 'Somewhat Important' },
+      { id: 'very_important', text: 'Very Important' }
+    ],
+    tags: ['bike-friendly', 'cycling', 'trails']
   },
   {
-    id: 'q18_sustainability',
-    question: "I value living in a community that prioritizes environmental sustainability and green practices.",
-    text: "I value living in a community that prioritizes environmental sustainability and green practices.",
-    category: 'environment',
+    id: 'freeway_access',
+    question: 'How important is easy access to major freeways or highways?',
     type: 'likert',
-    options: []
+    options: [
+      { id: 'not_important', text: 'Not Important' },
+      { id: 'somewhat_important', text: 'Somewhat Important' },
+      { id: 'very_important', text: 'Very Important' }
+    ],
+    tags: ['freeway', 'highway', 'commute']
   },
   {
-    id: 'q19_noise_levels',
-    question: "I prefer a quieter neighborhood with low noise levels.",
-    text: "I prefer a quieter neighborhood with low noise levels.",
-    category: 'community',
+    id: 'historic',
+    question: 'How important is a balance of modern development and historic character?',
     type: 'likert',
-    options: []
+    options: [
+      { id: 'not_important', text: 'Not Important' },
+      { id: 'somewhat_important', text: 'Somewhat Important' },
+      { id: 'very_important', text: 'Very Important' }
+    ],
+    tags: ['historic', 'modern', 'architecture']
   },
   {
-    id: 'q20_sports_recreation',
-    question: "Participating in outdoor sports and recreational activities is an essential part of my lifestyle.",
-    text: "Participating in outdoor sports and recreational activities is an essential part of my lifestyle.",
-    category: 'lifestyle',
+    id: 'traffic',
+    question: 'How important is low overall congestion and traffic flow?',
     type: 'likert',
-    options: []
+    options: [
+      { id: 'not_important', text: 'Not Important' },
+      { id: 'somewhat_important', text: 'Somewhat Important' },
+      { id: 'very_important', text: 'Very Important' }
+    ],
+    tags: ['traffic', 'congestion', 'commute']
   },
   {
-    id: 'q21_culinary_culture',
-    question: "I appreciate neighborhoods that offer a diverse culinary and cultural scene.",
-    text: "I appreciate neighborhoods that offer a diverse culinary and cultural scene.",
-    category: 'lifestyle',
+    id: 'fitness',
+    question: 'How important is nearby fitness and recreational facilities?',
     type: 'likert',
-    options: []
+    options: [
+      { id: 'not_important', text: 'Not Important' },
+      { id: 'somewhat_important', text: 'Somewhat Important' },
+      { id: 'very_important', text: 'Very Important' }
+    ],
+    tags: ['fitness', 'recreation', 'sports']
   },
   {
-    id: 'q22_commute_tradeoff',
-    question: "I am willing to accept a longer commute if it means living in a neighborhood that truly fits my lifestyle.",
-    text: "I am willing to accept a longer commute if it means living in a neighborhood that truly fits my lifestyle.",
-    category: 'practical',
+    id: 'family',
+    question: 'How important is living in a family-oriented neighborhood?',
     type: 'likert',
-    options: []
+    options: [
+      { id: 'not_important', text: 'Not Important' },
+      { id: 'somewhat_important', text: 'Somewhat Important' },
+      { id: 'very_important', text: 'Very Important' }
+    ],
+    tags: ['family', 'children', 'community']
   },
   {
-    id: 'q23_space_privacy',
-    question: "Spacious living areas and personal privacy are important in my ideal home.",
-    text: "Spacious living areas and personal privacy are important in my ideal home.",
-    category: 'housing',
+    id: 'airport',
+    question: 'How important is proximity to the airport for travel convenience?',
     type: 'likert',
-    options: []
+    options: [
+      { id: 'not_important', text: 'Not Important' },
+      { id: 'somewhat_important', text: 'Somewhat Important' },
+      { id: 'very_important', text: 'Very Important' }
+    ],
+    tags: ['airport', 'travel', 'convenience']
   },
   {
-    id: 'q24_long_term',
-    question: "I am looking for a long-term home that supports my future goals and evolving lifestyle.",
-    text: "I am looking for a long-term home that supports my future goals and evolving lifestyle.",
-    category: 'practical',
+    id: 'sustainability',
+    question: 'How important is environmental sustainability and green initiatives?',
     type: 'likert',
-    options: []
+    options: [
+      { id: 'not_important', text: 'Not Important' },
+      { id: 'somewhat_important', text: 'Somewhat Important' },
+      { id: 'very_important', text: 'Very Important' }
+    ],
+    tags: ['sustainable', 'green', 'eco-friendly']
   },
   {
-    id: 'q25_lifestyle_balance',
-    question: "I value a balanced lifestyle that combines urban convenience with the tranquility of suburban living.",
-    text: "I value a balanced lifestyle that combines urban convenience with the tranquility of suburban living.",
-    category: 'lifestyle',
+    id: 'identity',
+    question: 'How important is a neighborhood with a distinct local identity?',
     type: 'likert',
-    options: []
+    options: [
+      { id: 'not_important', text: 'Not Important' },
+      { id: 'somewhat_important', text: 'Somewhat Important' },
+      { id: 'very_important', text: 'Very Important' }
+    ],
+    tags: ['identity', 'character', 'unique']
   }
 ];
 

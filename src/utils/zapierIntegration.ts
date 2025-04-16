@@ -1,19 +1,18 @@
-
 import { LeadInfo } from '@/types';
 
 /**
  * Send lead information to a Zapier webhook
  * 
- * @param webhookUrl - The Zapier webhook URL
  * @param leadInfo - User information collected from the lead form
  * @param recommendedNeighborhoods - Array of neighborhood names
+ * @param webhookUrl - The Zapier webhook URL
  * @param additionalData - Optional additional data to send
  * @returns Boolean indicating if the send was successful
  */
 export const sendToZapier = async (
-  webhookUrl: string, 
-  leadInfo: LeadInfo, 
+  leadInfo: LeadInfo,
   recommendedNeighborhoods: string[],
+  webhookUrl: string,
   additionalData?: string
 ): Promise<boolean> => {
   try {

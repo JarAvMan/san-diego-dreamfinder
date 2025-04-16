@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Neighborhood, LeadInfo } from '@/types';
 import { Button } from '@/components/ui/button';
@@ -9,6 +8,8 @@ import { cn } from '@/lib/utils';
 import { useToast } from "@/hooks/use-toast";
 import { sendToZapier } from '@/utils/zapierIntegration';
 
+const ZAPIER_WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/20518038/2eliqxb/";
+
 interface ResultsPageProps {
   neighborhoods: Neighborhood[];
   className?: string;
@@ -16,7 +17,7 @@ interface ResultsPageProps {
 }
 
 const ResultsPage: React.FC<ResultsPageProps> = ({
-  neighborhoods,
+  neighborhoods = [],
   className,
   leadInfo
 }) => {
@@ -25,68 +26,52 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
 
   // Get the search link for a specific neighborhood from its kvCoreLink property
   const getNeighborhoodSearchLink = (neighborhood: Neighborhood) => {
-    return neighborhood.kvCoreLink || '#';
-  };
-
-  // Function to generate a combined search link for all selected neighborhoods
-  // Note: Since kvCORE doesn't support combined search in the same way,
-  // we'll just use the first neighborhood's link as a fallback
-  const getCombinedSearchLink = () => {
-    if (neighborhoods.length === 0) return '#';
-
-    // Just use the first neighborhood's link when multiple are selected
-    // We could potentially create a custom landing page in the future that shows all areas
-    return neighborhoods[0].kvCoreLink || '#';
+    return neighborhood?.kvCoreLink || '#';
   };
 
   // Calculate condo price - condos are typically priced at 60-80% of homes in the same area
   const getCondoPrice = (neighborhood: Neighborhood) => {
-    // Using 75% as a reasonable average for condo pricing compared to homes
+    if (!neighborhood?.budget?.min) return 0;
     return Math.round(neighborhood.budget.min * 0.75);
   };
 
   // Format price with appropriate suffix for larger amounts
   const formatPriceWithSuffix = (price: number): string => {
+    if (!price) return '$0';
     if (price >= 1000000) {
-      return `$${(price / 1000000).toLocaleString('en-US', { maximumFractionDigits: 1 })}M`;
-    } else if (price >= 1000) {
-      return `$${(price / 1000).toLocaleString('en-US', { maximumFractionDigits: 0 })}K`;
-    } else {
-      return price.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+      return `$${(price / 1000000).toFixed(1)}M`;
+    }
+    return `$${price.toLocaleString()}`;
+  };
+
+  // Send contact info to Zapier
+  const sendContactToZapier = async () => {
+    if (!leadInfo) return;
+    
+    try {
+      await sendToZapier(
+        leadInfo,
+        neighborhoods.map(n => n.name),
+        ZAPIER_WEBHOOK_URL
+      );
+      setZapierSent(true);
+      toast({
+        title: "Success!",
+        description: "Your information has been sent successfully.",
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "There was a problem sending your information. Please try again.",
+        variant: "destructive",
+      });
     }
   };
 
   // Send user data to Zapier when component loads if leadInfo is available
   useEffect(() => {
-    const sendContactToZapier = async () => {
-      if (leadInfo && !zapierSent) {
-        // Replace with your actual Zapier webhook URL
-        const ZAPIER_WEBHOOK_URL = localStorage.getItem('zapierWebhookUrl') || '';
-        if (!ZAPIER_WEBHOOK_URL) {
-          console.log('No Zapier webhook URL configured');
-          return;
-        }
-        const success = await sendToZapier(ZAPIER_WEBHOOK_URL, leadInfo, neighborhoods.map(n => n.name));
-        if (success) {
-          setZapierSent(true);
-          toast({
-            title: "Contact Saved",
-            description: "Your information has been sent to our team."
-          });
-
-          // Store contact in localStorage for backup
-          const storedContacts = JSON.parse(localStorage.getItem('storedContacts') || '[]');
-          storedContacts.push({
-            contact: leadInfo,
-            areas: neighborhoods.map(n => n.name),
-            timestamp: new Date().toISOString()
-          });
-          localStorage.setItem('storedContacts', JSON.stringify(storedContacts));
-        }
-      }
-    };
     sendContactToZapier();
-  }, [leadInfo, neighborhoods, toast, zapierSent]);
+  }, [leadInfo, toast, zapierSent]);
 
   return <div className={cn("space-y-8 animate-fade-in", className)}>
       <div className="text-center space-y-4 mb-8">
@@ -108,7 +93,7 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
             </div>
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <Badge variant="outline" className="mb-2">
+                <Badge className="mb-2">
                   Match #{index + 1}
                 </Badge>
                 <div className="text-sm text-muted-foreground">
@@ -174,12 +159,6 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
               </Button>
             </CardFooter>
           </Card>)}
-      </div>
-
-      <div className="text-center pt-8">
-        <Button className="px-8" onClick={() => window.open(getCombinedSearchLink(), '_blank')}>
-          View Properties in All My Matched Areas
-        </Button>
       </div>
     </div>;
 };

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { LeadInfo } from '@/types';
 import { Button } from '@/components/ui/button';
@@ -6,26 +5,32 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { cn } from '@/lib/utils';
-import { Link } from 'react-router-dom';
+import { Link } from '@/components/ui/link';
+import { Loader2 } from 'lucide-react';
 
 interface LeadFormProps {
-  onSubmit: (leadInfo: LeadInfo) => void;
+  onSubmit: (data: LeadInfo) => void;
+  isSubmitting?: boolean;
   className?: string;
 }
 
-const LeadForm: React.FC<LeadFormProps> = ({ onSubmit, className }) => {
+const LeadForm: React.FC<LeadFormProps> = ({ onSubmit, isSubmitting = false, className }) => {
   const [formData, setFormData] = useState<LeadInfo>({
     firstName: '',
     lastName: '',
     email: '',
-    phone: '' // Keeping this in the type but not showing the field
+    phone: '',
+    preferredContact: 'email'
   });
   const [consent, setConsent] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
     
     if (errors[name]) {
       setErrors(prev => {
@@ -61,10 +66,7 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSubmit, className }) => {
     e.preventDefault();
     
     if (validateForm()) {
-      onSubmit({
-        ...formData,
-        phone: '' // Send empty string for phone
-      });
+      onSubmit(formData);
     }
   };
 
@@ -79,16 +81,15 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSubmit, className }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label htmlFor="firstName">First Name</Label>
-            <FormControl>
-              <Input
-                id="firstName"
-                name="firstName"
-                placeholder="Your first name"
-                value={formData.firstName}
-                onChange={handleChange}
-                className={errors.firstName ? "border-destructive" : ""}
-              />
-            </FormControl>
+            <Input
+              id="firstName"
+              name="firstName"
+              placeholder="Your first name"
+              value={formData.firstName}
+              onChange={handleChange}
+              className={errors.firstName ? "border-destructive" : ""}
+              disabled={isSubmitting}
+            />
             {errors.firstName && (
               <p className="text-destructive text-sm">{errors.firstName}</p>
             )}
@@ -96,16 +97,15 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSubmit, className }) => {
           
           <div className="space-y-2">
             <Label htmlFor="lastName">Last Name</Label>
-            <FormControl>
-              <Input
-                id="lastName"
-                name="lastName"
-                placeholder="Your last name"
-                value={formData.lastName}
-                onChange={handleChange}
-                className={errors.lastName ? "border-destructive" : ""}
-              />
-            </FormControl>
+            <Input
+              id="lastName"
+              name="lastName"
+              placeholder="Your last name"
+              value={formData.lastName}
+              onChange={handleChange}
+              className={errors.lastName ? "border-destructive" : ""}
+              disabled={isSubmitting}
+            />
             {errors.lastName && (
               <p className="text-destructive text-sm">{errors.lastName}</p>
             )}
@@ -114,20 +114,62 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSubmit, className }) => {
         
         <div className="space-y-2">
           <Label htmlFor="email">Email Address</Label>
-          <FormControl>
-            <Input
-              id="email"
-              name="email"
-              type="email"
-              placeholder="your.email@example.com"
-              value={formData.email}
-              onChange={handleChange}
-              className={errors.email ? "border-destructive" : ""}
-            />
-          </FormControl>
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="your.email@example.com"
+            value={formData.email}
+            onChange={handleChange}
+            className={errors.email ? "border-destructive" : ""}
+            disabled={isSubmitting}
+          />
           {errors.email && (
             <p className="text-destructive text-sm">{errors.email}</p>
           )}
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="phone">Phone Number</Label>
+          <Input
+            id="phone"
+            name="phone"
+            type="tel"
+            placeholder="(555) 123-4567"
+            value={formData.phone}
+            onChange={handleChange}
+            disabled={isSubmitting}
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label>Preferred Contact Method</Label>
+          <div className="flex space-x-4">
+            <label className="flex items-center space-x-2">
+              <input
+                type="radio"
+                name="preferredContact"
+                value="email"
+                checked={formData.preferredContact === 'email'}
+                onChange={handleChange}
+                disabled={isSubmitting}
+                className="form-radio"
+              />
+              <span>Email</span>
+            </label>
+            <label className="flex items-center space-x-2">
+              <input
+                type="radio"
+                name="preferredContact"
+                value="phone"
+                checked={formData.preferredContact === 'phone'}
+                onChange={handleChange}
+                disabled={isSubmitting}
+                className="form-radio"
+              />
+              <span>Phone</span>
+            </label>
+          </div>
         </div>
 
         <div className="space-y-2">
@@ -137,6 +179,7 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSubmit, className }) => {
               checked={consent}
               onCheckedChange={(checked) => setConsent(checked as boolean)}
               className="mt-1"
+              disabled={isSubmitting}
             />
             <div className="space-y-1 leading-none">
               <Label htmlFor="consent" className="text-sm leading-tight">
@@ -150,14 +193,22 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSubmit, className }) => {
           <Button 
             type="submit" 
             className="w-full py-6 text-base font-medium"
+            disabled={isSubmitting}
           >
-            Find My Perfect Neighborhoods
+            {isSubmitting ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Processing...
+              </>
+            ) : (
+              'Get My Neighborhood Matches'
+            )}
           </Button>
         </div>
         
         <p className="text-xs text-muted-foreground text-center pt-3">
           Your information is secure and will never be shared. View our{" "}
-          <Link to="/privacy" className="text-primary hover:underline">
+          <Link href="/privacy" className="text-primary hover:underline">
             Privacy Policy
           </Link>
         </p>

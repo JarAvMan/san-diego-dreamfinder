@@ -1,8 +1,8 @@
 export interface LeadInfo {
-  firstName: string;
-  lastName: string;
+  name: string;
   email: string;
   phone: string;
+  preferredContact: 'email' | 'phone';
 }
 
 export interface Neighborhood {
@@ -51,6 +51,7 @@ export interface QuizQuestion {
   required?: boolean;
   category?: string;
   text?: string; // Added for backward compatibility
+  tags?: string[];
 }
 
 export interface QuizState {

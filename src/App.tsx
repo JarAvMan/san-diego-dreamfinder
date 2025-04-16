@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Helmet } from "react-helmet";
 import { Toaster } from "@/components/ui/toaster";
@@ -12,6 +11,7 @@ import Areas from "./pages/Areas";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import Privacy from "./pages/Privacy";
+import Results from "./pages/Results";
 import AdminSettings from "./components/AdminSettings";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
@@ -84,6 +84,7 @@ const App = () => (
           <Route path="/areas" element={<Areas />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/privacy" element={<Privacy />} />
+          <Route path="/results/:resultId" element={<Results />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

@@ -1,13 +1,126 @@
-import { Neighborhood, QuizAnswer, LikertOption } from '../types';
+import { Neighborhood, QuizAnswer, LikertOption } from '@/types';
 import { sandiegoNeighborhoods } from '../data/neighborhoods';
 
-// Convert importance scale to numeric value
-const importanceToValue = (option: LikertOption): number => {
-  switch (option) {
-    case 'not_important': return 0;
-    case 'somewhat_important': return 1.5;
-    case 'very_important': return 3;
-  }
+// Define weights for each importance level
+const IMPORTANCE_WEIGHTS = {
+  not_important: 0,
+  somewhat_important: 0.5,
+  very_important: 1
+};
+
+// Define tag weights for each neighborhood characteristic
+const TAG_WEIGHTS = {
+  // Beach and Waterfront
+  beach: 1,
+  waterfront: 1,
+  coastal: 1,
+  
+  // Parks and Green Spaces
+  parks: 1,
+  greenspace: 1,
+  outdoor: 1,
+  
+  // Safety
+  safe: 1,
+  'low-crime': 1,
+  security: 1,
+  
+  // Education
+  schools: 1,
+  education: 1,
+  family: 0.5,
+  
+  // Transportation
+  transit: 1,
+  'public-transport': 1,
+  commute: 0.5,
+  freeway: 0.5,
+  highway: 0.5,
+  
+  // Walkability
+  walkable: 1,
+  pedestrian: 1,
+  urban: 0.5,
+  
+  // Dining and Entertainment
+  dining: 1,
+  restaurants: 1,
+  food: 1,
+  nightlife: 1,
+  entertainment: 1,
+  social: 0.5,
+  
+  // Affordability
+  affordable: 1,
+  budget: 1,
+  value: 1,
+  
+  // Community
+  community: 1,
+  events: 1,
+  
+  // Work and Downtown
+  downtown: 1,
+  work: 1,
+  
+  // Pet Friendliness
+  'pet-friendly': 1,
+  dogs: 1,
+  
+  // Cultural
+  cultural: 1,
+  arts: 1,
+  
+  // Shopping
+  shopping: 1,
+  retail: 1,
+  convenience: 0.5,
+  
+  // Quiet and Residential
+  quiet: 1,
+  residential: 1,
+  peaceful: 1,
+  
+  // Healthcare
+  healthcare: 1,
+  medical: 1,
+  hospitals: 1,
+  
+  // Bike Infrastructure
+  'bike-friendly': 1,
+  cycling: 1,
+  trails: 0.5,
+  
+  // Historic and Modern
+  historic: 1,
+  modern: 1,
+  architecture: 0.5,
+  
+  // Traffic
+  traffic: 1,
+  congestion: 1,
+  
+  // Fitness
+  fitness: 1,
+  recreation: 1,
+  sports: 0.5,
+  
+  // Family
+  children: 0.5,
+  
+  // Airport
+  airport: 1,
+  travel: 0.5,
+  
+  // Sustainability
+  sustainable: 1,
+  green: 1,
+  'eco-friendly': 1,
+  
+  // Identity
+  identity: 1,
+  character: 1,
+  unique: 1
 };
 
 // Calculate neighborhood match scores based on user answers
@@ -40,7 +153,7 @@ export const calculateNeighborhoodMatches = (answers: QuizAnswer[]): Neighborhoo
   
   // Process each answer
   answers.forEach(answer => {
-    const importance = importanceToValue(answer.value);
+    const importance = IMPORTANCE_WEIGHTS[answer.value as LikertOption];
     console.log(`Processing answer for question ${answer.questionId}: importance=${importance}`);
     
     // Determine the question category from the ID
@@ -112,3 +225,61 @@ export const getTopNeighborhoods = (answers: QuizAnswer[]): Neighborhood[] => {
   );
   return rankedNeighborhoods.slice(0, 3);
 };
+
+function calculateMatchScore(answers: QuizAnswer[], neighborhood: Neighborhood): number {
+  let totalScore = 0;
+  let totalWeight = 0;
+
+  // Calculate score based on answers and neighborhood tags
+  answers.forEach(answer => {
+    const importanceWeight = IMPORTANCE_WEIGHTS[answer.value as LikertOption];
+    const questionTags = getQuestionTags(answer.questionId);
+    
+    if (questionTags) {
+      questionTags.forEach(tag => {
+        const tagWeight = (TAG_WEIGHTS as Record<string, number>)[tag] || 0;
+        const tagScore = neighborhood.tags.includes(tag) ? 1 : 0;
+        
+        totalScore += importanceWeight * tagWeight * tagScore;
+        totalWeight += importanceWeight * tagWeight;
+      });
+    }
+  });
+
+  // Normalize score to be between 0 and 1
+  return totalWeight > 0 ? totalScore / totalWeight : 0;
+}
+
+function getQuestionTags(questionId: string): string[] | null {
+  // This would typically come from your quiz questions data
+  // For now, we'll return a mock implementation
+  const questionTags: Record<string, string[]> = {
+    beach_proximity: ['beach', 'waterfront', 'coastal'],
+    parks_greenspace: ['parks', 'greenspace', 'outdoor'],
+    safety: ['safe', 'low-crime', 'security'],
+    schools: ['schools', 'education', 'family'],
+    public_transport: ['transit', 'public-transport', 'commute'],
+    walkability: ['walkable', 'pedestrian', 'urban'],
+    dining: ['dining', 'restaurants', 'food'],
+    affordability: ['affordable', 'budget', 'value'],
+    nightlife: ['nightlife', 'entertainment', 'social'],
+    community: ['community', 'events', 'social'],
+    work_proximity: ['downtown', 'work', 'commute'],
+    pet_friendly: ['pet-friendly', 'dogs', 'parks'],
+    cultural: ['cultural', 'arts', 'entertainment'],
+    shopping: ['shopping', 'retail', 'convenience'],
+    quiet: ['quiet', 'residential', 'peaceful'],
+    healthcare: ['healthcare', 'medical', 'hospitals'],
+    bike_friendly: ['bike-friendly', 'cycling', 'trails'],
+    freeway_access: ['freeway', 'highway', 'commute'],
+    historic: ['historic', 'modern', 'architecture'],
+    traffic: ['traffic', 'congestion', 'commute'],
+    fitness: ['fitness', 'recreation', 'sports'],
+    family: ['family', 'children', 'community'],
+    airport: ['airport', 'travel', 'convenience'],
+    sustainability: ['sustainable', 'green', 'eco-friendly'],
+    identity: ['identity', 'character', 'unique']
+  };
+
+  return questionTags[questionId] || null;
+}
