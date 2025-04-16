@@ -84,6 +84,12 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
     }
     
     try {
+      console.log('Sending to Zapier:', {
+        leadInfo,
+        neighborhoods: topNeighborhoods.map(n => n.name),
+        webhookUrl
+      });
+
       const zapierSuccess = await sendToZapier(
         leadInfo,
         topNeighborhoods.map(n => n.name),
@@ -137,7 +143,7 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
           <Check size={14} className="mr-1" /> Results Ready
         </div>
         <h1 className="text-3xl font-bold sm:text-4xl tracking-tight">
-          Your Perfect San Diego Neighborhoods
+          {leadInfo?.firstName ? `${leadInfo.firstName}, here are the best San Diego neighborhoods for you` : 'Your Perfect San Diego Neighborhoods'}
         </h1>
         <p className="text-muted-foreground max-w-2xl mx-auto">
           Based on your preferences, we've identified the top 3 San Diego neighborhoods that match your lifestyle and homebuying needs. Explore what makes each area special!
