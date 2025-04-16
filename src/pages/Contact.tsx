@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -9,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { sendToZapier } from '@/utils/zapierIntegration';
+import webhookService from '@/services/webhookService';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Menu, X } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -24,6 +23,7 @@ const formSchema = z.object({
   email: z.string().email({
     message: 'Please enter a valid email address.'
   }),
+  phone: z.string().optional(),
   message: z.string().min(10, {
     message: 'Message must be at least 10 characters.'
   }),
@@ -67,7 +67,7 @@ const Contact = () => {
           firstName: data.firstName,
           lastName: data.lastName,
           email: data.email,
-          phone: data.phone
+          phone: data.phone || ''
         },
         message: data.message,
         timestamp: new Date().toISOString()
@@ -81,16 +81,16 @@ const Contact = () => {
     let zapierSuccess = false;
     if (webhookUrl) {
       console.log('Attempting to send contact to Zapier using webhook:', webhookUrl);
-      zapierSuccess = await sendToZapier(
-        webhookUrl,
+      const response = await webhookService.sendLeadData(
         {
           firstName: data.firstName,
           lastName: data.lastName,
           email: data.email,
+          marketingConsent: data.consent
         },
-        [],
-        data.message
+        [] // No neighborhoods for contact form
       );
+      zapierSuccess = response.success;
       console.log('Zapier send result:', zapierSuccess);
     } else {
       console.warn('No Zapier webhook URL found in localStorage');

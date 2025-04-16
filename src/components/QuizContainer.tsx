@@ -1,18 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { QuizQuestion, QuizAnswer, LeadInfo, Neighborhood, QuizStep, LikertOption } from '@/types';
+import React, { useState } from 'react';
+import { QuizAnswer, LeadInfo, QuizStep, LikertOption } from '@/types';
 import { quizQuestions } from '@/data/quizQuestions';
 import QuizCard from './QuizCard';
 import ProgressBar from './ProgressBar';
 import LeadForm from './LeadForm';
-import ResultsPage from './ResultsPage';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, ArrowRight, Sparkles, AlertCircle, Loader2 } from 'lucide-react';
-import { getTopNeighborhoods } from '@/utils/matchingAlgorithm';
+import { ArrowLeft, ArrowRight, Sparkles, AlertCircle } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { sendToZapier } from '@/utils/zapierIntegration';
+import webhookService from '@/services/webhookService';
 import { useNavigate } from 'react-router-dom';
 import { getAIRecommendations } from '@/utils/aiRecommendations';
 
@@ -20,8 +15,6 @@ const QuizContainer: React.FC = () => {
   const [currentStep, setCurrentStep] = useState<QuizStep>(QuizStep.WELCOME);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<QuizAnswer[]>([]);
-  const [leadInfo, setLeadInfo] = useState<LeadInfo | null>(null);
-  const [recommendations, setRecommendations] = useState<Neighborhood[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
@@ -29,9 +22,6 @@ const QuizContainer: React.FC = () => {
 
   const currentQuestion = quizQuestions[currentQuestionIndex];
   const totalQuestions = quizQuestions.length;
-  
-  // Get webhook URL from localStorage or use default
-  const ZAPIER_WEBHOOK_URL = localStorage.getItem('zapierWebhookUrl') || '';
 
   const currentAnswer = answers.find(a => a.questionId === currentQuestion?.id)?.value || null;
 
@@ -77,14 +67,12 @@ const QuizContainer: React.FC = () => {
   };
 
   const handleLeadSubmit = async (data: LeadInfo) => {
-    setLeadInfo(data);
     setError(null);
     setIsSubmitting(true);
     
     try {
       // Get AI-based recommendations
       const recommendedNeighborhoods = await getAIRecommendations(answers);
-      setRecommendations(recommendedNeighborhoods);
 
       // Generate a unique result ID
       const resultId = generateResultId();
@@ -101,19 +89,19 @@ const QuizContainer: React.FC = () => {
         description: "Generating your personalized neighborhood matches..."
       });
 
-      // Only send to Zapier if webhook URL is configured
-      if (ZAPIER_WEBHOOK_URL) {
-        const zapierSuccess = await sendToZapier(
-          data,
-          recommendedNeighborhoods.map(n => n.name),
-          ZAPIER_WEBHOOK_URL
-        );
+      // Send to webhook service
+      const webhookSuccess = await webhookService.sendLeadData(
+        data,
+        recommendedNeighborhoods.map(n => n.name)
+      );
 
-        if (!zapierSuccess) {
-          console.warn('Failed to send data to Zapier, but continuing with results');
-        }
-      } else {
-        console.warn('No Zapier webhook URL configured');
+      if (!webhookSuccess.success) {
+        console.warn('Failed to send data to webhook:', webhookSuccess.message);
+        toast({
+          title: "Warning",
+          description: "There was an issue saving your profile, but you can still view your results.",
+          variant: "default"
+        });
       }
 
       // Navigate to results page with the unique ID
@@ -139,8 +127,6 @@ const QuizContainer: React.FC = () => {
     setCurrentStep(QuizStep.WELCOME);
     setCurrentQuestionIndex(0);
     setAnswers([]);
-    setLeadInfo(null);
-    setRecommendations([]);
     setError(null);
   };
 

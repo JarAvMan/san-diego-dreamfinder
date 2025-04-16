@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { ArrowRight, MapPin, Check, Home, Building, Info } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useToast } from "@/hooks/use-toast";
-import { sendToZapier } from '@/utils/zapierIntegration';
+import webhookService from '@/services/webhookService';
 
 interface ResultsPageProps {
   neighborhoods?: Neighborhood[];
@@ -27,10 +27,11 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
   const [localLeadInfo, setLocalLeadInfo] = useState<LeadInfo | undefined>();
   const [webhookUrl, setWebhookUrl] = useState<string>('');
 
-  // Load webhook URL from localStorage
+  // Load webhook URL from localStorage and update service config
   useEffect(() => {
     const url = localStorage.getItem('zapierWebhookUrl') || '';
     setWebhookUrl(url);
+    webhookService.updateConfig({ url });
   }, []);
 
   // Load data from localStorage if resultId is present
@@ -76,34 +77,27 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
     return `$${price.toLocaleString()}`;
   };
 
-  // Send contact info to Zapier
-  const sendContactToZapier = async () => {
+  // Send contact info to webhook
+  const sendContactToWebhook = async () => {
     if (!leadInfo || !webhookUrl) {
-      console.warn('Cannot send to Zapier: missing leadInfo or webhook URL');
+      console.warn('Cannot send to webhook: missing leadInfo or webhook URL');
       return;
     }
     
     try {
-      console.log('Sending to Zapier:', {
+      const response = await webhookService.sendLeadData(
         leadInfo,
-        neighborhoods: topNeighborhoods.map(n => n.name),
-        webhookUrl
-      });
-
-      const zapierSuccess = await sendToZapier(
-        leadInfo,
-        topNeighborhoods.map(n => n.name),
-        webhookUrl
+        topNeighborhoods.map(n => n.name)
       );
 
-      if (zapierSuccess) {
+      if (response.success) {
         setZapierSent(true);
         toast({
           title: "Success!",
           description: "Your information has been sent successfully.",
         });
       } else {
-        console.warn('Failed to send data to Zapier');
+        console.warn('Failed to send data to webhook:', response.message);
         toast({
           title: "Error",
           description: "There was a problem sending your information. Please try again.",
@@ -111,7 +105,7 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
         });
       }
     } catch (error) {
-      console.error('Error sending to Zapier:', error);
+      console.error('Error sending to webhook:', error);
       toast({
         title: "Error",
         description: "There was a problem sending your information. Please try again.",
@@ -120,10 +114,10 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
     }
   };
 
-  // Send user data to Zapier when component loads if leadInfo is available
+  // Send user data to webhook when component loads if leadInfo is available
   useEffect(() => {
     if (leadInfo && !zapierSent && webhookUrl) {
-      sendContactToZapier();
+      sendContactToWebhook();
     }
   }, [leadInfo, zapierSent, webhookUrl]);
 

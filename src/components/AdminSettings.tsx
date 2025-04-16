@@ -42,7 +42,6 @@ const AdminSettings: React.FC = () => {
   const [storedContacts, setStoredContacts] = useState<StoredContact[]>([]);
   const [storedFormSubmissions, setStoredFormSubmissions] = useState<StoredContactFormSubmission[]>([]);
   const [passwordError, setPasswordError] = useState('');
-  const [isFirstTimeLogin, setIsFirstTimeLogin] = useState(false);
   const { toast } = useToast();
 
   // Initialize state from localStorage
@@ -65,8 +64,6 @@ const AdminSettings: React.FC = () => {
           localStorage.removeItem('adminAuth');
         }
       }
-
-      setIsFirstTimeLogin(!localStorage.getItem('adminPasswordHash'));
     }
   }, []);
 
@@ -262,7 +259,6 @@ const AdminSettings: React.FC = () => {
       localStorage.removeItem('adminPasswordHash');
       localStorage.removeItem('adminAuth');
       setIsAuthenticated(false);
-      setIsFirstTimeLogin(true);
       toast({
         title: "Password Reset",
         description: "Your admin password has been reset.",

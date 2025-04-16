@@ -1,122 +1,103 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Neighborhood, LeadInfo } from '@/types';
+import { Neighborhood } from '@/types';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowRight, MapPin, Check, Home, Building, Info, AlertCircle, Loader2 } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { Card } from '@/components/ui/card';
+import { AlertCircle, Loader2, Check, MapPin, Home, Building, Info, ArrowRight } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
+import webhookService from '@/services/webhookService';
 
 interface ResultsPageProps {
   neighborhoods?: Neighborhood[];
-  leadInfo?: LeadInfo;
 }
 
 const ResultsPage: React.FC<ResultsPageProps> = ({
-  neighborhoods: propNeighborhoods,
-  leadInfo: propLeadInfo
+  neighborhoods: propNeighborhoods = []
 }) => {
   const { resultId } = useParams();
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [neighborhoods, setNeighborhoods] = useState<Neighborhood[]>([]);
-  const [leadInfo, setLeadInfo] = useState<LeadInfo | undefined>();
+  const [localNeighborhoods, setLocalNeighborhoods] = useState<Neighborhood[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [zapierSent, setZapierSent] = useState(false);
 
   useEffect(() => {
     const loadResults = async () => {
       try {
-        setIsLoading(true);
-        setError(null);
-
         if (resultId) {
-          // Load results from localStorage or API
           const storedResults = localStorage.getItem(`quiz_results_${resultId}`);
           if (storedResults) {
-            const { neighborhoods: storedNeighborhoods, leadInfo: storedLeadInfo } = JSON.parse(storedResults);
+            const { neighborhoods: storedNeighborhoods, leadInfo } = JSON.parse(storedResults);
             // Sort neighborhoods by match score and take top 3
             const sortedNeighborhoods = storedNeighborhoods
               .sort((a: Neighborhood, b: Neighborhood) => (b.matchScore || 0) - (a.matchScore || 0))
               .slice(0, 3);
-            setNeighborhoods(sortedNeighborhoods);
-            setLeadInfo(storedLeadInfo);
+            setLocalNeighborhoods(sortedNeighborhoods);
+
+            // Send lead data to webhook if not already sent
+            if (leadInfo && !zapierSent) {
+              try {
+                await webhookService.sendLeadData(leadInfo, sortedNeighborhoods.map((n: Neighborhood) => n.name));
+                setZapierSent(true);
+              } catch (error) {
+                console.error('Failed to send lead data:', error);
+                toast({
+                  title: "Error",
+                  description: "Failed to save your results. Please try again.",
+                  variant: "destructive",
+                });
+              }
+            }
           } else {
             setError("Results not found. They may have expired or been cleared.");
-            toast({
-              title: "Results Not Found",
-              description: "The requested results could not be found. They may have expired or been cleared.",
-              variant: "destructive",
-            });
           }
-        } else if (propNeighborhoods) {
-          // Use props if available (direct navigation from quiz)
+        } else if (propNeighborhoods.length > 0) {
           // Sort neighborhoods by match score and take top 3
           const sortedNeighborhoods = propNeighborhoods
             .sort((a: Neighborhood, b: Neighborhood) => (b.matchScore || 0) - (a.matchScore || 0))
             .slice(0, 3);
-          setNeighborhoods(sortedNeighborhoods);
-          setLeadInfo(propLeadInfo);
+          setLocalNeighborhoods(sortedNeighborhoods);
         }
+        setIsLoading(false);
       } catch (error) {
-        console.error('Error loading results:', error);
-        setError("There was an error loading your results. Please try again.");
-        toast({
-          title: "Error",
-          description: "There was a problem loading your results. Please try again.",
-          variant: "destructive",
-        });
-      } finally {
+        setError("Failed to load results. Please try again.");
         setIsLoading(false);
       }
     };
 
     loadResults();
-  }, [resultId, propNeighborhoods, propLeadInfo, navigate, toast]);
+  }, [resultId, propNeighborhoods, navigate, toast, zapierSent]);
 
   if (isLoading) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen space-y-4" role="status" aria-label="Loading results">
+      <div className="flex flex-col items-center justify-center min-h-screen space-y-4">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
-        <p className="text-lg font-medium">Loading your personalized results...</p>
-        <p className="text-sm text-muted-foreground">This may take a few moments</p>
+        <p className="text-muted-foreground">Loading your results...</p>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen space-y-4" role="alert">
+      <div className="flex flex-col items-center justify-center min-h-screen space-y-4">
         <AlertCircle className="h-8 w-8 text-destructive" />
-        <h1 className="text-2xl font-bold">{error}</h1>
-        <Button onClick={() => navigate('/')}>Return to Home</Button>
+        <p className="text-destructive">{error}</p>
+        <Button onClick={() => navigate('/quiz')}>Take the Quiz Again</Button>
       </div>
     );
   }
 
-  if (!neighborhoods.length) {
+  if (!localNeighborhoods.length) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen space-y-4">
-        <h1 className="text-2xl font-bold">No Results Found</h1>
-        <p className="text-muted-foreground">We couldn't find any matching neighborhoods for your preferences.</p>
-        <Button onClick={() => navigate('/')}>Return to Home</Button>
+        <AlertCircle className="h-8 w-8 text-destructive" />
+        <p className="text-destructive">No results found. Please take the quiz again.</p>
+        <Button onClick={() => navigate('/quiz')}>Take the Quiz Again</Button>
       </div>
     );
   }
 
-  // Get the search link for a specific neighborhood from its kvCoreLink property
-  const getNeighborhoodSearchLink = (neighborhood: Neighborhood) => {
-    return neighborhood?.kvCoreLink || '#';
-  };
-
-  // Calculate condo price - condos are typically priced at 60-80% of homes in the same area
-  const getCondoPrice = (neighborhood: Neighborhood) => {
-    if (!neighborhood?.budget?.min) return 0;
-    return Math.round(neighborhood.budget.min * 0.75);
-  };
-
-  // Format price with appropriate suffix for larger amounts
   const formatPriceWithSuffix = (price: number): string => {
     if (!price) return '$0';
     if (price >= 1000000) {
@@ -125,22 +106,27 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
     return `$${price.toLocaleString()}`;
   };
 
+  const getCondoPrice = (neighborhood: Neighborhood): number => {
+    if (!neighborhood?.budget?.min) return 0;
+    return Math.round(neighborhood.budget.min * 0.75);
+  };
+
+  const getNeighborhoodSearchLink = (neighborhood: Neighborhood): string => {
+    return neighborhood?.kvCoreLink || '#';
+  };
+
   return (
-    <div className="space-y-8 animate-fade-in" role="main">
-      <div className="text-center space-y-4 mb-8">
+    <div className="container mx-auto px-4 py-8">
+      <div className="text-center mb-8">
         <div className="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-2">
           <Check size={14} className="mr-1" /> Results Ready
         </div>
-        <h1 className="text-3xl font-bold sm:text-4xl tracking-tight">
-          Your Perfect San Diego Neighborhoods
-        </h1>
-        <p className="text-muted-foreground max-w-2xl mx-auto">
-          Based on your preferences, we've identified the top San Diego neighborhoods that match your lifestyle and homebuying needs. Explore what makes each area special!
-        </p>
+        <h1 className="text-3xl font-bold mb-2">Your Perfect San Diego Neighborhoods</h1>
+        <p className="text-muted-foreground">Based on your preferences, here are your top matches:</p>
       </div>
 
       <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-        {neighborhoods.map((neighborhood, index) => (
+        {localNeighborhoods.map((neighborhood) => (
           <Card 
             key={neighborhood.id} 
             className="overflow-hidden transition-all duration-300 hover:shadow-md border"
@@ -155,31 +141,12 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
                 loading="lazy"
               />
             </div>
-            <CardHeader className="pb-3">
-              <div className="flex items-center justify-between">
-                <Badge className="mb-2">
-                  Match #{index + 1}
-                </Badge>
-                <div className="text-sm text-muted-foreground">
-                  {formatPriceWithSuffix(neighborhood.budget.min)} - {formatPriceWithSuffix(neighborhood.budget.max)}
-                </div>
-              </div>
-              <CardTitle id={`neighborhood-${neighborhood.id}-title`} className="flex items-center">
-                <MapPin size={18} className="inline mr-2 text-primary" />
+            <div className="p-6">
+              <h2 id={`neighborhood-${neighborhood.id}-title`} className="text-xl font-semibold mb-2 flex items-center">
+                <MapPin size={18} className="mr-2 text-primary" />
                 {neighborhood.name}
-              </CardTitle>
-              <CardDescription>{neighborhood.description}</CardDescription>
-            </CardHeader>
-            <CardContent className="pb-0">
-              <h4 className="font-medium mb-2 text-sm">Neighborhood Highlights:</h4>
-              <ul className="space-y-1 mb-4">
-                {neighborhood.keyFeatures.map((feature, i) => (
-                  <li key={i} className="text-sm flex items-start">
-                    <Check size={14} className="mr-2 text-primary mt-1 shrink-0" />
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
+              </h2>
+              <p className="text-muted-foreground mb-4">{neighborhood.description}</p>
               
               <div className="space-y-2 bg-muted/30 p-3 rounded-md mb-4">
                 <div className="flex items-center text-sm">
@@ -197,18 +164,29 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
                   <span>Prices based on current San Diego market data</span>
                 </div>
               </div>
-            </CardContent>
-            <CardFooter className="flex flex-col gap-2">
+
+              <div className="space-y-2">
+                <h3 className="font-medium">Key Features:</h3>
+                <ul className="space-y-1">
+                  {neighborhood.keyFeatures.map((feature, i) => (
+                    <li key={i} className="text-sm flex items-start">
+                      <Check size={14} className="mr-2 text-primary mt-1 shrink-0" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
               <Button 
                 variant="outline" 
                 onClick={() => window.open(getNeighborhoodSearchLink(neighborhood), '_blank')} 
-                className="w-full group text-center"
+                className="w-full mt-4 group text-center"
                 aria-label={`Browse properties in ${neighborhood.name}`}
               >
                 Browse Properties
                 <ArrowRight size={16} className="ml-2 transition-transform group-hover:translate-x-1" />
               </Button>
-            </CardFooter>
+            </div>
           </Card>
         ))}
       </div>
@@ -216,4 +194,4 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
   );
 };
 
-export default ResultsPage; 
+export default ResultsPage;
