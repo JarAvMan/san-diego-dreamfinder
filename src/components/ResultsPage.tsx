@@ -25,6 +25,9 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
   const { toast } = useToast();
   const [zapierSent, setZapierSent] = useState(false);
 
+  // Get only the top 3 neighborhoods
+  const topNeighborhoods = neighborhoods.slice(0, 3);
+
   // Get the search link for a specific neighborhood from its kvCoreLink property
   const getNeighborhoodSearchLink = (neighborhood: Neighborhood) => {
     return neighborhood?.kvCoreLink || '#';
@@ -54,7 +57,7 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
       if (ZAPIER_WEBHOOK_URL) {
         const zapierSuccess = await sendToZapier(
           leadInfo,
-          neighborhoods.map(n => n.name),
+          topNeighborhoods.map(n => n.name),
           ZAPIER_WEBHOOK_URL
         );
 
@@ -100,7 +103,7 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
       </div>
 
       <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-        {neighborhoods.map((neighborhood, index) => (
+        {topNeighborhoods.map((neighborhood, index) => (
           <Card key={neighborhood.id} className="overflow-hidden transition-all duration-300 hover:shadow-md border">
             <div className="aspect-video w-full overflow-hidden">
               <img src={neighborhood.image} alt={neighborhood.name} className="w-full h-full object-cover transform transition-transform duration-500 hover:scale-105" />
