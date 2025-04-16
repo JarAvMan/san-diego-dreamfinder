@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
+import { FormControl } from '@/components/ui/form';
 import { cn } from '@/lib/utils';
 import { Link } from '@/components/ui/link';
 import { Loader2 } from 'lucide-react';
@@ -208,7 +209,7 @@ const LeadForm: React.FC<LeadFormProps> = ({ onSubmit, isSubmitting = false, cla
         
         <p className="text-xs text-muted-foreground text-center pt-3">
           Your information is secure and will never be shared. View our{" "}
-          <Link href="/privacy" className="text-primary hover:underline">
+          <Link to="/privacy" className="text-primary hover:underline">
             Privacy Policy
           </Link>
         </p>

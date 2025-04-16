@@ -73,7 +73,8 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
     sendContactToZapier();
   }, [leadInfo, toast, zapierSent]);
 
-  return <div className={cn("space-y-8 animate-fade-in", className)}>
+  return (
+    <div className={cn("space-y-8 animate-fade-in", className)}>
       <div className="text-center space-y-4 mb-8">
         <div className="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-2">
           <Check size={14} className="mr-1" /> Results Ready
@@ -87,7 +88,8 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
       </div>
 
       <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-        {neighborhoods.map((neighborhood, index) => <Card key={neighborhood.id} className="overflow-hidden transition-all duration-300 hover:shadow-md border">
+        {neighborhoods.map((neighborhood, index) => (
+          <Card key={neighborhood.id} className="overflow-hidden transition-all duration-300 hover:shadow-md border">
             <div className="aspect-video w-full overflow-hidden">
               <img src={neighborhood.image} alt={neighborhood.name} className="w-full h-full object-cover transform transition-transform duration-500 hover:scale-105" />
             </div>
@@ -98,14 +100,14 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
                 </Badge>
                 <div className="text-sm text-muted-foreground">
                   {neighborhood.budget.min.toLocaleString('en-US', {
-                style: 'currency',
-                currency: 'USD',
-                maximumFractionDigits: 0
-              })} - {neighborhood.budget.max.toLocaleString('en-US', {
-                style: 'currency',
-                currency: 'USD',
-                maximumFractionDigits: 0
-              })}
+                    style: 'currency',
+                    currency: 'USD',
+                    maximumFractionDigits: 0
+                  })} - {neighborhood.budget.max.toLocaleString('en-US', {
+                    style: 'currency',
+                    currency: 'USD',
+                    maximumFractionDigits: 0
+                  })}
                 </div>
               </div>
               <CardTitle className="flex items-center">
@@ -117,10 +119,12 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
             <CardContent className="pb-0">
               <h4 className="font-medium mb-2 text-sm">Neighborhood Highlights:</h4>
               <ul className="space-y-1 mb-4">
-                {neighborhood.keyFeatures.map((feature, i) => <li key={i} className="text-sm flex items-start">
+                {neighborhood.keyFeatures.map((feature, i) => (
+                  <li key={i} className="text-sm flex items-start">
                     <Check size={14} className="mr-2 text-primary mt-1 shrink-0" />
                     <span>{feature}</span>
-                  </li>)}
+                  </li>
+                ))}
               </ul>
               
               <div className="space-y-2 bg-muted/30 p-3 rounded-md mb-4">
@@ -129,10 +133,10 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
                   <span className="font-medium">Condos starting at </span>
                   <span className="ml-1">
                     {getCondoPrice(neighborhood).toLocaleString('en-US', {
-                  style: 'currency',
-                  currency: 'USD',
-                  maximumFractionDigits: 0
-                })}
+                      style: 'currency',
+                      currency: 'USD',
+                      maximumFractionDigits: 0
+                    })}
                   </span>
                 </div>
                 <div className="flex items-center text-sm">
@@ -140,10 +144,10 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
                   <span className="font-medium">Homes starting at </span>
                   <span className="ml-1">
                     {neighborhood.budget.min.toLocaleString('en-US', {
-                  style: 'currency',
-                  currency: 'USD',
-                  maximumFractionDigits: 0
-                })}
+                      style: 'currency',
+                      currency: 'USD',
+                      maximumFractionDigits: 0
+                    })}
                   </span>
                 </div>
                 <div className="text-xs text-muted-foreground mt-2 flex items-start">
@@ -158,7 +162,8 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
                 <ArrowRight size={16} className="ml-2 transition-transform group-hover:translate-x-1" />
               </Button>
             </CardFooter>
-          </Card>)}
+          </Card>
+        ))}
       </div>
     </div>;
 };

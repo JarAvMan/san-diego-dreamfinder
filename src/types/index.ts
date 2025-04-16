@@ -1,5 +1,6 @@
 export interface LeadInfo {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   phone: string;
   preferredContact: 'email' | 'phone';
