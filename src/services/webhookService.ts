@@ -2,7 +2,7 @@ import { WebhookPayload, WebhookConfig, WebhookResponse, WebhookError } from '@/
 import { LeadInfo } from '@/types';
 
 const DEFAULT_CONFIG: WebhookConfig = {
-  url: '',
+  url: localStorage.getItem('zapierWebhookUrl') || '',
   enabled: true,
   retryCount: 3,
   timeout: 5000, // 5 seconds
@@ -46,33 +46,40 @@ class WebhookService {
   }
 
   private async sendRequest(payload: WebhookPayload): Promise<WebhookResponse> {
-    if (!this.config.enabled || !this.config.url) {
+    const webhookUrl = localStorage.getItem('zapierWebhookUrl');
+    if (!this.config.enabled || !webhookUrl) {
+      console.error('Webhook URL not found in localStorage');
       throw new Error('Webhook is not configured or disabled');
     }
 
-    const response = await this.fetchWithTimeout(this.config.url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    });
+    try {
+      const response = await this.fetchWithTimeout(webhookUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
 
-    if (!response.ok) {
-      const error: WebhookError = new Error(`Webhook request failed with status ${response.status}`);
-      error.status = response.status;
-      error.response = response;
+      if (!response.ok) {
+        const error: WebhookError = new Error(`Webhook request failed with status ${response.status}`);
+        error.status = response.status;
+        error.response = response;
+        throw error;
+      }
+
+      const data = await response.json();
+      return {
+        success: true,
+        status: response.status,
+        message: 'Webhook request successful',
+        data,
+      };
+    } catch (error) {
+      console.error('Webhook request failed:', error);
       throw error;
     }
-
-    const data = await response.json();
-    return {
-      success: true,
-      status: response.status,
-      message: 'Webhook request successful',
-      data,
-    };
   }
 
   public async sendLeadData(leadInfo: LeadInfo, neighborhoods: string[]): Promise<WebhookResponse> {

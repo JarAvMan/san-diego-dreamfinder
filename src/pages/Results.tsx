@@ -51,14 +51,22 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
           // Send lead data to webhook if not already sent
           if (leadInfo && !zapierSent) {
             try {
-              await webhookService.sendLeadData(leadInfo, optimizedNeighborhoods.map((n: Neighborhood) => n.name));
+              const webhookResponse = await webhookService.sendLeadData(leadInfo, optimizedNeighborhoods.map((n: Neighborhood) => n.name));
+              if (!webhookResponse.success) {
+                console.error('Webhook failed:', webhookResponse.message);
+                toast({
+                  title: "Warning",
+                  description: "There was an issue saving your profile, but you can still view your results.",
+                  variant: "default",
+                });
+              }
               setZapierSent(true);
             } catch (error) {
               console.error('Failed to send lead data:', error);
               toast({
-                title: "Error",
-                description: "Failed to save your results. Please try again.",
-                variant: "destructive",
+                title: "Warning",
+                description: "There was an issue saving your profile, but you can still view your results.",
+                variant: "default",
               });
             }
           }
