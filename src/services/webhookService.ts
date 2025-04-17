@@ -1,5 +1,6 @@
 import { WebhookPayload, WebhookConfig, WebhookResponse, WebhookError } from '@/types/webhook';
 import { LeadInfo } from '@/types';
+import { generateResultId } from '../utils/helpers';
 
 const DEFAULT_CONFIG: WebhookConfig = {
   url: localStorage.getItem('zapierWebhookUrl') || '',
@@ -83,6 +84,9 @@ class WebhookService {
   }
 
   public async sendLeadData(leadInfo: LeadInfo, neighborhoods: string[]): Promise<WebhookResponse> {
+    const resultId = leadInfo.resultId || generateResultId();
+    const resultsUrl = `${window.location.origin}/results/${resultId}`;
+
     const payload: WebhookPayload = {
       contact: {
         firstName: leadInfo.firstName,
@@ -93,6 +97,7 @@ class WebhookService {
       recommendations: {
         neighborhoods,
         timestamp: new Date().toISOString(),
+        resultsUrl,
       },
       source: 'neighborhood_quiz',
       metadata: {

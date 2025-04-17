@@ -1,5 +1,3 @@
-import { LeadInfo } from './index';
-
 export interface WebhookPayload {
   contact: {
     firstName: string;
@@ -10,9 +8,13 @@ export interface WebhookPayload {
   recommendations: {
     neighborhoods: string[];
     timestamp: string;
+    resultsUrl: string;
   };
   source: string;
-  metadata?: Record<string, unknown>;
+  metadata: {
+    userAgent: string;
+    timestamp: string;
+  };
 }
 
 export interface WebhookConfig {

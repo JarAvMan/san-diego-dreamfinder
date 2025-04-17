@@ -3,6 +3,7 @@ export interface LeadInfo {
   lastName: string;
   email: string;
   marketingConsent: boolean;
+  resultId?: string;
 }
 
 export interface Neighborhood {
