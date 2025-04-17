@@ -12,36 +12,11 @@ interface ExtendedQuizAnswer extends QuizAnswer {
 }
 
 export async function getAIRecommendations(answers: QuizAnswer[]): Promise<Neighborhood[]> {
-  // Format the answers into a natural language description
-  const preferences = formatAnswersToPrompt(answers as ExtendedQuizAnswer[]);
-  
-  // Create the prompt for the AI model
-  const prompt: AIPrompt[] = [
-    {
-      role: 'system',
-      content: `You are a San Diego neighborhood expert. Your task is to recommend the best neighborhoods based on user preferences.
-      Consider factors like lifestyle, environment, housing, community, and practical aspects.
-      Be specific about why each neighborhood matches the user's preferences.
-      Return your recommendations in a structured format.`
-    },
-    {
-      role: 'user',
-      content: `Based on these preferences: ${preferences}
-      
-      Please recommend the top 3 neighborhoods from this list: ${sandiegoNeighborhoods.map(n => n.name).join(', ')}
-      
-      For each recommendation, explain why it matches the user's preferences and highlight specific features that align with their needs.`
-    }
-  ];
-
   try {
-    // Call the local AI model (you'll need to implement this based on your chosen model)
-    const response = await callLocalAIModel(prompt);
-    
-    // Parse the AI response and match it with our neighborhood data
-    return parseAIResponse(response, sandiegoNeighborhoods);
+    // Use the algorithmic approach directly
+    return calculateNeighborhoodMatches(answers);
   } catch (error) {
-    console.error('Error getting AI recommendations:', error);
+    console.error('Error getting recommendations:', error);
     // Fallback to the algorithmic approach if AI fails
     return calculateNeighborhoodMatches(answers);
   }
