@@ -51,7 +51,7 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
           // Send lead data to webhook if not already sent
           if (leadInfo && !zapierSent) {
             try {
-              await webhookService.sendLeadData(leadInfo, optimizedNeighborhoods.map(n => n.name));
+              await webhookService.sendLeadData(leadInfo, optimizedNeighborhoods.map((n: Neighborhood) => n.name));
               setZapierSent(true);
             } catch (error) {
               console.error('Failed to send lead data:', error);
