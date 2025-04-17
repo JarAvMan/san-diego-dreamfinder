@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Neighborhood } from '@/types';
 import { Button } from '@/components/ui/button';
@@ -22,52 +22,82 @@ const ResultsPage: React.FC<ResultsPageProps> = ({
   const [error, setError] = useState<string | null>(null);
   const [zapierSent, setZapierSent] = useState(false);
 
-  useEffect(() => {
-    const loadResults = async () => {
-      try {
-        if (resultId) {
-          const storedResults = localStorage.getItem(`quiz_results_${resultId}`);
-          if (storedResults) {
-            const { neighborhoods: storedNeighborhoods, leadInfo } = JSON.parse(storedResults);
-            // Sort neighborhoods by match score and take top 3
-            const sortedNeighborhoods = storedNeighborhoods
-              .sort((a: Neighborhood, b: Neighborhood) => (b.matchScore || 0) - (a.matchScore || 0))
-              .slice(0, 3);
-            setLocalNeighborhoods(sortedNeighborhoods);
-
-            // Send lead data to webhook if not already sent
-            if (leadInfo && !zapierSent) {
-              try {
-                await webhookService.sendLeadData(leadInfo, sortedNeighborhoods.map((n: Neighborhood) => n.name));
-                setZapierSent(true);
-              } catch (error) {
-                console.error('Failed to send lead data:', error);
-                toast({
-                  title: "Error",
-                  description: "Failed to save your results. Please try again.",
-                  variant: "destructive",
-                });
-              }
-            }
-          } else {
-            setError("Results not found. They may have expired or been cleared.");
-          }
-        } else if (propNeighborhoods.length > 0) {
-          // Sort neighborhoods by match score and take top 3
-          const sortedNeighborhoods = propNeighborhoods
+  const loadResults = useCallback(async () => {
+    try {
+      if (resultId) {
+        const storedResults = localStorage.getItem(`quiz_results_${resultId}`);
+        if (storedResults) {
+          const { neighborhoods: storedNeighborhoods, leadInfo } = JSON.parse(storedResults);
+          // Sort neighborhoods by match score and take top 3 immediately
+          const sortedNeighborhoods = storedNeighborhoods
             .sort((a: Neighborhood, b: Neighborhood) => (b.matchScore || 0) - (a.matchScore || 0))
             .slice(0, 3);
-          setLocalNeighborhoods(sortedNeighborhoods);
-        }
-        setIsLoading(false);
-      } catch (error) {
-        setError("Failed to load results. Please try again.");
-        setIsLoading(false);
-      }
-    };
+          
+          // Only store the necessary data while maintaining type safety
+          const optimizedNeighborhoods = sortedNeighborhoods.map((n: Neighborhood) => ({
+            id: n.id,
+            name: n.name,
+            description: n.description,
+            matchScore: n.matchScore,
+            budget: n.budget,
+            keyFeatures: n.keyFeatures,
+            kvCoreLink: n.kvCoreLink,
+            image: n.image,
+            tags: n.tags || [] // Ensure tags are included
+          }));
 
+          setLocalNeighborhoods(optimizedNeighborhoods);
+
+          // Send lead data to webhook if not already sent
+          if (leadInfo && !zapierSent) {
+            try {
+              await webhookService.sendLeadData(leadInfo, optimizedNeighborhoods.map(n => n.name));
+              setZapierSent(true);
+            } catch (error) {
+              console.error('Failed to send lead data:', error);
+              toast({
+                title: "Error",
+                description: "Failed to save your results. Please try again.",
+                variant: "destructive",
+              });
+            }
+          }
+        } else {
+          setError("Results not found. They may have expired or been cleared.");
+        }
+      } else if (propNeighborhoods.length > 0) {
+        // Sort and optimize prop neighborhoods
+        const sortedNeighborhoods = propNeighborhoods
+          .sort((a: Neighborhood, b: Neighborhood) => (b.matchScore || 0) - (a.matchScore || 0))
+          .slice(0, 3)
+          .map((n: Neighborhood) => ({
+            id: n.id,
+            name: n.name,
+            description: n.description,
+            matchScore: n.matchScore,
+            budget: n.budget,
+            keyFeatures: n.keyFeatures,
+            kvCoreLink: n.kvCoreLink,
+            image: n.image,
+            tags: n.tags || [] // Ensure tags are included
+          }));
+        setLocalNeighborhoods(sortedNeighborhoods);
+      }
+      setIsLoading(false);
+    } catch (error) {
+      setError("Failed to load results. Please try again.");
+      setIsLoading(false);
+    }
+  }, [resultId, propNeighborhoods, toast, zapierSent]);
+
+  useEffect(() => {
     loadResults();
-  }, [resultId, propNeighborhoods, navigate, toast, zapierSent]);
+    
+    // Cleanup function
+    return () => {
+      setLocalNeighborhoods([]);
+    };
+  }, [loadResults]);
 
   if (isLoading) {
     return (
